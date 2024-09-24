@@ -62,6 +62,7 @@ namespace TrixxLulamoon.Buttons
                 await user.RemoveRoleAsync(role);
             }
 
+            _logger.Information($"Пользователь {user.Nickname} ({user.DisplayName}) {(isAdd ? "получил" : "покинул")} роль <@&{role}>");
             await component.RespondAsync($"Вы {(isAdd ? "получили" : "покинули")} роль <@&{role}>", ephemeral: true);
         }
     }
