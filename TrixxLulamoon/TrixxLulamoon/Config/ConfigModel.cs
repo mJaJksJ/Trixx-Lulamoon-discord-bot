@@ -5,7 +5,8 @@
         public static ConfigModel Instance { get; private set; }
 
         public DiscordConfig DiscordConfig { get; set; }
-        public RolesConfig RolesConfig { get; set; }
+        public ChannelsConfig ChannelsConfig { get; set; }
+        public string EmptyMentionReaction { get; set; }
 
         public static void Create(ConfigurationManager configuration) 
         {

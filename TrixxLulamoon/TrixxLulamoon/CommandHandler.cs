@@ -1,17 +1,21 @@
-﻿using Discord.Commands;
+﻿using Discord;
+using Discord.Commands;
 using Discord.WebSocket;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using TrixxLulamoon.Config;
+using TrixxLulamoon.Utils;
 
 namespace TrixxLulamoon
 {
     public class CommandHandler
     {
-        private readonly DiscordSocketClient _client;
+        private readonly DiscordShardedClient _client;
         private readonly CommandService _commands;
         private readonly IServiceProvider _services;
 
         public CommandHandler(
-            DiscordSocketClient client,
+            DiscordShardedClient client,
             CommandService commands,
             IServiceProvider services)
         {
@@ -34,6 +38,8 @@ namespace TrixxLulamoon
             var message = messageParam as SocketUserMessage;
             if (message == null) return;
 
+            await AnswerIfEmptyTag(message);
+
             int argPos = 0;
             if (!(message.HasCharPrefix('!', ref argPos) ||
                 message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
@@ -42,12 +48,26 @@ namespace TrixxLulamoon
                 return;
             }
 
-            var context = new SocketCommandContext(_client, message);
+            var context = new ShardedCommandContext(_client, message);
 
             await _commands.ExecuteAsync(
                 context: context,
                 argPos: argPos,
                 services: null);
+        }
+
+        private async Task AnswerIfEmptyTag(SocketUserMessage message)
+        {
+            var mention = MentionHelper.MentionUser(_client.CurrentUser.Id.ToString());
+            if (!message.Content.Contains(mention))
+            {
+                return ;
+            }
+            var withoutMention = message.Content.Replace(mention, string.Empty);
+            if (Regex.Replace(withoutMention, @"\s+", string.Empty).Length == 0)
+            {
+                await message.ReplyAsync(ConfigModel.Instance.EmptyMentionReaction);
+            }
         }
     }
 }

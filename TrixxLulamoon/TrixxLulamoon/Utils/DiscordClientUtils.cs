@@ -7,10 +7,13 @@ namespace TrixxLulamoon.Utils
 {
     public static class DiscordClientUtils
     {
-        public async static Task StartAsync(DiscordSocketClient client)
+        public async static Task StartSocketAsync(params BaseSocketClient[] clients)
         {
-            await client.LoginAsync(TokenType.Bot, ConfigModel.Instance.DiscordConfig.Token);
-            await client.StartAsync();
+            foreach (var client in clients) 
+            {
+                await client.LoginAsync(TokenType.Bot, ConfigModel.Instance.DiscordConfig.Token);
+                await client.StartAsync();
+            }
         }
 
         public async static Task LogAsync(LogMessage message)

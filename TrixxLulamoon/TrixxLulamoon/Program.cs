@@ -1,12 +1,15 @@
 using Discord.Commands;
+using Discord.Interactions;
 using Discord.WebSocket;
 using Serilog;
 using TrixxLulamoon;
-using TrixxLulamoon.Buttons;
 using TrixxLulamoon.Config;
+using TrixxLulamoon.Interactions.Admin;
+using TrixxLulamoon.Interactions.Users;
 using TrixxLulamoon.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
+IConfiguration configuration = builder.Configuration;
 
 ConfigModel.Create(builder.Configuration);
 
@@ -31,14 +34,25 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 
 #endregion log config
 
-#region DiscordSocketClient
+#region DiscordClient
 var discordConfig = new DiscordSocketConfig();
+
 builder.Services
     .AddSingleton<DiscordSocketClient>()
+    .AddSingleton<DiscordShardedClient>();
+
+builder.Services
     .AddSingleton<CommandService>()
-    .AddSingleton<CommandHandler>()
-    .AddSingleton<ButtonsHandler>();
-#endregion DiscordSocketClient
+    .AddSingleton<CommandHandler>();
+
+builder.Services
+    .AddSingleton(new InteractionService(new Discord.Rest.DiscordRestClient(discordConfig)))
+    .AddSingleton<AdminButtonsHandler>()
+    .AddSingleton<AdminModalsHandler>()
+    .AddSingleton<UsersButtonsHandler>()
+    .AddSingleton<InteractionHandler>();
+
+#endregion DiscordClient
 
 var app = builder.Build();
 
@@ -51,13 +65,14 @@ if (app.Environment.IsDevelopment())
 }
 
 await app.Services.GetRequiredService<CommandHandler>().InstallCommandsAsync();
+await app.Services.GetRequiredService<InteractionHandler>().InstallCommandsAsync();
 
-var client = app.Services.GetRequiredService<DiscordSocketClient>();
-await DiscordClientUtils.StartAsync(client);
-client.ButtonExecuted += new ButtonsHandler(client, app.Services.GetRequiredService<Serilog.ILogger>()).MyButtonHandler;
+var socketClient = app.Services.GetRequiredService<DiscordSocketClient>();
+var shardedClient = app.Services.GetRequiredService<DiscordShardedClient>();
 
+await DiscordClientUtils.StartSocketAsync(socketClient, shardedClient);
 
-client.Log += DiscordClientUtils.LogAsync;
+socketClient.Log += DiscordClientUtils.LogAsync;
+shardedClient.Log += DiscordClientUtils.LogAsync;
 
 app.Run();
-
