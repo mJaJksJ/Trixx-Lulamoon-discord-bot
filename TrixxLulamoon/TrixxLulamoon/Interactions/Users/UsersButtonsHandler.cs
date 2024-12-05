@@ -1,5 +1,6 @@
 ﻿using Discord.Interactions;
 using Discord.WebSocket;
+using TrixxLulamoon.Config;
 using TrixxLulamoon.Utils;
 
 namespace TrixxLulamoon.Interactions.Users
@@ -45,6 +46,11 @@ namespace TrixxLulamoon.Interactions.Users
             {
                 if (isYes)
                 {
+                    if (roleId == ConfigModel.Instance.ChannelsConfig.StartRoleId && user.Roles.Any(x => x.Id == ConfigModel.Instance.ChannelsConfig.ClosedRoleId))
+                    {
+                        await component.RespondAsync($"Нет, ты в бане", ephemeral: true);
+                        return;
+                    }
                     await user.AddRoleAsync(roleId);
                 }
                 else
