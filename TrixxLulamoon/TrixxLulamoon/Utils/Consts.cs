@@ -8,7 +8,7 @@
         public const string ROLE_BUTTON_MODAL_ROLE_ID = "message-modal-role";
 
         public const string YES_ROLE_BUTTON_ID = "role_button_yes_";
-        public const string NO_ROLE_BUTTON_ID = "role_button_yes_";
+        public const string NO_ROLE_BUTTON_ID = "role_button_no_";
         public static string YesRoleButton(string roleId) => YES_ROLE_BUTTON_ID + roleId;
         public static string NoRoleButton(string roleId) => NO_ROLE_BUTTON_ID + roleId;
 

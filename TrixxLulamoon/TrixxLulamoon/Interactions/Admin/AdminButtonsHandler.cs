@@ -35,14 +35,8 @@ namespace TrixxLulamoon.Interactions.Admin
                     break;
 
                 default:
-                    await ErrorMessage(context);
                     break;
             }
-        }
-
-        public async Task ErrorMessage(ShardedInteractionContext context)
-        {
-            await context.Interaction.RespondAsync("...Button clicked error...");
         }
 
         public async Task SendSpawnRoleButtons(ShardedInteractionContext context)

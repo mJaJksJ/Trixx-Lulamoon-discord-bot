@@ -26,23 +26,15 @@ namespace TrixxLulamoon.Interactions.Users
             var customId = component.Data.CustomId;
             var context = new ShardedInteractionContext(_discordShardedClient, component);
             var user = _discordShardedClient.Guilds.First().GetUser(component.User.Id);
-            var success = false;
 
             if (customId.StartsWith(Consts.YES_ROLE_BUTTON_ID))
             {
                 await ChangeRole(component, customId, true, user);
-                success = true;
             }
 
             if (customId.StartsWith(Consts.NO_ROLE_BUTTON_ID))
             {
                 await ChangeRole(component, customId, false, user);
-                success = true;
-            }
-
-            if (!success)
-            {
-                await ErrorMessage(context);
             }
         }
 
@@ -61,11 +53,6 @@ namespace TrixxLulamoon.Interactions.Users
                 }
                 await component.RespondAsync($"Вы {(isYes ? "получили" : "покинули")} роль {MentionHelper.MentionRole(role)}", ephemeral: true);
             }
-        }
-
-        public async Task ErrorMessage(ShardedInteractionContext context)
-        {
-            await context.Interaction.RespondAsync("...Button clicked error...");
         }
     }
 }
