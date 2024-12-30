@@ -17,5 +17,8 @@
         public const string MESSAGE_MODAL_CHANNEL_ID = "message-modal-channel";
         public const string MESSAGE_MODAL_RESPONSABLE_MESSAGE_ID = "message-modal-responsable-message";
         public const string MESSAGE_MODAL_TEXT_ID = "message-modal-text";
+
+        public const string ADMIN_SPAWN_ROLES_TABLE_BUTTON_ID = "spawn-roles-table-button";
+        public const string ADMIN_SPAWN_FIX_ROLES_BUTTON_ID = "spawn-fix-roles-button";
     }
 }

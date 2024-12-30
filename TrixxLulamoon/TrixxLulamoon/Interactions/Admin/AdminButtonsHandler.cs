@@ -3,6 +3,7 @@ using Discord.Interactions;
 using Discord.WebSocket;
 using TrixxLulamoon.Config;
 using TrixxLulamoon.Utils;
+using TrixxLulamoon.Utils.Excel;
 
 namespace TrixxLulamoon.Interactions.Admin
 {
@@ -34,6 +35,13 @@ namespace TrixxLulamoon.Interactions.Admin
                     await SpawnSendMessageModal(context);
                     break;
 
+                case Consts.ADMIN_SPAWN_ROLES_TABLE_BUTTON_ID:
+                    await SendSpawnRolesTablesButtons(context);
+                    break;
+
+                case Consts.ADMIN_SPAWN_FIX_ROLES_BUTTON_ID:
+                    break;
+
                 default:
                     break;
             }
@@ -60,6 +68,62 @@ namespace TrixxLulamoon.Interactions.Admin
                 .AddTextInput("Сообщение", Consts.MESSAGE_MODAL_TEXT_ID, required: true, style: TextInputStyle.Paragraph);
 
             await context.Interaction.RespondWithModalAsync(mb.Build());
+        }
+
+        public async Task SendSpawnRolesTablesButtons(ShardedInteractionContext context)
+        {
+            var filePath = Path.Combine(Path.GetDirectoryName(typeof(AdminButtonsHandler).Assembly.Location), "Utils", "Excel", "Data", "Roles.xlsx");
+            var workbook = new Workbook(filePath);
+            var table = new Table(Style.Default(workbook.Instance));
+
+            var roles = context.Guild.Roles;
+            table.Tr(row =>
+            {
+                row.Td(string.Empty);
+                row.Td(string.Empty);
+                foreach (var role in roles)
+                {
+                    row.Td(role.Name, Style.DefaultWithBorder(workbook.Instance));
+                }
+                row.Td(string.Empty, Style.Default(workbook.Instance, Style.Border.Left));
+            });
+
+            foreach (var permission in Enum.GetValues<GuildPermission>())
+            {
+                table.Tr(row =>
+                {
+                    row.Td(permission.RusName(), Style.Default(workbook.Instance, Style.Border.Right));
+                    row.Td(permission.RusDescription(), Style.Default(workbook.Instance, Style.Border.Right));
+                    foreach (var role in roles)
+                    {
+                        var has = role.Permissions.Has(permission);
+                        row.Td(string.Empty, Style.Default(workbook.Instance, color: new NPOI.XSSF.UserModel.XSSFColor([(byte)(has ? 0 : 255), (byte)(has ? 176 : 143), (byte)(has ? 80 : 143)])));
+                    }
+                    row.Td(string.Empty, Style.Default(workbook.Instance, Style.Border.Left));
+                });
+            }
+
+            table.Tr(row =>
+            {
+                row.Td(string.Empty, Style.Default(workbook.Instance, Style.Border.Top));
+                row.Td(string.Empty, Style.Default(workbook.Instance, Style.Border.Top));
+                foreach (var role in roles)
+                {
+                    row.Td(string.Empty, Style.Default(workbook.Instance, Style.Border.Top));
+                }
+            });
+
+            table.SaveChanges(workbook.GetSheetAt(0));
+
+            var ms = new NpoiMemoryStream();
+            ms.AllowClose = false;
+            workbook.Instance.Write(ms);
+            ms.Flush();
+            ms.Seek(0, SeekOrigin.Begin);
+            ms.AllowClose = true;
+
+            await context.Interaction.RespondWithFileAsync(ms, "roles.xlsx", ephemeral: true);
+            workbook.Instance.Close();
         }
     }
 }

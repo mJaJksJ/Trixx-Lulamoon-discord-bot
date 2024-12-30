@@ -35,18 +35,21 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 #endregion log config
 
 #region DiscordClient
-var discordConfig = new DiscordSocketConfig();
+var discordConfig = new DiscordSocketConfig()
+{
+    ResponseInternalTimeCheck = false
+};
 
 builder.Services
-    .AddSingleton<DiscordSocketClient>()
-    .AddSingleton<DiscordShardedClient>();
+    .AddSingleton(new InteractionService(new Discord.Rest.DiscordRestClient(discordConfig)))
+    .AddSingleton(new DiscordSocketClient(discordConfig))
+    .AddSingleton(new DiscordShardedClient(discordConfig));
 
 builder.Services
     .AddSingleton<CommandService>()
     .AddSingleton<CommandHandler>();
 
 builder.Services
-    .AddSingleton(new InteractionService(new Discord.Rest.DiscordRestClient(discordConfig)))
     .AddSingleton<AdminButtonsHandler>()
     .AddSingleton<AdminModalsHandler>()
     .AddSingleton<UsersButtonsHandler>()

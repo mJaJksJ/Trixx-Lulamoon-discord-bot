@@ -27,8 +27,24 @@ namespace TrixxLulamoon.Commands.Admin
                     Style = ButtonStyle.Success,
                 };
 
+                var sendRolesTableButton = new ButtonBuilder()
+                {
+                    Label = "Таблица ролей",
+                    CustomId = Consts.ADMIN_SPAWN_ROLES_TABLE_BUTTON_ID,
+                    Style = ButtonStyle.Secondary,
+                };
+
+                var sendFixRolesButton = new ButtonBuilder()
+                {
+                    Label = "Починить роли участников",
+                    CustomId = Consts.ADMIN_SPAWN_FIX_ROLES_BUTTON_ID,
+                    Style = ButtonStyle.Success,
+                };
+
                 await ReplyAsync(components: new ComponentBuilder().WithButton(spawnRolesButton).Build());
                 await ReplyAsync(components: new ComponentBuilder().WithButton(sendMessageButton).Build());
+                await ReplyAsync(components: new ComponentBuilder().WithButton(sendRolesTableButton).Build());
+                await ReplyAsync(components: new ComponentBuilder().WithButton(sendFixRolesButton).Build());
             }
             else
             {
