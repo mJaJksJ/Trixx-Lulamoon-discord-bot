@@ -1,0 +1,1 @@
+Add-Migration -StartupProject "TrixxDiscordBot.Server" -Project "Trixx.Migrations" <Migration-Name>

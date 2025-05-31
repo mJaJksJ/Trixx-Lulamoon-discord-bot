@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrixxDiscordBot.Server", "TrixxDiscordBot.Server\TrixxDiscordBot.Server.csproj", "{430D335D-60D7-4847-9BC4-3908CE3806C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrixxDiscordBot.Server", "TrixxDiscordBot.Server\TrixxDiscordBot.Server.csproj", "{430D335D-60D7-4847-9BC4-3908CE3806C9}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "trixxdiscordbot.client", "trixxdiscordbot.client\trixxdiscordbot.client.esproj", "{8050938B-E321-4DAD-8BF2-3487AEB44568}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trixx.Database", "Trixx.Database\Trixx.Database.csproj", "{6ABB408F-6336-4FD2-B9FC-0124E90A0C8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trixx.Common", "Trixx.Common\Trixx.Common.csproj", "{32A69164-7863-46FD-87E0-48D1BB4844D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trixx.Migrations", "Trixx.Migrations\Trixx.Migrations.csproj", "{69D86711-51BB-498E-B729-E9C482D65D99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +29,18 @@ Global
 		{8050938B-E321-4DAD-8BF2-3487AEB44568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8050938B-E321-4DAD-8BF2-3487AEB44568}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8050938B-E321-4DAD-8BF2-3487AEB44568}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6ABB408F-6336-4FD2-B9FC-0124E90A0C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABB408F-6336-4FD2-B9FC-0124E90A0C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ABB408F-6336-4FD2-B9FC-0124E90A0C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ABB408F-6336-4FD2-B9FC-0124E90A0C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32A69164-7863-46FD-87E0-48D1BB4844D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A69164-7863-46FD-87E0-48D1BB4844D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A69164-7863-46FD-87E0-48D1BB4844D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A69164-7863-46FD-87E0-48D1BB4844D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69D86711-51BB-498E-B729-E9C482D65D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D86711-51BB-498E-B729-E9C482D65D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D86711-51BB-498E-B729-E9C482D65D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D86711-51BB-498E-B729-E9C482D65D99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

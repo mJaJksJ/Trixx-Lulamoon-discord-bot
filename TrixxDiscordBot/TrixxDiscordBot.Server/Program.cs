@@ -1,3 +1,4 @@
+using Trixx.Database;
 
 namespace TrixxDiscordBot.Server
 {
@@ -6,6 +7,10 @@ namespace TrixxDiscordBot.Server
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var configuration = builder.Configuration;
+            builder.Services.AddTrixxDatabase(configuration);
+
 
             // Add services to the container.
             builder.Services.AddAuthorization();
@@ -32,6 +37,7 @@ namespace TrixxDiscordBot.Server
 
             app.MapFallbackToFile("/index.html");
 
+            app.Services.MigrateHuamDatabase();
             app.Run();
         }
     }
