@@ -13,7 +13,8 @@ namespace Trixx.Common.Utils
                 .GetType()
                 .GetMember(stringValue)
                 .FirstOrDefault()
-                ?.GetCustomAttribute<T>();
+                ?.GetCustomAttribute<T>()
+                ?? throw new ArgumentException("Can't cast attribute");
         }
     }
 }

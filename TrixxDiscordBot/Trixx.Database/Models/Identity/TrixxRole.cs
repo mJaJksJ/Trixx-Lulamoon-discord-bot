@@ -8,6 +8,6 @@ namespace Trixx.Database.Models.Identity
         public static int ID_ADMIN => 1;
 
         public bool IsReadOnly { get; set; }
-        public List<Permission> Permissions { get; set; }
+        public List<Permission> Permissions { get; set; } = [];
     }
 }

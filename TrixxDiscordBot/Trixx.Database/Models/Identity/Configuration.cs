@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Trixx.Database.Enums;
 using Trixx.Database.Utils;
 
 namespace Trixx.Database.Models.Identity
@@ -23,7 +21,7 @@ namespace Trixx.Database.Models.Identity
                 UserName = "trixx",
                 FullName = "Trixx",
                 NormalizedUserName = "TRIXX",
-                PasswordHash = new PasswordHasher<TrixxUser>().HashPassword(null, "Admin1!"),
+                PasswordHash = new PasswordHasher<TrixxUser>().HashPassword(null!, "Admin1!"),
                 ConcurrencyStamp = "1708d2d7-7f63-41ae-ab12-08fdce3e53e0",
                 EmailConfirmed = false,
                 LockoutEnabled = false,

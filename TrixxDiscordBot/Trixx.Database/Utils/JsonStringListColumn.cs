@@ -12,7 +12,7 @@ namespace Trixx.Database.Utils
                 .HasColumnType("jsonb")
                 .HasConversion(
                     x => JsonConvert.SerializeObject(x),
-                    x => JsonConvert.DeserializeObject<T>(x)
+                    x => JsonConvert.DeserializeObject<T>(x)!
                 );
         }
     }
