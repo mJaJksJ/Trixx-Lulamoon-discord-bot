@@ -20,7 +20,7 @@ namespace Trixx.Migrations.Migrations
                         .Annotation("Npgsql:IdentitySequenceOptions", "'100', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsReadOnly = table.Column<bool>(type: "boolean", nullable: false),
-                    Permissions = table.Column<string>(type: "jsonb", nullable: true),
+                    Permissions = table.Column<string>(type: "jsonb", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
@@ -37,7 +37,7 @@ namespace Trixx.Migrations.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:IdentitySequenceOptions", "'100', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FullName = table.Column<string>(type: "text", nullable: true),
+                    FullName = table.Column<string>(type: "text", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -173,7 +173,7 @@ namespace Trixx.Migrations.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "1708d2d7-7f63-41ae-ab12-08fdce3e53e0", "trixx", false, "Trixx", false, null, "TRIXX", "TRIXX", "AQAAAAIAAYagAAAAEDSUvVWHvAm1ufwOors1fBU+yz2WNpE2pVpz0FeHyu0sFYuRyzuf7QNi+9/ciC2Xtg==", null, false, "43142260-d8fe-47f3-abbe-40cdcf406f97", false, "trixx" });
+                values: new object[] { 1, 0, "1708d2d7-7f63-41ae-ab12-08fdce3e53e0", "trixx", false, "Trixx", false, null, "TRIXX", "TRIXX", "AQAAAAIAAYagAAAAEMGR0IR95zlEL+2/li5+BmO3lkseGSz+9p+lf1P1KdZFdN+f5kK+YRMkIDQMqIy2RA==", null, false, "43142260-d8fe-47f3-abbe-40cdcf406f97", false, "trixx" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

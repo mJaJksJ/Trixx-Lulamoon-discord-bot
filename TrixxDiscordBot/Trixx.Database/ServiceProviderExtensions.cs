@@ -5,7 +5,7 @@ namespace Trixx.Database
 {
     public static class ServiceProviderExtensions
     {
-        public static void MigrateHuamDatabase(this IServiceProvider applicationServices)
+        public static void MigrateTrixxDatabase(this IServiceProvider applicationServices)
         {
             using var scope = applicationServices.CreateScope();
             {

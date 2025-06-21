@@ -17,7 +17,7 @@ namespace Trixx.Migrations.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -135,6 +135,7 @@ namespace Trixx.Migrations.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<string>("Permissions")
+                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.HasKey("Id");
@@ -181,6 +182,7 @@ namespace Trixx.Migrations.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
@@ -239,7 +241,7 @@ namespace Trixx.Migrations.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TRIXX",
                             NormalizedUserName = "TRIXX",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDSUvVWHvAm1ufwOors1fBU+yz2WNpE2pVpz0FeHyu0sFYuRyzuf7QNi+9/ciC2Xtg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMGR0IR95zlEL+2/li5+BmO3lkseGSz+9p+lf1P1KdZFdN+f5kK+YRMkIDQMqIy2RA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "43142260-d8fe-47f3-abbe-40cdcf406f97",
                             TwoFactorEnabled = false,

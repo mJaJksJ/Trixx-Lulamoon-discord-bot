@@ -1,44 +1,55 @@
+using Microsoft.AspNetCore.HttpOverrides;
+using Serilog;
+using Trixx.Common;
 using Trixx.Database;
+using TrixxDiscordBot.Server.Startup.Auth;
+using TrixxDiscordBot.Server.Startup.Swagger;
 
-namespace TrixxDiscordBot.Server
+var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+
+const string SERILOG_OUTPUT_TEMPLATE = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] <{ThreadId}> :: {Message:lj}{NewLine}{Exception}";
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .Enrich.WithThreadId()
+    .WriteTo.File(
+        outputTemplate: SERILOG_OUTPUT_TEMPLATE,
+        path: Path.Combine("/logs/trixx_lulamoon", "log_trixx"),
+        shared: true,
+        rollingInterval: RollingInterval.Day,
+        fileSizeLimitBytes: 128 * 1024 * 1024
+    )
+    .WriteTo.Console(outputTemplate: SERILOG_OUTPUT_TEMPLATE)
+);
+
+
+builder.Services
+    .AddCommon()
+    .AddTrixxDatabase(configuration)
+    .AddTrixxSwaggerGen()
+    .AddTrixxIdentity(configuration)
+    .AddControllers();
+
+var app = builder.Build();
+var env = app.Environment;
+
+if (env.IsDevelopment())
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-
-            var configuration = builder.Configuration;
-            builder.Services.AddTrixxDatabase(configuration);
-
-
-            // Add services to the container.
-            builder.Services.AddAuthorization();
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            var app = builder.Build();
-
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-            app.MapFallbackToFile("/index.html");
-
-            app.Services.MigrateHuamDatabase();
-            app.Run();
-        }
-    }
+    app.UseTrixxSwagger();
 }
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+        ForwardedHeaders.XForwardedProto
+});
+
+app.UseRouting();
+app.UseTrixxJwt();
+app.MapControllers();
+
+app.Services.MigrateTrixxDatabase();
+
+app.Run();
