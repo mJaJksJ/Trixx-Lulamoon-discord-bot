@@ -1,0 +1,13 @@
+{{{bodyMethodTsComments}}}{{methodName}}({{>operationParameters}}): Observable<{{{resultType}}}> {
+
+    return this.{{responseMethodName}}(params).pipe(
+      map((r: {{@root.responseClass}}<{{{resultType}}}>) => r.body as {{{resultType}}})
+    );
+  }
+{{#each operation.security}}
+  {{#each this}}
+  {{../../methodName}}_Permission() {
+    return '{{this.scope}}' as const;
+  }
+  {{/each}}
+{{/each}}
