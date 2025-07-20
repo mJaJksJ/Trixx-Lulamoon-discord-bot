@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../api/services';
 import { AuthResultModel } from '../../../api/models';
 import { TrixxAuthJWTToken, TrixxAuthJWTTokenPayload } from './trixx-auth-jwt-token';
+import { TokenRefresherService } from '../services/token-refresher-service';
 
 export const TRIXX_AUTH_STRATEGY_NAME = 'email';
 export const TRIXX_LOGIN_PAGE = '/auth/login';
@@ -18,6 +19,7 @@ export const TRIXX_LOGIN_PAGE = '/auth/login';
 export class TrixxAuthStrategy extends NbAuthStrategy {
   constructor(
     private readonly apiService: AuthService,
+    private readonly tokenRefresher: TokenRefresherService,
     private readonly route: ActivatedRoute
   ) {
     super();
@@ -52,7 +54,7 @@ export class TrixxAuthStrategy extends NbAuthStrategy {
   }
 
   override refreshToken(): Observable<NbAuthResult> {
-    throw new Error('Method not implemented.');
+    return this.tokenRefresher.refresh(TRIXX_AUTH_STRATEGY_NAME);
   }
 
   static setup(

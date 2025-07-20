@@ -1,0 +1,38 @@
+// @nebular theming framework
+@import './../../../../node_modules/@nebular/theme/styles/theming';
+// @nebular out of the box themes
+@import './../../../../node_modules/@nebular/theme/styles/themes/cosmic';
+
+$table-row-financial-economic-risks-color: #ffc5bb;
+$table-color: #edf1f7;
+
+$nb-themes: nb-register-theme((
+  layout-padding-top: 2.25rem,
+  layout-window-mode-padding-top: 0,
+
+  menu-item-icon-margin: 0 0.5rem 0 0,
+
+  card-height-tiny: 13.5rem,
+  card-height-small: 21.1875rem,
+  card-height-medium: 28.875rem,
+  card-height-large: 36.5625rem,
+  card-height-giant: 44.25rem,
+  card-margin-bottom: 1.875rem,
+  card-header-with-select-padding-top: 0.5rem,
+  card-header-with-select-padding-bottom: 0.5rem,
+
+  select-min-width: 6rem,
+
+  slide-out-background: #f7f9fc,
+  slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+  slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+  scrollbar-color: #b7b7b7,
+  scrollbar-width: 0.8em,
+
+  stepper-step-completed-text-color: nb-theme(text-success-color),
+  stepper-step-index-completed-background-color: nb-theme(color-success-default),
+  stepper-step-index-completed-border-color: nb-theme(color-success-default),
+  stepper-connector-completed-background-color: nb-theme(color-success-default),
+
+  spinner-height-giant: 6rem,
+), default, default);

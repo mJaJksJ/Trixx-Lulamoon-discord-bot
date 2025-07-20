@@ -14,10 +14,14 @@ import {
   NbIconModule,
   NbThemeModule,
   NbCardModule,
-  DEFAULT_THEME,
+  COSMIC_THEME,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { PortalModule } from '@angular/cdk/portal';
+import { OneColumnLayoutComponent, RouterOutletLayoutComponent } from './layouts';
+import { RightSidebarContentWrapComponent } from './components/right-sidebar-content-wrap';
+import { RightSidebarTogglerComponent } from './components/right-sidebar-toggler';
+import { TrixxHeaderComponent } from './components/header';
 
 const MODULES = [
   NbLayoutModule,
@@ -35,7 +39,13 @@ const MODULES = [
   NbCardModule,
 ];
 
-const COMPONENTS: any[] = [];
+const COMPONENTS: any[] = [
+  RouterOutletLayoutComponent,
+  OneColumnLayoutComponent,
+  RightSidebarContentWrapComponent,
+  RightSidebarTogglerComponent,
+  TrixxHeaderComponent,
+];
 const PIPES: any[] = [];
 
 @NgModule({
@@ -50,9 +60,9 @@ export class ThemeModule {
       providers: [
         ...NbThemeModule.forRoot(
           {
-            name: 'default',
+            name: 'cosmic',
           },
-          [DEFAULT_THEME]
+          [COSMIC_THEME]
         ).providers!,
       ],
     };

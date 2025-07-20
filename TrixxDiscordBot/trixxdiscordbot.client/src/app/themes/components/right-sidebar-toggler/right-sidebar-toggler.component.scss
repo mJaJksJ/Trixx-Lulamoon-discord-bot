@@ -1,0 +1,22 @@
+@import '../../styles/themes.scss';
+
+@include nb-install-component() {
+  .toggle-btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 3rem;
+    width: 2rem;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+:host {
+  position: relative;
+  right: 2.7rem;
+  top: 8.6em;
+  height: 0px;
+  width: 0px;
+}

@@ -8,6 +8,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AuthService } from './services/auth.service';
 import { MainPageService } from './services/main-page.service';
+import { UserProfileService } from './services/user-profile.service';
 
 /**
  * Module that provides all services and configuration.
@@ -19,6 +20,7 @@ import { MainPageService } from './services/main-page.service';
   providers: [
     AuthService,
     MainPageService,
+    UserProfileService,
     ApiConfiguration
   ],
 })

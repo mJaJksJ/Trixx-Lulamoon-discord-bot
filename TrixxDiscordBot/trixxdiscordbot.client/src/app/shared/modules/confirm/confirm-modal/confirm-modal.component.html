@@ -1,0 +1,25 @@
+<nb-card class="confirm-card">
+  <nb-card-header>{{ config.title }}</nb-card-header>
+  <nb-card-body *ngIf="config.message as msg">
+    <ng-container [ngSwitch]="mode">
+      <ng-container *ngSwitchCase="'string'">{{ messageString }}</ng-container>
+      <ng-container *ngSwitchCase="'tpl'">
+        <ng-container
+          *ngTemplateOutlet="messageTpl?.tpl || null; context: messageTpl?.context || null"
+        ></ng-container>
+      </ng-container>
+    </ng-container>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="ml-items-2 d-flex justify-content-end">
+      <button
+        (click)="dialogRef.close(btn.returnVal)"
+        *ngFor="let btn of config.btns"
+        [status]="btn.status || 'primary'"
+        nbButton
+      >
+        {{ btn.content }}
+      </button>
+    </div>
+  </nb-card-footer>
+</nb-card>

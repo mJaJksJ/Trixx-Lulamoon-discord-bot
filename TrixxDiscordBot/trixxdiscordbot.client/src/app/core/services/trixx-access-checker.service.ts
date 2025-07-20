@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Permission } from '../../../api/models/permission';
 import { NbTokenService } from '@nebular/auth';
-import { BehaviorSubject, concat, ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, concat, Observable, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { TrixxAuthJWTToken, TrixxAuthJWTTokenPayload } from '../utils/trixx-auth-jwt-token';
 
 @Injectable({
@@ -11,6 +11,7 @@ import { TrixxAuthJWTToken, TrixxAuthJWTTokenPayload } from '../utils/trixx-auth
 export class TrixxAccessCheckerService {
   private readonly permissions$: BehaviorSubject<Permission[]>;
   public readonly isObserver$ = new ReplaySubject<boolean>(1);
+  public readonly changes$: Observable<void>;
 
   constructor(tokenService: NbTokenService) {
     this.permissions$ = new BehaviorSubject<Permission[]>([]);
@@ -30,5 +31,14 @@ export class TrixxAccessCheckerService {
       map((x) => x ? x.permissions : []),
     );
     permissions$.subscribe(this.permissions$);
+
+    this.changes$ = this.permissions$.pipe(
+      distinctUntilChanged((a, b) => a.join(';') === b.join(';')),
+      map(() => undefined),
+    );
+  }
+
+  public isGranted(permission: string) {
+    return this.permissions$.getValue().includes(permission as Permission);
   }
 }

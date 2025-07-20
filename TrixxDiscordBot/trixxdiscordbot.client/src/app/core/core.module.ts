@@ -13,6 +13,7 @@ import { ErrorHandlerModule } from './errors/error-handler.module';
 import { AuthModule } from './auth/auth.module';
 import { TrixxAccessCheckerService } from './services/trixx-access-checker.service';
 import { TrixxAuthStrategy } from './utils/trixx-auth-strategies';
+import { LayoutService } from './utils/layout.service';
 
 registerLocaleData(localeRu);
 
@@ -34,15 +35,17 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
-        //...AuthModule.providers,
+        ...AuthModule.providers!,
         { provide: NbTokenStorage, useClass: NbTokenLocalStorage },
         {
           provide: LOCALE_ID,
           useValue: 'ru',
         },
         TrixxAccessCheckerService,
+        LayoutService,
         NotificationService,
         TrixxAuthStrategy,
+        NotificationService,
       ],
     };
   }

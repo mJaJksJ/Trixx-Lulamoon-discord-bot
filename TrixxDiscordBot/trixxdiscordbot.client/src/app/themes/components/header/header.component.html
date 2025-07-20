@@ -1,0 +1,33 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a
+      href="#"
+      class="sidebar-toggle"
+      (click)="toggleSidebar()"
+    >
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" href="#" (click)="navigateHome()"
+      >Триксс</a
+    >
+    <span *ngIf="applicationInstanceName" class="application-instance-name">{{
+      applicationInstanceName | uppercase
+    }}</span>
+  </div>
+</div>
+
+<div class="header-container header-content align-items-end">
+  <nb-actions size="small">
+    <nb-action
+      class="user-action"
+    >
+      <nb-user
+        [nbContextMenu]="userMenu"
+        nbContextMenuTag="mpk-top-toolbar-user-action-menu"
+        [onlyPicture]="userPictureOnly"
+        [name]="user.name"
+      >
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+</div>

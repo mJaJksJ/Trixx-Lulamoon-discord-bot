@@ -241,7 +241,7 @@ namespace Trixx.Migrations.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TRIXX",
                             NormalizedUserName = "TRIXX",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMGR0IR95zlEL+2/li5+BmO3lkseGSz+9p+lf1P1KdZFdN+f5kK+YRMkIDQMqIy2RA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFdE7S8emyJvBdxfdadTlYiaAp6helKCP25YizHnoT02qghyn+S0ZRvFzkdM+JEVgA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "43142260-d8fe-47f3-abbe-40cdcf406f97",
                             TwoFactorEnabled = false,

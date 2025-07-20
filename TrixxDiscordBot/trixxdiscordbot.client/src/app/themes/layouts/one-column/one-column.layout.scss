@@ -1,0 +1,32 @@
+@import '../../styles/themes.scss';
+
+@include nb-install-component() {
+  .menu-sidebar ::ng-deep .scrollable {
+    padding-top: nb-theme(layout-padding-top);
+  }
+
+  ::ng-deep .menu-sidebar.expanded {
+    .menu-item a .menu-title {
+      flex: 1 1 auto;
+    }
+  }
+  nb-sidebar.mpk-right-sidebar > ::ng-deep.main-container > .scrollable {
+    padding: 0 0 0 0.7em;
+    height: 100%;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    
+    > * {
+      height: 100%;
+    }
+  }
+  nb-sidebar.mpk-right-sidebar.collapsed
+    > ::ng-deep.main-container
+    > .scrollable {
+    margin-left: 2em;
+    .mpk-right-sidebar-toggler-rail {
+      margin-left: -2em;
+    }
+  }
+}

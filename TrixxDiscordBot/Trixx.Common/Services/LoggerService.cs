@@ -22,5 +22,10 @@ namespace Trixx.Common.Services
                 _logger.Error(error, exception);
             }
         }
+
+        public void Info(string info)
+        {
+            _logger.Information(info);
+        }
     }
 }

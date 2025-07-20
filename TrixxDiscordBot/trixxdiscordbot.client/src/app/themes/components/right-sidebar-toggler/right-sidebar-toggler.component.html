@@ -1,0 +1,11 @@
+<span class="mpk-right-sidebar-toggler-rail">
+  <button
+    *ngIf="isDisplay$ | async"
+    nbButton
+    (click)="handleToggle()"
+    status="primary"
+    class="toggle-btn"
+  >
+    <nb-icon icon="settings-2-outline"></nb-icon>
+  </button>
+</span>

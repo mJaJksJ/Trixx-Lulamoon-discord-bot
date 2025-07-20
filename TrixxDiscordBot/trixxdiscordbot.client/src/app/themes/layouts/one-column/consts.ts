@@ -1,0 +1,1 @@
+export const RIGHT_SIDEBAR_TAG = 'right_sidebar_tag';

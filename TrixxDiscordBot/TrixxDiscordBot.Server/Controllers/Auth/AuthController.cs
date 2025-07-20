@@ -60,7 +60,7 @@ namespace TrixxDiscordBot.Server.Controllers.Auth
                 return AuthResultModel.Fail("Неверный пароль");
             }
 
-            _logger.Error($"User {user.UserName} login");
+            _logger.Info($"User {user.UserName} login");
             return await SuccessLoginAsync(user);
         }
 
@@ -77,6 +77,39 @@ namespace TrixxDiscordBot.Server.Controllers.Auth
 
             await _userManager.RemoveAuthenticationTokenAsync(user, TrixxAuthExtensions.RefreshTokenProviderName, RefreshTokenString);
             await _signInManager.SignOutAsync();
+        }
+
+        [HttpPost("refresh")]
+        public async Task<AuthResultModel> RefreshAsync(int userId, string refreshToken)
+        {
+            var user = await _databaseContext.Users.SingleOrDefaultAsync(x => x.Id == userId);
+            if (user == null)
+            {
+                return AuthResultModel.Fail("Пользователь в системе не найден");
+            }
+            var rt = RefreshToken.TryDecode(refreshToken);
+            if (rt == null)
+            {
+                return AuthResultModel.Fail("Слишком долгое бездействие. Необходима повторная аутентификация", AuthFailTypes.RefreshTokenInvalid);
+            }
+
+            if (await _userManager.IsLockedOutAsync(user))
+            {
+                return AuthResultModel.Fail("Учетная запись заблокирована");
+            }
+
+            var refreshTokenFromDb = await _userManager.GetAuthenticationTokenAsync(user, TrixxAuthExtensions.RefreshTokenProviderName, RefreshTokenString);
+            if (refreshTokenFromDb != rt.Value || !await _userManager.VerifyUserTokenAsync(user, TrixxAuthExtensions.RefreshTokenProviderName, RefreshTokenString, refreshTokenFromDb))
+            {
+                return AuthResultModel.Fail("Слишком долгое бездействие. Необходима повторная аутентификация", AuthFailTypes.RefreshTokenInvalid);
+            }
+
+            var userData = await GetUserDataAsync(user.Id);
+            var newAccessToken = _jwtBuilder.Build(userData, rt.SessionId);
+
+            string newRefreshToken = await CreateNewRefreshTokenAsync(user, rt.SessionId);
+
+            return AuthResultModel.Ok(newAccessToken, newRefreshToken, userData.Permissions);
         }
 
         private async Task<AuthResultModel> SuccessLoginAsync(TrixxUser user)
@@ -111,14 +144,6 @@ namespace TrixxDiscordBot.Server.Controllers.Auth
             await _userManager.SetAuthenticationTokenAsync(user, TrixxAuthExtensions.RefreshTokenProviderName, RefreshTokenString, newRefreshToken);
 
             return new RefreshToken(sessionId, newRefreshToken).Encode();
-        }
-
-        private sealed class RefreshToken(Guid sessionId, string value)
-        {
-            public Guid SessionId { get; } = sessionId;
-            public string Value { get; } = value;
-
-            internal string Encode() => $"{SessionId}|{Value}";
         }
     }
 }

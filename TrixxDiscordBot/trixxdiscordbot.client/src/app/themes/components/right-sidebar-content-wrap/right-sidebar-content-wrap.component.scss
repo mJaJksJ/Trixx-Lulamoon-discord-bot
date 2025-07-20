@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding-right: 0.2em;
+}
+.sidebar-body {
+  height: 100vh;
+  overflow: auto;
+}
+.p-body {
+  padding: 0.7em 0.7em 0em 0em !important;
+}
+.p-0 {
+  padding: 0 !important;
+}
+.sidebar-body::-webkit-scrollbar {
+  width: 0.4em !important;
+}

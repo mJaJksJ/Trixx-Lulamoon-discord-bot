@@ -17,6 +17,10 @@ import { apiAuthLoginPost$Plain } from '../fn/auth/api-auth-login-post-plain';
 import { ApiAuthLoginPost$Plain$Params } from '../fn/auth/api-auth-login-post-plain';
 import { apiAuthLogoutDelete } from '../fn/auth/api-auth-logout-delete';
 import { ApiAuthLogoutDelete$Params } from '../fn/auth/api-auth-logout-delete';
+import { apiAuthRefreshPost } from '../fn/auth/api-auth-refresh-post';
+import { ApiAuthRefreshPost$Params } from '../fn/auth/api-auth-refresh-post';
+import { apiAuthRefreshPost$Plain } from '../fn/auth/api-auth-refresh-post-plain';
+import { ApiAuthRefreshPost$Plain$Params } from '../fn/auth/api-auth-refresh-post-plain';
 import { AuthResultModel } from '../models/auth-result-model';
 
 @Injectable({ providedIn: 'root' })
@@ -97,6 +101,55 @@ export class AuthService extends BaseService {
 
     return this.apiAuthLogoutDelete$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /** Path part for operation `apiAuthRefreshPost()` */
+  static readonly ApiAuthRefreshPostPath = '/api/Auth/refresh';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiAuthRefreshPost$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAuthRefreshPost$Plain$Response(params?: ApiAuthRefreshPost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthResultModel>> {
+    return apiAuthRefreshPost$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiAuthRefreshPost$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAuthRefreshPost$Plain(params?: ApiAuthRefreshPost$Plain$Params, context?: HttpContext): Observable<AuthResultModel> {
+
+    return this.apiAuthRefreshPost$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<AuthResultModel>) => r.body as AuthResultModel)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiAuthRefreshPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAuthRefreshPost$Response(params?: ApiAuthRefreshPost$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthResultModel>> {
+    return apiAuthRefreshPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiAuthRefreshPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAuthRefreshPost(params?: ApiAuthRefreshPost$Params, context?: HttpContext): Observable<AuthResultModel> {
+
+    return this.apiAuthRefreshPost$Response(params).pipe(
+      map((r: StrictHttpResponse<AuthResultModel>) => r.body as AuthResultModel)
     );
   }
 

@@ -1,0 +1,4 @@
+<app-right-sidebar-toggler></app-right-sidebar-toggler>
+<div class="scrollable sidebar-body" [ngClass]="(expanded$ | async) ? 'p-body' : 'p-0'">
+  <ng-template [cdkPortalOutlet]="portal$ | async"></ng-template>
+</div>

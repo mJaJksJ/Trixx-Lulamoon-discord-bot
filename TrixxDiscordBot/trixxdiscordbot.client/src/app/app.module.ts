@@ -1,5 +1,6 @@
 import {
   HTTP_INTERCEPTORS,
+  HttpClientModule,
 } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,6 +17,7 @@ import {
 import { TokenRefresherInterceptor } from './core/interceptors/token-refresher.interceptor';
 import { ApiModule } from './../api/api.module';
 import { ApiConfiguration } from './../api/api-configuration';
+import { NbLayoutModule, NbMenuModule, NbSidebarModule, NbToastrModule } from '@nebular/theme';
 
 const excludeUrls = ['/api/Auth/refresh', '/api/Auth/send-reset-password-mail'];
 const filterInterceptorRequest = (request: any) =>
@@ -27,11 +29,16 @@ const filterInterceptorRequest = (request: any) =>
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    NbToastrModule.forRoot(),
     ApiModule,
     SharedModule,
+    NbSidebarModule.forRoot(),
+    NbMenuModule.forRoot(),
+    NbLayoutModule,
   ],
   providers: [
     {

@@ -4,3 +4,4 @@
 
 export { AuthService } from './services/auth.service';
 export { MainPageService } from './services/main-page.service';
+export { UserProfileService } from './services/user-profile.service';
