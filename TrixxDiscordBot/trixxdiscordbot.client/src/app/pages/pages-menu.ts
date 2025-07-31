@@ -11,8 +11,22 @@ export const MENU_ITEMS: () => TrixxMenuItem[] = () => [
   {
     title: 'Главная',
     icon: 'monitor-outline',
-    link: '/pages/main',
+    link: 'main',
     home: true,
     permission: Permission.MainPageRead,
+  },
+  {
+    title: 'Мультфильмы',
+    icon: 'film-outline',
+    link: 'dictionary-cartoons',
+    home: true,
+    permission: Permission.DictionaryCartoonsRead,
+  },
+    {
+    title: 'Студии',
+    icon: 'cube-outline',
+    link: 'dictionary-studios',
+    home: true,
+    permission: Permission.DictionaryStudiosRead,
   },
 ];

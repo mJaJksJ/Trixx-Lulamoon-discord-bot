@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
-namespace Trixx.Database.Utils
+namespace Trixx.Database.Common.Utils
 {
     public static class JsonStringListColumn
     {

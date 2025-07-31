@@ -2,14 +2,9 @@
 
 namespace Trixx.Common.Services
 {
-    public class LoggerService
+    public class LoggerService(ILogger logger)
     {
-        private readonly ILogger _logger;
-
-        public LoggerService(ILogger logger)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger _logger = logger;
 
         public void Error(string error, Exception? exception = null)
         {

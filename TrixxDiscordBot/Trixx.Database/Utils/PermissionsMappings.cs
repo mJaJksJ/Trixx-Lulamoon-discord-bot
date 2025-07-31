@@ -4,7 +4,7 @@ using Trixx.Common.Utils;
 
 namespace Trixx.Database.Utils
 {
-    internal static class PermissionsMappings
+    public static class PermissionsMappings
     {
         public static IEnumerable<PermissionLine> Lines => Enum.GetValues(typeof(Permission))
             .Cast<Permission>()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Trixx.Database.Common.Utils;
 using Trixx.Database.Utils;
 
 namespace Trixx.Database.Models.Identity

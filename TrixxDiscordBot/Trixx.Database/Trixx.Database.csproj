@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Trixx.Common\Trixx.Common.csproj" />
+    <ProjectReference Include="..\Trixx.Database.Common\Trixx.Database.Common.csproj" />
   </ItemGroup>
 
 </Project>

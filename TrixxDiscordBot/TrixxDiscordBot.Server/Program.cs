@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
 using Trixx.Common;
 using Trixx.Database;
+using Trixx.Cartoons.Database;
 using TrixxDiscordBot.Server.Startup.Auth;
 using TrixxDiscordBot.Server.Startup.Swagger;
 
@@ -27,7 +28,8 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 
 builder.Services
     .AddCommon()
-    .AddTrixxDatabase(configuration)
+    .AddTrixxDatabases(configuration)
+    .AddTrixxCartoonsDatabases(configuration)
     .AddTrixxSwaggerGen()
     .AddTrixxIdentity(configuration)
     .AddControllers();
@@ -51,5 +53,6 @@ app.UseTrixxJwt();
 app.MapControllers();
 
 app.Services.MigrateTrixxDatabase();
+app.Services.MigrateTrixxCartoonsDatabase();
 
 app.Run();

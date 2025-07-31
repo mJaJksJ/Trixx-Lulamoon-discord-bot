@@ -6,5 +6,11 @@ namespace Trixx.Database.Enums
     {
         [EnumMember(Value = "Главная")]
         MainPage = 1,
+
+        [EnumMember(Value = "Мультфильмы")]
+        DictionaryCartoons = 2,
+
+        [EnumMember(Value = "Мульт. Студии")]
+        DictionaryStudios = 3,
     }
 }

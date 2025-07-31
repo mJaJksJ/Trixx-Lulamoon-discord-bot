@@ -1,4 +1,6 @@
 @import '../../styles/themes.scss';
+@import './../../../../../node_modules/@nebular/theme/styles/theming';
+@import './../../../../../node_modules/@nebular/theme/styles/themes/cosmic';
 
 @include nb-install-component() {
   .menu-sidebar ::ng-deep .scrollable {

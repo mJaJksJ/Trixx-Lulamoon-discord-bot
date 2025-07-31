@@ -1,1 +1,1 @@
-Add-Migration -StartupProject "TrixxDiscordBot.Server" -Project "Trixx.Migrations" <Migration-Name>
+Add-Migration -StartupProject "TrixxDiscordBot.Server" -Project "Trixx.Migrations" -Context "DatabaseContext" <Migration-Name>

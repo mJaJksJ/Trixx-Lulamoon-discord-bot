@@ -11,7 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trixx.Database", "Trixx.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trixx.Common", "Trixx.Common\Trixx.Common.csproj", "{32A69164-7863-46FD-87E0-48D1BB4844D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trixx.Migrations", "Trixx.Migrations\Trixx.Migrations.csproj", "{69D86711-51BB-498E-B729-E9C482D65D99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trixx.Migrations", "Trixx.Migrations\Trixx.Migrations.csproj", "{69D86711-51BB-498E-B729-E9C482D65D99}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trixx.Database.Common", "Trixx.Database.Common\Trixx.Database.Common.csproj", "{7D5FE5A8-D988-4D0F-8D62-C1E8F5CD04B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cartoons", "Cartoons", "{83BCF8CA-B422-4EF9-9DCB-3E38058CE919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trixx.Cartoons.Migrations", "Trixx.Cartoons.Migrations\Trixx.Cartoons.Migrations.csproj", "{A06A1026-23C8-4D85-9718-23998A0564FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trixx.Cartoons.Database", "Trixx.Cartoons.Database\Trixx.Cartoons.Database.csproj", "{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,9 +49,25 @@ Global
 		{69D86711-51BB-498E-B729-E9C482D65D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69D86711-51BB-498E-B729-E9C482D65D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69D86711-51BB-498E-B729-E9C482D65D99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D5FE5A8-D988-4D0F-8D62-C1E8F5CD04B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D5FE5A8-D988-4D0F-8D62-C1E8F5CD04B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D5FE5A8-D988-4D0F-8D62-C1E8F5CD04B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D5FE5A8-D988-4D0F-8D62-C1E8F5CD04B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A06A1026-23C8-4D85-9718-23998A0564FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A06A1026-23C8-4D85-9718-23998A0564FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A06A1026-23C8-4D85-9718-23998A0564FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A06A1026-23C8-4D85-9718-23998A0564FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A06A1026-23C8-4D85-9718-23998A0564FB} = {83BCF8CA-B422-4EF9-9DCB-3E38058CE919}
+		{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F} = {83BCF8CA-B422-4EF9-9DCB-3E38058CE919}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A047ED52-B0DB-4BAC-99DD-60B2E39BBAB8}

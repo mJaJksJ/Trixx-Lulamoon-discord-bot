@@ -1,0 +1,6 @@
+@import './../../../../node_modules/@nebular/theme/styles/globals';
+@import './../../../../node_modules/@nebular/theme/styles/all';
+
+@include nb-install() {
+  @include nb-theme-global();
+};

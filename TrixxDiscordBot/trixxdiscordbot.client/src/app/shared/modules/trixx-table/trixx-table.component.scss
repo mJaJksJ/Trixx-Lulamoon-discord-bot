@@ -1,0 +1,40 @@
+@import './../../../../../node_modules/@nebular/theme/styles/theming';
+@import './../../../../../node_modules/@nebular/theme/styles/themes/cosmic';
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+}
+
+thead th:first-child, thead td:first-child {
+    border-left: 2px solid nb-theme(border-basic-color-3);
+}
+
+thead th:last-child, thead td:last-child {
+    border-right: 2px solid nb-theme(border-basic-color-3);
+}
+
+thead tr {
+    background-color: nb-theme(border-basic-color-4);
+}
+
+thead th, td {
+    border-left: 2px solid nb-theme(border-basic-color-1);
+    border-right: 2px solid nb-theme(border-basic-color-1);
+}
+
+tbody tr:nth-child(even) {
+    background-color: nb-theme(border-basic-color-2);
+}
+
+tbody tr:nth-child(odd) {
+    background-color: nb-theme(border-basic-color-1);
+}
+
+tbody th, td {
+    border: 2px solid nb-theme(border-basic-color-3);
+}

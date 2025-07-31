@@ -7,7 +7,9 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AuthService } from './services/auth.service';
+import { CartoonsService } from './services/cartoons.service';
 import { MainPageService } from './services/main-page.service';
+import { StudiosService } from './services/studios.service';
 import { UserProfileService } from './services/user-profile.service';
 
 /**
@@ -19,7 +21,9 @@ import { UserProfileService } from './services/user-profile.service';
   declarations: [],
   providers: [
     AuthService,
+    CartoonsService,
     MainPageService,
+    StudiosService,
     UserProfileService,
     ApiConfiguration
   ],

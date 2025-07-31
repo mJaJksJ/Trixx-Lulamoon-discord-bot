@@ -1,0 +1,18 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th *ngFor="let column of columns">
+                    {{ column.name }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of (rows$ | async)">
+                <td *ngFor="let column of columns">
+                    {{ row[column.key] }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

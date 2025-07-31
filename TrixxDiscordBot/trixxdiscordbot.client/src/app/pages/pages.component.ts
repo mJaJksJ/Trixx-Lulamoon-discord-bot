@@ -10,7 +10,7 @@ import { TrixxAccessCheckerService } from '../core/services/trixx-access-checker
   styleUrls: ['pages.component.scss'],
   template: `
     <app-one-column-layout>
-      <nb-menu [items]="(menu$ | async) || []"></nb-menu>
+      <nb-menu [items]="(menu$ | async)!"></nb-menu>
       <router-outlet></router-outlet>
     </app-one-column-layout>
   `,
@@ -31,16 +31,19 @@ export class PagesComponent implements OnInit {
   private filter(items: TrixxMenuItem[]): TrixxMenuItem[] {
     const result = [] as TrixxMenuItem[];
     items.forEach(originalItem => {
-      if (originalItem.permission && !this.accessChecker.isGranted(originalItem.permission)) {
-        return;
-      }
+
+      // TODO: разблокировать после настройки прав
+
+      // if (originalItem.permission && !this.accessChecker.isGranted(originalItem.permission)) {
+      //   return;
+      // }
       const item = { ...originalItem };
-      if (item.children) {
-        item.children = this.filter(item.children);
-        if (!item.children.length && !item.link) {
-          return;
-        }
-      }
+      // if (item.children) {
+      //   item.children = this.filter(item.children);
+      //   if (!item.children.length && !item.link) {
+      //     return;
+      //   }
+      // }
       result.push(item);
     });
 

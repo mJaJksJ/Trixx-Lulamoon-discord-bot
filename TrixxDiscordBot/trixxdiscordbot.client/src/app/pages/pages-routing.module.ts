@@ -13,6 +13,16 @@ const routes: Routes = [
         loadChildren: () =>
           import('./main/main.module').then((m) => m.MainModule),
       },
+      {
+        path: 'dictionary-studios',
+        loadChildren: () =>
+          import('./dictionary-studios/dictionary-studios.module').then((m) => m.DictionaryStudiosModule),
+      },
+      {
+        path: 'dictionary-cartoons',
+        loadChildren: () =>
+          import('./dictionary-cartoons/dictionary-cartoons.module').then((m) => m.DictionaryCartoonsModule),
+      },
     ],
   },
 ];

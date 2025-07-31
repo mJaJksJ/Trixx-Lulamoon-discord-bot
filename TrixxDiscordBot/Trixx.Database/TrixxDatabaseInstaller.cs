@@ -7,7 +7,7 @@ namespace Trixx.Database
 {
     public static class TrixxDatabaseInstaller
     {
-        public static IServiceCollection AddTrixxDatabase(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddTrixxDatabases(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<IdentityOptions>(options =>
             {
@@ -25,6 +25,16 @@ namespace Trixx.Database
             });
 
             return services;
+        }
+
+        public static void MigrateTrixxDatabase(this IServiceProvider applicationServices)
+        {
+            using var scope = applicationServices.CreateScope();
+            {
+                var databaseContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+                databaseContext.Database.SetCommandTimeout(TimeSpan.FromHours(1));
+                databaseContext.Database.Migrate();
+            }
         }
     }
 }

@@ -18,7 +18,6 @@ import { TokenRefresherInterceptor } from './core/interceptors/token-refresher.i
 import { ApiModule } from './../api/api.module';
 import { ApiConfiguration } from './../api/api-configuration';
 import { NbLayoutModule, NbMenuModule, NbSidebarModule, NbToastrModule } from '@nebular/theme';
-
 const excludeUrls = ['/api/Auth/refresh', '/api/Auth/send-reset-password-mail'];
 const filterInterceptorRequest = (request: any) =>
   excludeUrls.includes(request.url);

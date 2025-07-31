@@ -5,5 +5,10 @@
 export { AuthFailTypes } from './models/auth-fail-types';
 export type { AuthRequestModel } from './models/auth-request-model';
 export type { AuthResultModel } from './models/auth-result-model';
+export type { CartoonsListSelectItem } from './models/cartoons-list-select-item';
+export type { CartoonUpdateModel } from './models/cartoon-update-model';
 export { Permission } from './models/permission';
+export type { SelectItem } from './models/select-item';
+export type { StudiosListSelectItem } from './models/studios-list-select-item';
+export type { StudioUpdateModel } from './models/studio-update-model';
 export type { UserProfileModel } from './models/user-profile-model';
