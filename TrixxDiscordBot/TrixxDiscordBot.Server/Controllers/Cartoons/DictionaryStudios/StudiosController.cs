@@ -52,6 +52,7 @@ namespace TrixxDiscordBot.Server.Controllers.Studios.DictionaryStudios
 
             studio.Name = model.Name;
 
+            _studiosDatabaseContext.DictionaryStudios.Add(studio);
             await _studiosDatabaseContext.SaveChangesAsync();
         }
     }

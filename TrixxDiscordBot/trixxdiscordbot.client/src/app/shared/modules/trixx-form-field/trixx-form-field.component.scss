@@ -1,0 +1,7 @@
+@import './../../../../../node_modules/@nebular/theme/styles/theming';
+@import './../../../../../node_modules/@nebular/theme/styles/themes/cosmic';
+
+.error {
+    color: nb-theme(text-danger-color);
+    font-size: small;
+}

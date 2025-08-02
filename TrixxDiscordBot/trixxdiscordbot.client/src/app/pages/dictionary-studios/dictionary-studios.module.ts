@@ -3,8 +3,9 @@ import { DictionaryStudiosListComponent } from './list/dictionary-studios-list.c
 import { DictionaryStudiosRoutingModule } from './dictionary-studios-routing.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/modules/shared.module';
-import { NbButtonModule, NbCardModule, NbDialogModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { DictionaryStudiosEditComponent } from './edit/dictionary-studios-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,9 @@ import { DictionaryStudiosEditComponent } from './edit/dictionary-studios-edit.c
     NbCardModule,
     NbDialogModule.forChild(),
     NbButtonModule,
+    NbInputModule,
+    ReactiveFormsModule,
+    NbIconModule,
   ],
 })
 export class DictionaryStudiosModule {}

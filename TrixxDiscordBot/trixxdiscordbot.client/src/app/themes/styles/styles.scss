@@ -4,3 +4,8 @@
 @include nb-install() {
   @include nb-theme-global();
 };
+
+nb-card-footer {
+  display: flex;
+  justify-content: flex-end;
+}

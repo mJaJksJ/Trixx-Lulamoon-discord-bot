@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TrixxTableModule } from './trixx-table/triix-table.module';
+import { TrixxTableModule } from './trixx-table/trixx-table.module';
+import { TrixxFormFieldModule } from './trixx-form-field/trixx-form-field.module';
+import { SpinnerModule } from '../directives/spinner';
 
 @NgModule({
   exports: [
     CommonModule,
     FormsModule,
     TrixxTableModule,
+    TrixxFormFieldModule,
+    SpinnerModule,
   ],
 })
 export class SharedModule {}

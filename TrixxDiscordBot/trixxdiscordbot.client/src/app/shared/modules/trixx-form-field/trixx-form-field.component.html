@@ -1,0 +1,7 @@
+<div>
+    <div *ngIf="!!label">{{ label }}</div>
+    <div>
+        <ng-content></ng-content>
+    </div>
+    <div *ngIf="error$ | async" class="error">{{ error }}</div>
+</div>

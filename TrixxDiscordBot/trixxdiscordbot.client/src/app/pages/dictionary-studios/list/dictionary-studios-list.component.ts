@@ -4,6 +4,7 @@ import { StudiosListSelectItem } from '../../../../api/models';
 import { TrixxTableColumn, TrixxTableComponent } from '../../../shared/modules/trixx-table/trixx-table.component';
 import { NbDialogService } from '@nebular/theme';
 import { DictionaryStudiosEditComponent } from '../edit/dictionary-studios-edit.component';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-dictionary-studios-list',
@@ -13,7 +14,9 @@ import { DictionaryStudiosEditComponent } from '../edit/dictionary-studios-edit.
 })
 export class DictionaryStudiosListComponent implements AfterViewInit {
   @ViewChild('table', { read: ViewContainerRef }) 
-  public table!: ViewContainerRef;
+  public tableContainer!: ViewContainerRef;
+  private table!: TrixxTableComponent<StudiosListSelectItem>;
+  private destroy$ = new Subject<void>();
   
   private readonly columns: TrixxTableColumn<StudiosListSelectItem>[] = [
     { key: 'id', name: 'Id' },
@@ -27,13 +30,22 @@ export class DictionaryStudiosListComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const componentRef = this.table.createComponent(TrixxTableComponent<StudiosListSelectItem>);
-    componentRef.instance.apiGet = () => this.apiService.apiStudiosGet();
-    componentRef.instance.columns = this.columns;
-    componentRef.instance.init();
+    const componentRef = this.tableContainer.createComponent(TrixxTableComponent<StudiosListSelectItem>);
+    this.table = componentRef.instance;
+    this.table.apiGet = () => this.apiService.apiStudiosGet();
+    this.table.columns = this.columns;
+    this.table.init();
   }
   
   addStudio() {
-    this.dialogService.open(DictionaryStudiosEditComponent);
+    this.dialogService
+      .open(DictionaryStudiosEditComponent, { closeOnBackdropClick: false })
+      .onClose
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((reload) => {
+        if (reload) {
+          this.table.reload();
+        }
+      });
   }
 }

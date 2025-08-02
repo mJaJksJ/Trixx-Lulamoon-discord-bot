@@ -1,11 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
+import {
+  StudioUpdateModel,
+} from '../../../../api/models';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { StudiosService } from '../../../../api/services';
+import { NbDialogRef } from '@nebular/theme';
+import { Subject, takeUntil } from 'rxjs';
+import { TrixxLoadingSubject } from '../../../shared/utils/trixx-loading-subject';
 
 @Component({
   selector: 'app-dictionary-studios-edit',
   standalone: false,
   templateUrl: './dictionary-studios-edit.component.html',
-  styleUrl: './dictionary-studios-edit.component.scss'
+  styleUrl: './dictionary-studios-edit.component.scss',
 })
-export class DictionaryStudiosEditComponent {
+export class DictionaryStudiosEditComponent implements OnDestroy {
+  @Input() public id?: number;
 
+  private formConf: { [x in keyof StudioUpdateModel]-?: FormControl } = {
+    id: new FormControl(),
+    name: new FormControl('', [Validators.required]),
+  };
+  public form = new FormGroup(this.formConf);
+  private destroy$ = new Subject<void>();
+  public readonly loading$ = new TrixxLoadingSubject();
+
+  constructor(
+    private readonly apiService: StudiosService,
+    public readonly dialogRef: NbDialogRef<any>
+  ) {}
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public get isEdit(): boolean {
+    return !!this.id;
+  }
+
+  public save() {
+    const data = this.form.getRawValue();
+    this.apiService
+      .apiStudiosPost({ body: data })
+      .pipe(
+        takeUntil(this.destroy$),
+        this.loading$.wrap(),
+      )
+      .subscribe(() => this.dialogRef.close(true));
+  }
+
+  public handleClose() {
+    this.dialogRef.close(false);
+  }
 }
