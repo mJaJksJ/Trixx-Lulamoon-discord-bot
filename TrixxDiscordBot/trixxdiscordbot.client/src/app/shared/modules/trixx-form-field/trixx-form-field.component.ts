@@ -29,9 +29,9 @@ export class TrixxFormFieldComponent implements AfterContentInit {
 
     this.error$ = status$.pipe(
       map((status) => {
-        const isError = this.ngControl.pristine || this.ngControl.touched || status;
+        const isError = status === 'INVALID';
         if (this.nbInput) {
-          this.nbInput.status = isError === true /* may be not empty string */ ? 'danger' : 'basic';
+          this.nbInput.status = isError ? 'danger' : 'basic';
         }
         return isError;
       }),

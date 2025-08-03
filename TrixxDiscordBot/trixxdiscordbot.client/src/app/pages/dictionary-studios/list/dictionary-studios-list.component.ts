@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
 import { StudiosService } from '../../../../api/services';
 import { StudiosListSelectItem } from '../../../../api/models';
-import { ActionButtonTypes, TrixxTableColumn, TrixxTableComponent } from '../../../shared/modules/trixx-table/trixx-table.component';
+import { ActionButtonTypes, TrixxTableComponent } from '../../../shared/modules/trixx-table/trixx-table.component';
 import { NbDialogService } from '@nebular/theme';
 import { DictionaryStudiosEditComponent } from '../edit/dictionary-studios-edit.component';
 import { Subject, takeUntil } from 'rxjs';
