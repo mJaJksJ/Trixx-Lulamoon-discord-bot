@@ -17,6 +17,10 @@ import { apiStudiosGet$Plain } from '../fn/studios/api-studios-get-plain';
 import { ApiStudiosGet$Plain$Params } from '../fn/studios/api-studios-get-plain';
 import { apiStudiosIdDelete } from '../fn/studios/api-studios-id-delete';
 import { ApiStudiosIdDelete$Params } from '../fn/studios/api-studios-id-delete';
+import { apiStudiosIdGet } from '../fn/studios/api-studios-id-get';
+import { ApiStudiosIdGet$Params } from '../fn/studios/api-studios-id-get';
+import { apiStudiosIdGet$Plain } from '../fn/studios/api-studios-id-get-plain';
+import { ApiStudiosIdGet$Plain$Params } from '../fn/studios/api-studios-id-get-plain';
 import { apiStudiosPost } from '../fn/studios/api-studios-post';
 import { ApiStudiosPost$Params } from '../fn/studios/api-studios-post';
 import { StudiosListSelectItem } from '../models/studios-list-select-item';
@@ -102,8 +106,57 @@ export class StudiosService extends BaseService {
     );
   }
 
+  /** Path part for operation `apiStudiosIdGet()` */
+  static readonly ApiStudiosIdGetPath = '/api/Studios/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiStudiosIdGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiStudiosIdGet$Plain$Response(params: ApiStudiosIdGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<StudiosListSelectItem>> {
+    return apiStudiosIdGet$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiStudiosIdGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiStudiosIdGet$Plain(params: ApiStudiosIdGet$Plain$Params, context?: HttpContext): Observable<StudiosListSelectItem> {
+
+    return this.apiStudiosIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<StudiosListSelectItem>) => r.body as StudiosListSelectItem)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiStudiosIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiStudiosIdGet$Response(params: ApiStudiosIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<StudiosListSelectItem>> {
+    return apiStudiosIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiStudiosIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiStudiosIdGet(params: ApiStudiosIdGet$Params, context?: HttpContext): Observable<StudiosListSelectItem> {
+
+    return this.apiStudiosIdGet$Response(params).pipe(
+      map((r: StrictHttpResponse<StudiosListSelectItem>) => r.body as StudiosListSelectItem)
+    );
+  }
+
   /** Path part for operation `apiStudiosIdDelete()` */
-  static readonly ApiStudiosIdDeletePath = '/api/Studios/id';
+  static readonly ApiStudiosIdDeletePath = '/api/Studios/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -111,7 +164,7 @@ export class StudiosService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiStudiosIdDelete$Response(params?: ApiStudiosIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiStudiosIdDelete$Response(params: ApiStudiosIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return apiStudiosIdDelete(this.http, this.rootUrl, params, context);
   }
 
@@ -121,7 +174,7 @@ export class StudiosService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiStudiosIdDelete(params?: ApiStudiosIdDelete$Params, context?: HttpContext): Observable<void> {
+  apiStudiosIdDelete(params: ApiStudiosIdDelete$Params, context?: HttpContext): Observable<void> {
 
     return this.apiStudiosIdDelete$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)

@@ -7,6 +7,16 @@ export interface TrixxTableColumn<T> {
   name: string;
 }
 
+export interface IActionButton {
+  action: (id: number) => void;
+  type: ActionButtonTypes;
+}
+
+export enum ActionButtonTypes {
+    Edit = 'Редактировать',
+    Delete = 'Удалить',
+}
+
 @Component({
   selector: 'app-trixx-table',
   standalone: false,
@@ -15,10 +25,15 @@ export interface TrixxTableColumn<T> {
 })
 export class TrixxTableComponent<T> {
   @Input() public apiGet!: () => Observable<T[]>;
-  @Input() public columns!: TrixxTableColumn<T>[]
+  @Input() public columns!: TrixxTableColumn<T>[];
+  @Input() public actions: IActionButton[] = [];
   public rows$!: Observable<T[]>;  
   private reloader$ = new Subject<void>();
   public readonly loading$ = new TrixxLoadingSubject();
+  public readonly icons: Record<ActionButtonTypes, string> = {
+    [ActionButtonTypes.Edit]: 'edit-outline',
+    [ActionButtonTypes.Delete]: 'trash-2-outline',
+  };
 
   init(): void {
     this.rows$ = this.reloader$.pipe(
@@ -27,7 +42,7 @@ export class TrixxTableComponent<T> {
           this.loading$.wrap(),
         );
       }),
-      shareReplay(1),
+      shareReplay(1), 
     );
     this.rows$.subscribe(); // TODO: поправить, в теории оно без этого субскрайба должно работать
     this.reloader$.next();

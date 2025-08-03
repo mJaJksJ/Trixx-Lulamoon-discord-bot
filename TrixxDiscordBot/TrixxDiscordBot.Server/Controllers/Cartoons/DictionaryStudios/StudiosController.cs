@@ -26,7 +26,19 @@ namespace TrixxDiscordBot.Server.Controllers.Studios.DictionaryStudios
                 .ToListAsync();
         }
 
-        [HttpDelete("id")]
+        [HttpGet("{id}")]
+        public async Task<StudiosListSelectItem?> GetStudioAsync(int id)
+        {
+            return await _studiosDatabaseContext.DictionaryStudios
+                .Select(ds => new StudiosListSelectItem
+                {
+                    Id = ds.Id,
+                    Label = ds.Name
+                })
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        [HttpDelete("{id}")]
         [TrixxClaimsAuthorize(Permission.DictionaryStudios_Delete)]
         public async Task DeleteStudioAsync(int id)
         {
@@ -52,7 +64,10 @@ namespace TrixxDiscordBot.Server.Controllers.Studios.DictionaryStudios
 
             studio.Name = model.Name;
 
-            _studiosDatabaseContext.DictionaryStudios.Add(studio);
+            if (model.Id is null)
+            {
+                _studiosDatabaseContext.DictionaryStudios.Add(studio);
+            }
             await _studiosDatabaseContext.SaveChangesAsync();
         }
     }

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   StudioUpdateModel,
 } from '../../../../api/models';
@@ -14,7 +14,7 @@ import { TrixxLoadingSubject } from '../../../shared/utils/trixx-loading-subject
   templateUrl: './dictionary-studios-edit.component.html',
   styleUrl: './dictionary-studios-edit.component.scss',
 })
-export class DictionaryStudiosEditComponent implements OnDestroy {
+export class DictionaryStudiosEditComponent implements OnDestroy, OnInit {
   @Input() public id?: number;
 
   private formConf: { [x in keyof StudioUpdateModel]-?: FormControl } = {
@@ -27,8 +27,23 @@ export class DictionaryStudiosEditComponent implements OnDestroy {
 
   constructor(
     private readonly apiService: StudiosService,
-    public readonly dialogRef: NbDialogRef<any>
+    public readonly dialogRef: NbDialogRef<any>,
+    public readonly cdr: ChangeDetectorRef,
   ) {}
+
+  ngOnInit(): void {
+    if (this.id) {
+      this.apiService
+        .apiStudiosIdGet({id: this.id})
+        .pipe(
+          takeUntil(this.destroy$),
+        )
+        .subscribe(studio => {
+          this.form.patchValue({...studio, name: studio.label});
+          this.form.markAsPristine();
+        });
+    }
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();

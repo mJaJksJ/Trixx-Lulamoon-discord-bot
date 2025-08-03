@@ -38,3 +38,7 @@ tbody tr:nth-child(odd) {
 tbody th, td {
     border: 2px solid nb-theme(border-basic-color-3);
 }
+
+.action-button:not(:last-child) {
+  margin-right: 10px;
+}
