@@ -51,4 +51,18 @@ export class TrixxTableComponent<T> {
   public reload() {
     this.reloader$.next();
   }
+
+  getArray(row: any, key: keyof T) {
+    const val = row[key];
+    return Array.isArray(val) ? val : [];
+  }
+
+  isArray(row: any, key: keyof T) {
+    const val = row[key];
+    return Array.isArray(val);
+  }
+
+  isRef(value: any) {
+    return !!value.ref;
+  }
 }

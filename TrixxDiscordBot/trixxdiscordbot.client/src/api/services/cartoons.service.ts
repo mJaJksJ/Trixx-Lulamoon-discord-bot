@@ -17,9 +17,18 @@ import { apiCartoonsGet$Plain } from '../fn/cartoons/api-cartoons-get-plain';
 import { ApiCartoonsGet$Plain$Params } from '../fn/cartoons/api-cartoons-get-plain';
 import { apiCartoonsIdDelete } from '../fn/cartoons/api-cartoons-id-delete';
 import { ApiCartoonsIdDelete$Params } from '../fn/cartoons/api-cartoons-id-delete';
+import { apiCartoonsIdGet } from '../fn/cartoons/api-cartoons-id-get';
+import { ApiCartoonsIdGet$Params } from '../fn/cartoons/api-cartoons-id-get';
+import { apiCartoonsIdGet$Plain } from '../fn/cartoons/api-cartoons-id-get-plain';
+import { ApiCartoonsIdGet$Plain$Params } from '../fn/cartoons/api-cartoons-id-get-plain';
 import { apiCartoonsPost } from '../fn/cartoons/api-cartoons-post';
 import { ApiCartoonsPost$Params } from '../fn/cartoons/api-cartoons-post';
+import { apiCartoonsStudiosGet } from '../fn/cartoons/api-cartoons-studios-get';
+import { ApiCartoonsStudiosGet$Params } from '../fn/cartoons/api-cartoons-studios-get';
+import { apiCartoonsStudiosGet$Plain } from '../fn/cartoons/api-cartoons-studios-get-plain';
+import { ApiCartoonsStudiosGet$Plain$Params } from '../fn/cartoons/api-cartoons-studios-get-plain';
 import { CartoonsListSelectItem } from '../models/cartoons-list-select-item';
+import { SelectItem } from '../models/select-item';
 
 @Injectable({ providedIn: 'root' })
 export class CartoonsService extends BaseService {
@@ -102,8 +111,57 @@ export class CartoonsService extends BaseService {
     );
   }
 
+  /** Path part for operation `apiCartoonsIdGet()` */
+  static readonly ApiCartoonsIdGetPath = '/api/Cartoons/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCartoonsIdGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsIdGet$Plain$Response(params: ApiCartoonsIdGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<CartoonsListSelectItem>> {
+    return apiCartoonsIdGet$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCartoonsIdGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsIdGet$Plain(params: ApiCartoonsIdGet$Plain$Params, context?: HttpContext): Observable<CartoonsListSelectItem> {
+
+    return this.apiCartoonsIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<CartoonsListSelectItem>) => r.body as CartoonsListSelectItem)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCartoonsIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsIdGet$Response(params: ApiCartoonsIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<CartoonsListSelectItem>> {
+    return apiCartoonsIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCartoonsIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsIdGet(params: ApiCartoonsIdGet$Params, context?: HttpContext): Observable<CartoonsListSelectItem> {
+
+    return this.apiCartoonsIdGet$Response(params).pipe(
+      map((r: StrictHttpResponse<CartoonsListSelectItem>) => r.body as CartoonsListSelectItem)
+    );
+  }
+
   /** Path part for operation `apiCartoonsIdDelete()` */
-  static readonly ApiCartoonsIdDeletePath = '/api/Cartoons/id';
+  static readonly ApiCartoonsIdDeletePath = '/api/Cartoons/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -111,7 +169,7 @@ export class CartoonsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCartoonsIdDelete$Response(params?: ApiCartoonsIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiCartoonsIdDelete$Response(params: ApiCartoonsIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return apiCartoonsIdDelete(this.http, this.rootUrl, params, context);
   }
 
@@ -121,10 +179,59 @@ export class CartoonsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCartoonsIdDelete(params?: ApiCartoonsIdDelete$Params, context?: HttpContext): Observable<void> {
+  apiCartoonsIdDelete(params: ApiCartoonsIdDelete$Params, context?: HttpContext): Observable<void> {
 
     return this.apiCartoonsIdDelete$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /** Path part for operation `apiCartoonsStudiosGet()` */
+  static readonly ApiCartoonsStudiosGetPath = '/api/Cartoons/studios';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCartoonsStudiosGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsStudiosGet$Plain$Response(params?: ApiCartoonsStudiosGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SelectItem>>> {
+    return apiCartoonsStudiosGet$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCartoonsStudiosGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsStudiosGet$Plain(params?: ApiCartoonsStudiosGet$Plain$Params, context?: HttpContext): Observable<Array<SelectItem>> {
+
+    return this.apiCartoonsStudiosGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<SelectItem>>) => r.body as Array<SelectItem>)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCartoonsStudiosGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsStudiosGet$Response(params?: ApiCartoonsStudiosGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SelectItem>>> {
+    return apiCartoonsStudiosGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCartoonsStudiosGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsStudiosGet(params?: ApiCartoonsStudiosGet$Params, context?: HttpContext): Observable<Array<SelectItem>> {
+
+    return this.apiCartoonsStudiosGet$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<SelectItem>>) => r.body as Array<SelectItem>)
     );
   }
 

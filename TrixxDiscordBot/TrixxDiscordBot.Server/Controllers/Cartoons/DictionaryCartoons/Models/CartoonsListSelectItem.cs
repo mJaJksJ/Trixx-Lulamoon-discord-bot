@@ -6,8 +6,8 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.DictionaryCartoons.Models
     public class CartoonsListSelectItem : SelectItem
     {
         public List<string> AlternativeNames { get; set; } = [];
-        public List<string> Studios { get; set; } = [];
+        public List<SelectItem> Studios { get; set; } = [];
         public int Year { get; set; }
-        public List<string> Sources { get; set; } = [];
+        public List<RefItem> Sources { get; set; } = [];
     }
 }

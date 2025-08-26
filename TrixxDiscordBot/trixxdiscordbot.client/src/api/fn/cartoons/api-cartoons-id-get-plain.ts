@@ -8,25 +8,26 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { CartoonsListSelectItem } from '../../models/cartoons-list-select-item';
 
-export interface ApiCartoonsIdDelete$Params {
+export interface ApiCartoonsIdGet$Plain$Params {
   id: number;
 }
 
-export function apiCartoonsIdDelete(http: HttpClient, rootUrl: string, params: ApiCartoonsIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiCartoonsIdDelete.PATH, 'delete');
+export function apiCartoonsIdGet$Plain(http: HttpClient, rootUrl: string, params: ApiCartoonsIdGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<CartoonsListSelectItem>> {
+  const rb = new RequestBuilder(rootUrl, apiCartoonsIdGet$Plain.PATH, 'get');
   if (params) {
     rb.path('id', params.id, {"style":"simple"});
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'text', accept: 'text/plain', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<CartoonsListSelectItem>;
     })
   );
 }
 
-apiCartoonsIdDelete.PATH = '/api/Cartoons/{id}';
+apiCartoonsIdGet$Plain.PATH = '/api/Cartoons/{id}';

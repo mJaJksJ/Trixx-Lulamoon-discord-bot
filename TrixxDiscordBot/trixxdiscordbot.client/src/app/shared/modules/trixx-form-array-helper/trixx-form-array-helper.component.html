@@ -1,0 +1,54 @@
+<div style="margin-top: 10px;">
+  <div *ngIf="!!label">{{ label }}</div>
+  <div class="array">
+    <div *ngFor="let item of arrayGroups; let i = index; trackBy: trackByFn">
+      <div class="item">
+        <div [formGroup]="item" style="width: 100%; padding-right: 10px;">
+          <ng-container *ngFor="let config of fieldConfigs">
+            <div class="form-field" [ngSwitch]="config.type">
+              <div *ngSwitchCase="'text'">
+                <app-trixx-form-field [label]="config.label || ''">
+                    <input 
+                      #appFormField
+                      #appColorize
+                      type="text" 
+                      [formControlName]="config.name"
+                      [placeholder]="config.placeholder || ''"
+                      nbInput
+                      fullWidth
+                    >
+                </app-trixx-form-field>
+              </div>
+              <div *ngSwitchCase="'select'">
+                <app-trixx-form-field [label]="config.label || ''">
+                  <nb-select 
+                    fullWidth 
+                    placeholder="Form control" 
+                    [formControlName]="config.name"
+                    #appFormField
+                    #appColorize
+                  >
+                    <nb-option *ngFor="let option of config.options$ | async" [value]="option.id">{{ option.label }}</nb-option>
+                  </nb-select>
+                </app-trixx-form-field>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div>
+          <button nbButton (click)="removeItem(i)" status="danger" size="small"><nb-icon icon="trash-2-outline"></nb-icon></button>
+        </div>
+      </div>
+    </div>
+  
+    <button 
+      type="button" 
+      nbButton 
+      status="primary"
+      size="small"
+      (click)="addItem()"
+    >
+      {{ addButtonText }}
+    </button>
+  </div>
+</div>

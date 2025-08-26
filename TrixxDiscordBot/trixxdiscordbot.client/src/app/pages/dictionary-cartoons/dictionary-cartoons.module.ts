@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/modules/shared.module';
-import { NbButtonModule, NbCardModule, NbDialogModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { DictionaryCartoonsListComponent } from './list/dictionary-cartoons-list.component';
 import { DictionaryCartoonsRoutingModule } from './dictionary-cartoons-routing.module';
 import { DictionaryCartoonsEditComponent } from './edit/dictionary-cartoons-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,9 @@ import { DictionaryCartoonsEditComponent } from './edit/dictionary-cartoons-edit
     NbCardModule,
     NbDialogModule.forChild(),
     NbButtonModule,
+    NbInputModule,
+    ReactiveFormsModule,
+    NbIconModule,
   ],
 })
 export class DictionaryCartoonsModule {}

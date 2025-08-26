@@ -1,0 +1,13 @@
+@import './../../../../../node_modules/@nebular/theme/styles/theming';
+@import './../../../../../node_modules/@nebular/theme/styles/themes/cosmic';
+
+.item {
+    border: 2px solid nb-theme(border-primary-color-5);
+    padding: 10px 10px 0 10px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.array {
+    padding: 10px;
+}

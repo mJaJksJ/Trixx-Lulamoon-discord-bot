@@ -1,5 +1,71 @@
-<nb-card>
+<nb-card [appSpinner]="loading$ | async">
+    <nb-card-header>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h3>
+                    {{ isEdit ? 'Редактирование' : 'Добавление' }} мультфильма
+                </h3>
+            </div>
+            <div>
+                <button nbButton (click)="handleClose()" size="small"><nb-icon icon="close-outline"></nb-icon></button>
+            </div>
+        </div>
+    </nb-card-header>
     <nb-card-body>
-        добавление мультфильма
+        <form [formGroup]="form">
+            <app-trixx-form-field label="Название">
+                <input 
+                    #appFormField
+                    #appColorize
+                    type="text" 
+                    formControlName="name"
+                    placeholder="Название"
+                    nbInput
+                    fullWidth
+                >
+            </app-trixx-form-field>
+
+            <app-trixx-form-field label="Год выпуска">
+                <input 
+                    #appFormField
+                    #appColorize
+                    type="number" 
+                    formControlName="year"
+                    placeholder="Год выпуска"
+                    nbInput
+                    fullWidth
+                >
+            </app-trixx-form-field>
+
+            <app-trixx-form-array-helper
+                #alternativeNames
+                [formArray]="$any(form.controls.alternativeNames)"
+                [fieldConfigs]="formArrayConfs.alternativeNames || []"
+                [minItems]="1"
+                label="Альтернативные названия"
+            >
+            </app-trixx-form-array-helper>
+
+            <app-trixx-form-array-helper
+                #studios
+                [formArray]="$any(form.controls.studios)"
+                [fieldConfigs]="formArrayConfs.studios || []"
+                [minItems]="1"
+                label="Студии"
+            >
+            </app-trixx-form-array-helper>
+
+            <app-trixx-form-array-helper
+                #sources
+                [formArray]="$any(form.controls.sources)"
+                [fieldConfigs]="formArrayConfs.sources || []"
+                [minItems]="1"
+                label="Ссылки"
+            >
+            </app-trixx-form-array-helper>
+        </form>
     </nb-card-body>
+    <nb-card-footer>
+        <button nbButton [disabled]="form.invalid" (click)="save()" status="success">Сохранить</button>
+    </nb-card-footer>
 </nb-card>

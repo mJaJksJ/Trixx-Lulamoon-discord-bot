@@ -15,14 +15,30 @@
                 <td *ngIf="actions && actions.length">
                     <div style="display: flex;">
                         <ng-container *ngFor="let action of actions">
-                            <button nbButton (click)="action.action($any(row).id)" class="action-button"><nb-icon [icon]="$any(icons)[action.type]"></nb-icon></button>
+                            <button nbButton (click)="action.action($any(row).id)" class="action-button" size="small"><nb-icon [icon]="$any(icons)[action.type]"></nb-icon></button>
                         </ng-container>
                     </div>
                 </td>
                 <td *ngFor="let column of columns">
-                    {{ row[column.key] }}
+                    <ng-container *ngIf="isArray(row, column.key); else notArray">
+                        <div *ngFor="let value of getArray(row, column.key)">
+                            <ng-container *ngTemplateOutlet="customValue; context: { row: row, value: value }"></ng-container>
+                        </div>
+                    </ng-container>
+                    <ng-template #notArray>
+                        <ng-container *ngTemplateOutlet="customValue; context: { row: row, value: row[column.key] }"></ng-container>
+                    </ng-template>                    
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+
+<ng-template #customValue let-row="row" let-value="value">
+    <ng-container *ngIf="isRef(value)">
+        <a [href]="value.ref">{{ value.label }}</a>
+    </ng-container>
+    <ng-container *ngIf="!isRef(value)">
+        {{ value && value.label || value }}
+    </ng-container>
+</ng-template>

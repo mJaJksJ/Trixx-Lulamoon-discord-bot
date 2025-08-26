@@ -9,14 +9,14 @@ namespace TrixxDiscordBot.Server.Controllers.Studios.DictionaryStudios
 {
     [TrixxClaimsAuthorize(Permission.DictionaryStudios_Read)]
     public class StudiosController(
-        CartoonsDatabaseContext StudiosDatabaseContext) : ApiController
+        CartoonsDatabaseContext CartoonsDatabaseContext) : ApiController
     {
-        private readonly CartoonsDatabaseContext _studiosDatabaseContext = StudiosDatabaseContext;
+        private readonly CartoonsDatabaseContext _cartoonsDatabaseContext = CartoonsDatabaseContext;
 
         [HttpGet]
         public async Task<IReadOnlyList<StudiosListSelectItem>> GetStudiosListAsync()
         {
-            return await _studiosDatabaseContext.DictionaryStudios
+            return await _cartoonsDatabaseContext.DictionaryStudios
                 .Select(ds => new StudiosListSelectItem
                 {
                     Id = ds.Id,
@@ -29,7 +29,7 @@ namespace TrixxDiscordBot.Server.Controllers.Studios.DictionaryStudios
         [HttpGet("{id}")]
         public async Task<StudiosListSelectItem?> GetStudioAsync(int id)
         {
-            return await _studiosDatabaseContext.DictionaryStudios
+            return await _cartoonsDatabaseContext.DictionaryStudios
                 .Select(ds => new StudiosListSelectItem
                 {
                     Id = ds.Id,
@@ -42,10 +42,10 @@ namespace TrixxDiscordBot.Server.Controllers.Studios.DictionaryStudios
         [TrixxClaimsAuthorize(Permission.DictionaryStudios_Delete)]
         public async Task DeleteStudioAsync(int id)
         {
-            var studio = await _studiosDatabaseContext.DictionaryStudios.FirstAsync(ds => ds.Id == id);
+            var studio = await _cartoonsDatabaseContext.DictionaryStudios.FirstAsync(ds => ds.Id == id);
 
-            _studiosDatabaseContext.DictionaryStudios.Remove(studio);
-            await _studiosDatabaseContext.SaveChangesAsync();
+            _cartoonsDatabaseContext.DictionaryStudios.Remove(studio);
+            await _cartoonsDatabaseContext.SaveChangesAsync();
         }
 
         [HttpPost]
@@ -59,16 +59,16 @@ namespace TrixxDiscordBot.Server.Controllers.Studios.DictionaryStudios
             }
             else
             {
-                studio = await _studiosDatabaseContext.DictionaryStudios.FirstAsync(dc => dc.Id == model.Id);
+                studio = await _cartoonsDatabaseContext.DictionaryStudios.FirstAsync(dc => dc.Id == model.Id);
             }
 
             studio.Name = model.Name;
 
             if (model.Id is null)
             {
-                _studiosDatabaseContext.DictionaryStudios.Add(studio);
+                _cartoonsDatabaseContext.DictionaryStudios.Add(studio);
             }
-            await _studiosDatabaseContext.SaveChangesAsync();
+            await _cartoonsDatabaseContext.SaveChangesAsync();
         }
     }
 }
