@@ -25,6 +25,8 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .WriteTo.Console(outputTemplate: SERILOG_OUTPUT_TEMPLATE)
 );
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
 builder.Services
     .AddCommon()

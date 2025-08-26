@@ -2,27 +2,31 @@
 using Microsoft.EntityFrameworkCore;
 using Trixx.Cartoons.Database;
 using Trixx.Cartoons.Database.Models.Dictionary;
+using Trixx.Database;
 using Trixx.Database.Enums;
 using TrixxDiscordBot.Server.Controllers.Cartoons.DictionaryStudios.Models;
+using TrixxDiscordBot.Server.Startup.Auth;
 
 namespace TrixxDiscordBot.Server.Controllers.Studios.DictionaryStudios
 {
     [TrixxClaimsAuthorize(Permission.DictionaryStudios_Read)]
     public class StudiosController(
-        CartoonsDatabaseContext CartoonsDatabaseContext) : ApiController
+        CartoonsDatabaseContext CartoonsDatabaseContext,
+        DatabaseContext databaseContext) : ApiController
     {
         private readonly CartoonsDatabaseContext _cartoonsDatabaseContext = CartoonsDatabaseContext;
+        private readonly DatabaseContext _databaseContext = databaseContext;
 
         [HttpGet]
         public async Task<IReadOnlyList<StudiosListSelectItem>> GetStudiosListAsync()
         {
             return await _cartoonsDatabaseContext.DictionaryStudios
+                .OrderByDescending(ds => ds.SystemObject.CreateDateTime)
                 .Select(ds => new StudiosListSelectItem
                 {
                     Id = ds.Id,
                     Label = ds.Name
                 })
-                .OrderBy(ds => ds.Label)
                 .ToListAsync();
         }
 
@@ -52,10 +56,24 @@ namespace TrixxDiscordBot.Server.Controllers.Studios.DictionaryStudios
         [TrixxClaimsAuthorize(Permission.DictionaryStudios_Edit)]
         public async Task CreateUpdateStudioAsync(StudioUpdateModel model)
         {
+            var userId = User.GetId();
+            var user = await _databaseContext.Users
+                .Where(x => x.Id == userId)
+                .Select(x => x.FullName)
+                .FirstAsync();
+
             DictionaryStudio studio;
             if (model.Id is null)
             {
-                studio = new DictionaryStudio();
+                studio = new DictionaryStudio
+                {
+                    SystemObject = new Trixx.Cartoons.Database.Models.CartoonSystemObject
+                    {
+                        CreateDateTime = DateTime.Now,
+                        Type = Trixx.Cartoons.Database.Enums.SystemObjectType.DictionaryStudio,
+                        Creator = user
+                    }
+                };
             }
             else
             {

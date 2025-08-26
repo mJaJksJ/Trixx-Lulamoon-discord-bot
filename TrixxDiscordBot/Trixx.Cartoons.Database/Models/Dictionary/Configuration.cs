@@ -13,10 +13,17 @@ namespace Trixx.Cartoons.Database.Models.Dictionary
         {
             builder.Property(x => x.AlternativeNames).Json();
             builder.Property(x => x.Sources).Json();
+
+            builder.HasOne(x => x.SystemObject)
+                .WithOne(x => x.DictionaryCartoon)
+                .HasForeignKey<CartoonSystemObject>(c => c.DictionaryCartoonId);
         }
 
         public void Configure(EntityTypeBuilder<DictionaryStudio> builder)
         {
+            builder.HasOne(x => x.SystemObject)
+                .WithOne(x => x.DictionaryStudio)
+                .HasForeignKey<CartoonSystemObject>(c => c.DictionaryStudioId);
         }
 
         public void Configure(EntityTypeBuilder<DictionaryCatroonStudio> builder)
