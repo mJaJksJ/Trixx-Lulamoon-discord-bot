@@ -23,11 +23,13 @@
                 <app-trixx-form-field [label]="config.label || ''">
                   <nb-select 
                     fullWidth 
-                    placeholder="Form control" 
+                    [placeholder]="config.placeholder || ''" 
                     [formControlName]="config.name"
                     #appFormField
                     #appColorize
                   >
+                  <!-- TODO: сделать компонент для select  -->
+                    <nb-option [value]="null">&nbsp;</nb-option>
                     <nb-option *ngFor="let option of config.options$ | async" [value]="option.id">{{ option.label }}</nb-option>
                   </nb-select>
                 </app-trixx-form-field>
