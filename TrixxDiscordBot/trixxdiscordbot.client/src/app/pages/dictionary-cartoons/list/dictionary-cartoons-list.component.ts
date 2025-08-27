@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
-import { CartoonsListSelectItem } from '../../../../api/models';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { CartoonsFilterModel, CartoonsListSelectItem, SelectItem } from '../../../../api/models';
 import { CartoonsService } from '../../../../api/services';
 import { ActionButtonTypes, TrixxTableComponent } from '../../../shared/modules/trixx-table/trixx-table.component';
 import { NbDialogService } from '@nebular/theme';
 import { DictionaryCartoonsEditComponent } from '../edit/dictionary-cartoons-edit.component';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dictionary-cartoons-list',
@@ -12,26 +13,38 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './dictionary-cartoons-list.component.html',
   styleUrl: './dictionary-cartoons-list.component.scss'
 })
-export class DictionaryCartoonsListComponent  implements AfterViewInit, OnDestroy {
+export class DictionaryCartoonsListComponent  implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('table', { read: ViewContainerRef }) 
   public tableContainer!: ViewContainerRef;
-  private table!: TrixxTableComponent<CartoonsListSelectItem>;
+  private table!: TrixxTableComponent<CartoonsListSelectItem, CartoonsFilterModel>;
   private destroy$ = new Subject<void>();
+
+  private formConf: { [x in keyof CartoonsFilterModel]-?: AbstractControl } = {
+    search: new FormControl(''),
+    studioId: new FormControl(),
+  };
+  public form = new FormGroup(this.formConf);
+  public studios$: Observable<SelectItem[]> = of([]);
 
   constructor(
     private readonly apiService: CartoonsService,
     private readonly dialogService: NbDialogService,
   ) {
   }
+
+  ngOnInit(): void {
+    this.studios$ = this.apiService.apiCartoonsStudiosGet();
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
   ngAfterViewInit(): void {
-    const componentRef = this.tableContainer.createComponent(TrixxTableComponent<CartoonsListSelectItem>);
+    const componentRef = this.tableContainer.createComponent(TrixxTableComponent<CartoonsListSelectItem, CartoonsFilterModel>);
     this.table = componentRef.instance;
-    this.table.apiGet = () => this.apiService.apiCartoonsGet();
+    this.table.apiGet = (filterModel?: CartoonsFilterModel) => this.apiService.apiCartoonsSearchPost({ body: filterModel });
     this.table.columns = [
       { key: 'label', name: 'Название' },
       { key: 'year', name: 'Год' },
@@ -43,10 +56,11 @@ export class DictionaryCartoonsListComponent  implements AfterViewInit, OnDestro
       { action: (id: number) => this.editCartoon(id), type: ActionButtonTypes.Edit },
       { action: (id: number) => this.deleteCartoon(id), type: ActionButtonTypes.Delete },
     ];
+    this.table.form = this.form;
     componentRef.instance.init();
   }
 
-addCartoon() {
+  addCartoon() {
     this.dialogService
       .open(DictionaryCartoonsEditComponent, { closeOnBackdropClick: false })
       .onClose

@@ -19,10 +19,12 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
         private readonly CartoonsDatabaseContext _cartoonsDatabaseContext = cartoonsDatabaseContext;
         private readonly DatabaseContext _databaseContext = databaseContext;
 
-        [HttpGet]
-        public async Task<IReadOnlyList<CartoonsListSelectItem>> GetCartoonsListAsync()
+        [HttpPost("search")]
+        public async Task<IReadOnlyList<CartoonsListSelectItem>> GetCartoonsListAsync(CartoonsFilterModel filterModel)
         {
-            return (await _cartoonsDatabaseContext.DictionaryCartoons
+            filterModel.Search = filterModel.Search.Normalize();
+
+            var cartoons = (await _cartoonsDatabaseContext.DictionaryCartoons
                 .OrderByDescending(ds => ds.SystemObject.CreateDateTime)
                 .Select(dc => new
                 {
@@ -32,8 +34,13 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
                     Sources = dc.Sources,
                     Studios = dc.Studios.Select(x => new SelectItem { Id = x.Id, Label = x.DictionaryStudio.Name }).ToList(),
                     Year = dc.Year,
+                    NormalizedAllNames = dc.NormalizedAllNames,
                 })
-                .ToListAsync()) // TODO: разобраться почему падает у Sources если сразу выгружать из базы
+                .ToListAsync()); // TODO: разобраться почему падает у Sources если сразу выгружать из базы
+
+            return cartoons
+                .Where(x => string.IsNullOrEmpty(filterModel.Search) || x.NormalizedAllNames.Any(n => n.Contains(filterModel.Search) || filterModel.Search.Contains(n)))
+                .Where(x => !filterModel.StudioId.HasValue || x.Studios.Any(s => s.Id == filterModel.StudioId))
                 .Select(dc => new CartoonsListSelectItem
                 {
                     Id = dc.Id,
@@ -117,8 +124,9 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
             cartoon.Year = model.Year;
             cartoon.AlternativeNames = model.AlternativeNames;
             cartoon.Sources = model.Sources;
-
-            var studiosMerger = new ManyToManyDbMerger<DictionaryCatroonStudio>(_cartoonsDatabaseContext);
+            cartoon.NormalizedAllNames = [];
+            cartoon.NormalizedAllNames.Add(model.Name.Normalize());
+            cartoon.NormalizedAllNames.AddRange(model.AlternativeNames.Select(x => x.Normalize()));
 
             if (model.Id is null)
             {
@@ -126,6 +134,7 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
             }
             await _cartoonsDatabaseContext.SaveChangesAsync();
 
+            var studiosMerger = new ManyToManyDbMerger<DictionaryCatroonStudio>(_cartoonsDatabaseContext);
             await studiosMerger.MergeAsync(
                 model.Studios,
                 x => x.CartoonId == model.Id,

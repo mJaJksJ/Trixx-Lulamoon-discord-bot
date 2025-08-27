@@ -11,10 +11,6 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { apiCartoonsGet } from '../fn/cartoons/api-cartoons-get';
-import { ApiCartoonsGet$Params } from '../fn/cartoons/api-cartoons-get';
-import { apiCartoonsGet$Plain } from '../fn/cartoons/api-cartoons-get-plain';
-import { ApiCartoonsGet$Plain$Params } from '../fn/cartoons/api-cartoons-get-plain';
 import { apiCartoonsIdDelete } from '../fn/cartoons/api-cartoons-id-delete';
 import { ApiCartoonsIdDelete$Params } from '../fn/cartoons/api-cartoons-id-delete';
 import { apiCartoonsIdGet } from '../fn/cartoons/api-cartoons-id-get';
@@ -23,6 +19,10 @@ import { apiCartoonsIdGet$Plain } from '../fn/cartoons/api-cartoons-id-get-plain
 import { ApiCartoonsIdGet$Plain$Params } from '../fn/cartoons/api-cartoons-id-get-plain';
 import { apiCartoonsPost } from '../fn/cartoons/api-cartoons-post';
 import { ApiCartoonsPost$Params } from '../fn/cartoons/api-cartoons-post';
+import { apiCartoonsSearchPost } from '../fn/cartoons/api-cartoons-search-post';
+import { ApiCartoonsSearchPost$Params } from '../fn/cartoons/api-cartoons-search-post';
+import { apiCartoonsSearchPost$Plain } from '../fn/cartoons/api-cartoons-search-post-plain';
+import { ApiCartoonsSearchPost$Plain$Params } from '../fn/cartoons/api-cartoons-search-post-plain';
 import { apiCartoonsStudiosGet } from '../fn/cartoons/api-cartoons-studios-get';
 import { ApiCartoonsStudiosGet$Params } from '../fn/cartoons/api-cartoons-studios-get';
 import { apiCartoonsStudiosGet$Plain } from '../fn/cartoons/api-cartoons-studios-get-plain';
@@ -36,78 +36,52 @@ export class CartoonsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `apiCartoonsGet()` */
-  static readonly ApiCartoonsGetPath = '/api/Cartoons';
+  /** Path part for operation `apiCartoonsSearchPost()` */
+  static readonly ApiCartoonsSearchPostPath = '/api/Cartoons/search';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiCartoonsGet$Plain()` instead.
+   * To access only the response body, use `apiCartoonsSearchPost$Plain()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiCartoonsGet$Plain$Response(params?: ApiCartoonsGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CartoonsListSelectItem>>> {
-    return apiCartoonsGet$Plain(this.http, this.rootUrl, params, context);
+  apiCartoonsSearchPost$Plain$Response(params?: ApiCartoonsSearchPost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CartoonsListSelectItem>>> {
+    return apiCartoonsSearchPost$Plain(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiCartoonsGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiCartoonsSearchPost$Plain$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiCartoonsGet$Plain(params?: ApiCartoonsGet$Plain$Params, context?: HttpContext): Observable<Array<CartoonsListSelectItem>> {
+  apiCartoonsSearchPost$Plain(params?: ApiCartoonsSearchPost$Plain$Params, context?: HttpContext): Observable<Array<CartoonsListSelectItem>> {
 
-    return this.apiCartoonsGet$Plain$Response(params).pipe(
+    return this.apiCartoonsSearchPost$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<Array<CartoonsListSelectItem>>) => r.body as Array<CartoonsListSelectItem>)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiCartoonsGet()` instead.
+   * To access only the response body, use `apiCartoonsSearchPost()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiCartoonsGet$Response(params?: ApiCartoonsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CartoonsListSelectItem>>> {
-    return apiCartoonsGet(this.http, this.rootUrl, params, context);
+  apiCartoonsSearchPost$Response(params?: ApiCartoonsSearchPost$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CartoonsListSelectItem>>> {
+    return apiCartoonsSearchPost(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiCartoonsGet$Response()` instead.
+   * To access the full response (for headers, for example), `apiCartoonsSearchPost$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiCartoonsGet(params?: ApiCartoonsGet$Params, context?: HttpContext): Observable<Array<CartoonsListSelectItem>> {
+  apiCartoonsSearchPost(params?: ApiCartoonsSearchPost$Params, context?: HttpContext): Observable<Array<CartoonsListSelectItem>> {
 
-    return this.apiCartoonsGet$Response(params).pipe(
+    return this.apiCartoonsSearchPost$Response(params).pipe(
       map((r: StrictHttpResponse<Array<CartoonsListSelectItem>>) => r.body as Array<CartoonsListSelectItem>)
-    );
-  }
-
-  /** Path part for operation `apiCartoonsPost()` */
-  static readonly ApiCartoonsPostPath = '/api/Cartoons';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiCartoonsPost()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  apiCartoonsPost$Response(params?: ApiCartoonsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiCartoonsPost(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiCartoonsPost$Response()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  apiCartoonsPost(params?: ApiCartoonsPost$Params, context?: HttpContext): Observable<void> {
-
-    return this.apiCartoonsPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 
@@ -182,6 +156,32 @@ export class CartoonsService extends BaseService {
   apiCartoonsIdDelete(params: ApiCartoonsIdDelete$Params, context?: HttpContext): Observable<void> {
 
     return this.apiCartoonsIdDelete$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /** Path part for operation `apiCartoonsPost()` */
+  static readonly ApiCartoonsPostPath = '/api/Cartoons';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCartoonsPost()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiCartoonsPost$Response(params?: ApiCartoonsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCartoonsPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCartoonsPost$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiCartoonsPost(params?: ApiCartoonsPost$Params, context?: HttpContext): Observable<void> {
+
+    return this.apiCartoonsPost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

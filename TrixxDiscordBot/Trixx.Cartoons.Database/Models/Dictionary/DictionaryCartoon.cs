@@ -13,5 +13,7 @@
 #pragma warning restore CS8618
         public int SystemObjectId { get; set; }
         // TODO: add countries (find list of countries for dictionary)
+
+        public List<string> NormalizedAllNames { get; set; } = [];
     }
 }

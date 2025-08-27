@@ -15,7 +15,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class DictionaryStudiosListComponent implements AfterViewInit, OnDestroy {
   @ViewChild('table', { read: ViewContainerRef }) 
   public tableContainer!: ViewContainerRef;
-  private table!: TrixxTableComponent<StudiosListSelectItem>;
+  private table!: TrixxTableComponent<StudiosListSelectItem, object>;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -29,7 +29,7 @@ export class DictionaryStudiosListComponent implements AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
-    const componentRef = this.tableContainer.createComponent(TrixxTableComponent<StudiosListSelectItem>);
+    const componentRef = this.tableContainer.createComponent(TrixxTableComponent<StudiosListSelectItem, object>);
     this.table = componentRef.instance;
     this.table.apiGet = () => this.apiService.apiStudiosGet();
     this.table.columns =  [

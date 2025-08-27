@@ -13,6 +13,7 @@ namespace Trixx.Cartoons.Database.Models.Dictionary
         {
             builder.Property(x => x.AlternativeNames).Json();
             builder.Property(x => x.Sources).Json();
+            builder.Property(x => x.NormalizedAllNames).Json();
 
             builder.HasOne(x => x.SystemObject)
                 .WithOne(x => x.DictionaryCartoon)

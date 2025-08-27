@@ -8,18 +8,21 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { CartoonsFilterModel } from '../../models/cartoons-filter-model';
 import { CartoonsListSelectItem } from '../../models/cartoons-list-select-item';
 
-export interface ApiCartoonsGet$Plain$Params {
+export interface ApiCartoonsSearchPost$Params {
+      body?: CartoonsFilterModel
 }
 
-export function apiCartoonsGet$Plain(http: HttpClient, rootUrl: string, params?: ApiCartoonsGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CartoonsListSelectItem>>> {
-  const rb = new RequestBuilder(rootUrl, apiCartoonsGet$Plain.PATH, 'get');
+export function apiCartoonsSearchPost(http: HttpClient, rootUrl: string, params?: ApiCartoonsSearchPost$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CartoonsListSelectItem>>> {
+  const rb = new RequestBuilder(rootUrl, apiCartoonsSearchPost.PATH, 'post');
   if (params) {
+    rb.body(params.body, 'application/*+json');
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: 'text/plain', context })
+    rb.build({ responseType: 'json', accept: 'text/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
@@ -28,4 +31,4 @@ export function apiCartoonsGet$Plain(http: HttpClient, rootUrl: string, params?:
   );
 }
 
-apiCartoonsGet$Plain.PATH = '/api/Cartoons';
+apiCartoonsSearchPost.PATH = '/api/Cartoons/search';

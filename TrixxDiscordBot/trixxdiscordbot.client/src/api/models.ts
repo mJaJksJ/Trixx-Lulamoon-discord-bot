@@ -5,6 +5,7 @@
 export { AuthFailTypes } from './models/auth-fail-types';
 export type { AuthRequestModel } from './models/auth-request-model';
 export type { AuthResultModel } from './models/auth-result-model';
+export type { CartoonsFilterModel } from './models/cartoons-filter-model';
 export type { CartoonsListSelectItem } from './models/cartoons-list-select-item';
 export type { CartoonUpdateModel } from './models/cartoon-update-model';
 export { Permission } from './models/permission';
