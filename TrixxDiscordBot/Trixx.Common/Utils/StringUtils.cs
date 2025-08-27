@@ -9,7 +9,7 @@ namespace Trixx.Common.Utils
         [GeneratedRegex("[^a-zA-Zа-яА-Я0-9]")]
         private static partial Regex _normalizeRegex();
 
-        public static string Normalize(this string str)
+        public static string ToNormalized(this string str)
         {
             return NormalizeRegex.Replace(str.ToUpper(), string.Empty);
         }

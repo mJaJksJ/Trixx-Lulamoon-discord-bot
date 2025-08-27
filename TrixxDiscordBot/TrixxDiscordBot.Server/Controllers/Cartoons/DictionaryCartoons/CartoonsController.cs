@@ -22,7 +22,7 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
         [HttpPost("search")]
         public async Task<IReadOnlyList<CartoonsListSelectItem>> GetCartoonsListAsync(CartoonsFilterModel filterModel)
         {
-            filterModel.Search = filterModel.Search.Normalize();
+            filterModel.Search = filterModel.Search.ToNormalized();
 
             var cartoons = (await _cartoonsDatabaseContext.DictionaryCartoons
                 .OrderByDescending(ds => ds.SystemObject.CreateDateTime)
@@ -125,8 +125,8 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
             cartoon.AlternativeNames = model.AlternativeNames;
             cartoon.Sources = model.Sources;
             cartoon.NormalizedAllNames = [];
-            cartoon.NormalizedAllNames.Add(model.Name.Normalize());
-            cartoon.NormalizedAllNames.AddRange(model.AlternativeNames.Select(x => x.Normalize()));
+            cartoon.NormalizedAllNames.Add(model.Name.ToNormalized());
+            cartoon.NormalizedAllNames.AddRange(model.AlternativeNames.Select(x => x.ToNormalized()));
 
             if (model.Id is null)
             {
