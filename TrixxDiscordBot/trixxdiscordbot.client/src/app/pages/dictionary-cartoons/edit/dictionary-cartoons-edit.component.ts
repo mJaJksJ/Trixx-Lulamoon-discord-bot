@@ -31,7 +31,7 @@ export class DictionaryCartoonsEditComponent implements OnInit, OnDestroy {
     alternativeNames: new FormArray([]),
     sources: new FormArray([]),
     studios: new FormArray([]),
-    year: new FormControl(null, [Validators.required]),
+    year: new FormControl(),
   };
   public formArrayConfs: { [x in keyof CartoonUpdateModel]: ArrayFieldConfig[] } = {
     alternativeNames: [

@@ -10,5 +10,5 @@ export interface CartoonsListSelectItem {
   label?: string | null;
   sources?: Array<RefItem> | null;
   studios?: Array<SelectItem> | null;
-  year?: number;
+  year?: number | null;
 }

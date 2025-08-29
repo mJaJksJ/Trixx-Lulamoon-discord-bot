@@ -6,7 +6,7 @@
         public string Name { get; set; } = string.Empty;
         public List<string> AlternativeNames { get; set; } = [];
         public List<DictionaryCatroonStudio> Studios { get; set; } = [];
-        public int Year { get; set; }
+        public int? Year { get; set; }
         public List<string> Sources { get; set; } = [];
 #pragma warning disable CS8618
         public CartoonSystemObject SystemObject { get; set; }

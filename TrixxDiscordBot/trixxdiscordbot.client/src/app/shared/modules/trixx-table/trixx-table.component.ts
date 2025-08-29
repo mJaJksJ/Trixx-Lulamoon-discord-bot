@@ -67,6 +67,6 @@ export class TrixxTableComponent<T, TF> {
   }
 
   isRef(value: any) {
-    return !!value.ref;
+    return value && !!value.ref;
   }
 }

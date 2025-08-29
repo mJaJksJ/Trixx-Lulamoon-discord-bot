@@ -8,5 +8,5 @@ export interface CartoonUpdateModel {
   name?: string | null;
   sources?: Array<string> | null;
   studios?: Array<number> | null;
-  year?: number;
+  year?: number | null;
 }
