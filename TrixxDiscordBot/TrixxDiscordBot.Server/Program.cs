@@ -57,4 +57,7 @@ app.MapControllers();
 app.Services.MigrateTrixxDatabase();
 app.Services.MigrateTrixxCartoonsDatabase();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.Run();
