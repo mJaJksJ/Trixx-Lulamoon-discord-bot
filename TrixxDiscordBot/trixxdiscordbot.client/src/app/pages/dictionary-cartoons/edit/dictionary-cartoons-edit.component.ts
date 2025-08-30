@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CartoonsService } from '../../../../api/services';
 import { CartoonUpdateModel, SelectItem } from '../../../../api/models';
 import { FormControl, Validators, FormGroup, FormArray, AbstractControl } from '@angular/forms';
@@ -70,7 +70,6 @@ export class DictionaryCartoonsEditComponent implements OnInit, OnDestroy {
   constructor(
     private readonly apiService: CartoonsService,
     public readonly dialogRef: NbDialogRef<any>,
-    public readonly cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -95,6 +94,16 @@ export class DictionaryCartoonsEditComponent implements OnInit, OnDestroy {
           cartoon.alternativeNames?.forEach(x => this.alternativeNamesComponent.addItem({ value: x }));
           cartoon.studios?.forEach(x => this.studiosComponent.addItem({ value: x.id! }));
           cartoon.sources?.forEach(x => this.sourcesComponent.addItem({ value: x }));
+        });
+    } else {
+      this.apiService
+        .apiCartoonsFormDefaultsGet()
+        .pipe(
+          takeUntil(this.destroy$),
+        )
+        .subscribe(formDefault => {
+          this.form.markAsPristine();
+          this.studiosComponent.addItem({ value: formDefault.dictionaryStudioId! });
         });
     }
   }

@@ -11,6 +11,10 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { apiCartoonsFormDefaultsGet } from '../fn/cartoons/api-cartoons-form-defaults-get';
+import { ApiCartoonsFormDefaultsGet$Params } from '../fn/cartoons/api-cartoons-form-defaults-get';
+import { apiCartoonsFormDefaultsGet$Plain } from '../fn/cartoons/api-cartoons-form-defaults-get-plain';
+import { ApiCartoonsFormDefaultsGet$Plain$Params } from '../fn/cartoons/api-cartoons-form-defaults-get-plain';
 import { apiCartoonsIdDelete } from '../fn/cartoons/api-cartoons-id-delete';
 import { ApiCartoonsIdDelete$Params } from '../fn/cartoons/api-cartoons-id-delete';
 import { apiCartoonsIdGet } from '../fn/cartoons/api-cartoons-id-get';
@@ -23,10 +27,13 @@ import { apiCartoonsSearchPost } from '../fn/cartoons/api-cartoons-search-post';
 import { ApiCartoonsSearchPost$Params } from '../fn/cartoons/api-cartoons-search-post';
 import { apiCartoonsSearchPost$Plain } from '../fn/cartoons/api-cartoons-search-post-plain';
 import { ApiCartoonsSearchPost$Plain$Params } from '../fn/cartoons/api-cartoons-search-post-plain';
+import { apiCartoonsSetFormDefaultsPost } from '../fn/cartoons/api-cartoons-set-form-defaults-post';
+import { ApiCartoonsSetFormDefaultsPost$Params } from '../fn/cartoons/api-cartoons-set-form-defaults-post';
 import { apiCartoonsStudiosGet } from '../fn/cartoons/api-cartoons-studios-get';
 import { ApiCartoonsStudiosGet$Params } from '../fn/cartoons/api-cartoons-studios-get';
 import { apiCartoonsStudiosGet$Plain } from '../fn/cartoons/api-cartoons-studios-get-plain';
 import { ApiCartoonsStudiosGet$Plain$Params } from '../fn/cartoons/api-cartoons-studios-get-plain';
+import { CartoonFormDefaults } from '../models/cartoon-form-defaults';
 import { CartoonsListSelectItem } from '../models/cartoons-list-select-item';
 import { SelectItem } from '../models/select-item';
 
@@ -232,6 +239,81 @@ export class CartoonsService extends BaseService {
 
     return this.apiCartoonsStudiosGet$Response(params).pipe(
       map((r: StrictHttpResponse<Array<SelectItem>>) => r.body as Array<SelectItem>)
+    );
+  }
+
+  /** Path part for operation `apiCartoonsFormDefaultsGet()` */
+  static readonly ApiCartoonsFormDefaultsGetPath = '/api/Cartoons/form-defaults';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCartoonsFormDefaultsGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsFormDefaultsGet$Plain$Response(params?: ApiCartoonsFormDefaultsGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<CartoonFormDefaults>> {
+    return apiCartoonsFormDefaultsGet$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCartoonsFormDefaultsGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsFormDefaultsGet$Plain(params?: ApiCartoonsFormDefaultsGet$Plain$Params, context?: HttpContext): Observable<CartoonFormDefaults> {
+
+    return this.apiCartoonsFormDefaultsGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<CartoonFormDefaults>) => r.body as CartoonFormDefaults)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCartoonsFormDefaultsGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsFormDefaultsGet$Response(params?: ApiCartoonsFormDefaultsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<CartoonFormDefaults>> {
+    return apiCartoonsFormDefaultsGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCartoonsFormDefaultsGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCartoonsFormDefaultsGet(params?: ApiCartoonsFormDefaultsGet$Params, context?: HttpContext): Observable<CartoonFormDefaults> {
+
+    return this.apiCartoonsFormDefaultsGet$Response(params).pipe(
+      map((r: StrictHttpResponse<CartoonFormDefaults>) => r.body as CartoonFormDefaults)
+    );
+  }
+
+  /** Path part for operation `apiCartoonsSetFormDefaultsPost()` */
+  static readonly ApiCartoonsSetFormDefaultsPostPath = '/api/Cartoons/set-form-defaults';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCartoonsSetFormDefaultsPost()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiCartoonsSetFormDefaultsPost$Response(params?: ApiCartoonsSetFormDefaultsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCartoonsSetFormDefaultsPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCartoonsSetFormDefaultsPost$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiCartoonsSetFormDefaultsPost(params?: ApiCartoonsSetFormDefaultsPost$Params, context?: HttpContext): Observable<void> {
+
+    return this.apiCartoonsSetFormDefaultsPost$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 

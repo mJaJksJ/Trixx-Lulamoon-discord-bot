@@ -6,11 +6,13 @@ import { DictionaryCartoonsListComponent } from './list/dictionary-cartoons-list
 import { DictionaryCartoonsRoutingModule } from './dictionary-cartoons-routing.module';
 import { DictionaryCartoonsEditComponent } from './edit/dictionary-cartoons-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DictionaryCartoonsFormDefaultComponent } from './form-default/dictionary-cartoons-form-default.component';
 
 @NgModule({
   declarations: [
     DictionaryCartoonsListComponent,
     DictionaryCartoonsEditComponent,
+    DictionaryCartoonsFormDefaultComponent,
   ],
   imports: [
     CommonModule,

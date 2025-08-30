@@ -1,0 +1,33 @@
+<nb-card [appSpinner]="loading$ | async">
+    <nb-card-header>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h3>
+                    Значения по умолчанию
+                </h3>
+            </div>
+            <div>
+                <button nbButton (click)="handleClose()" size="small"><nb-icon icon="close-outline"></nb-icon></button>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <app-trixx-form-field label="Студия">
+                <nb-select 
+                    fullWidth 
+                    placeholder="Студия" 
+                    formControlName="dictionaryStudioId"
+                    #appFormField
+                    #appColorize
+                >
+                    <nb-option [value]="null">&nbsp;</nb-option>
+                    <nb-option *ngFor="let option of studios$ | async" [value]="option.id">{{ option.label }}</nb-option>
+                </nb-select>
+            </app-trixx-form-field>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton [disabled]="form.invalid" (click)="save()" status="success">Сохранить</button>
+    </nb-card-footer>
+</nb-card>

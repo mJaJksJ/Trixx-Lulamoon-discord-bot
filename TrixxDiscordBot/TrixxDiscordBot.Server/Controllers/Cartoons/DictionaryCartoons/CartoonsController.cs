@@ -6,6 +6,7 @@ using Trixx.Common.Models;
 using Trixx.Common.Utils;
 using Trixx.Database;
 using Trixx.Database.Enums;
+using Trixx.Database.Models.FormDefaults;
 using TrixxDiscordBot.Server.Controllers.Cartoons.DictionaryCartoons.Models;
 using TrixxDiscordBot.Server.Startup.Auth;
 
@@ -159,6 +160,42 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
                 })
                 .OrderBy(dc => dc.Label)
                 .ToListAsync();
+        }
+
+        [HttpGet("form-defaults")]
+        public async Task<CartoonFormDefaults> GetFormDefaultsAsync()
+        {
+            var result = await _databaseContext.FormDeafaults
+                .Where(x => x.Type == FormDefaultType.Cartoon)
+                .Select(df => new CartoonFormDefaults
+                {
+                    DictionaryStudioId = df.Cartoon.DictionaryStudioId,
+                })
+                .FirstOrDefaultAsync();
+
+            return result ?? new CartoonFormDefaults();
+        }
+
+        [HttpPost("set-form-defaults")]
+        public async Task SetCartoonsListAsync(CartoonFormDefaults model)
+        {
+            var formDeafault = await _databaseContext.FormDeafaults
+                .Where(x => x.Type == FormDefaultType.Cartoon)
+                .FirstOrDefaultAsync();
+
+            if (formDeafault == null)
+            {
+                formDeafault = new FormDeafault
+                {
+                    Type = FormDefaultType.Cartoon,
+                    Cartoon = new Trixx.Database.Models.FormDefaults.Types.FormDeafaultCartoon(),
+                };
+                _databaseContext.FormDeafaults.Add(formDeafault);
+            }
+
+            formDeafault.Cartoon.DictionaryStudioId = model.DictionaryStudioId;
+
+            await _databaseContext.SaveChangesAsync();
         }
     }
 }

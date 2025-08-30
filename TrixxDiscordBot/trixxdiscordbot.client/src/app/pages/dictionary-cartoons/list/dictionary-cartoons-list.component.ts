@@ -6,6 +6,7 @@ import { NbDialogService } from '@nebular/theme';
 import { DictionaryCartoonsEditComponent } from '../edit/dictionary-cartoons-edit.component';
 import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { DictionaryCartoonsFormDefaultComponent } from '../form-default/dictionary-cartoons-form-default.component';
 
 @Component({
   selector: 'app-dictionary-cartoons-list',
@@ -98,5 +99,15 @@ export class DictionaryCartoonsListComponent  implements AfterViewInit, OnDestro
       .subscribe(() => {
         this.table.reload();
       })
+  }
+
+  setFormDefaults() {
+    this.dialogService
+      .open(DictionaryCartoonsFormDefaultComponent, { 
+        closeOnBackdropClick: false,
+      })
+      .onClose
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
   }
 }
