@@ -193,7 +193,10 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
                 _databaseContext.FormDeafaults.Add(formDeafault);
             }
 
-            formDeafault.Cartoon.DictionaryStudioId = model.DictionaryStudioId;
+            formDeafault.Cartoon = new Trixx.Database.Models.FormDefaults.Types.FormDeafaultCartoon
+            {
+                DictionaryStudioId = model.DictionaryStudioId,
+            };
 
             await _databaseContext.SaveChangesAsync();
         }

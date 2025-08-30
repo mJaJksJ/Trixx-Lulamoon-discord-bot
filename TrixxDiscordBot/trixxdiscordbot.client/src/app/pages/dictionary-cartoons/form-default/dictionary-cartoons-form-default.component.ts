@@ -34,6 +34,15 @@ export class DictionaryCartoonsFormDefaultComponent implements OnInit, OnDestroy
         this.loading$.wrap(),
         takeUntil(this.destroy$),
       );
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
 
     this.apiService
       .apiCartoonsFormDefaultsGet()
@@ -44,15 +53,6 @@ export class DictionaryCartoonsFormDefaultComponent implements OnInit, OnDestroy
         this.form.patchValue({...formDefault});
         this.form.markAsPristine();
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  ngAfterViewInit(): void {
-    this.cdr.detectChanges();
   }
 
   public save() {
