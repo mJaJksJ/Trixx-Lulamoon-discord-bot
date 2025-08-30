@@ -48,6 +48,7 @@ export class DictionaryCartoonsListComponent  implements AfterViewInit, OnDestro
     this.table.apiGet = (filterModel?: CartoonsFilterModel) => this.apiService.apiCartoonsSearchPost({ body: filterModel });
     this.table.columns = [
       { key: 'label', name: 'Название' },
+      { key: 'type', name: 'Тип' },
       { key: 'year', name: 'Год' },
       { key: 'studios', name: 'Студии' },
       { key: 'alternativeNames', name: 'Альтернативные названия' },

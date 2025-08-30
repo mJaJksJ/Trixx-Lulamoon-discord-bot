@@ -1,4 +1,5 @@
-﻿using Trixx.Cartoons.Database.Models.Dictionary;
+﻿using Trixx.Cartoons.Database.Enums;
+using Trixx.Cartoons.Database.Models.Dictionary;
 using Trixx.Common.Models;
 
 namespace TrixxDiscordBot.Server.Controllers.Cartoons.DictionaryCartoons.Models
@@ -9,5 +10,6 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.DictionaryCartoons.Models
         public List<SelectItem> Studios { get; set; } = [];
         public int? Year { get; set; }
         public List<RefItem> Sources { get; set; } = [];
+        public string Type { get; set; } = string.Empty;
     }
 }

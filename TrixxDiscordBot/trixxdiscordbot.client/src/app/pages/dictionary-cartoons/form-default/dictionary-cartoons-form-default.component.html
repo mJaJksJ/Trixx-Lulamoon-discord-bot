@@ -25,6 +25,19 @@
                     <nb-option *ngFor="let option of studios$ | async" [value]="option.id">{{ option.label }}</nb-option>
                 </nb-select>
             </app-trixx-form-field>
+
+            <app-trixx-form-field label="Тип">
+                <nb-select 
+                    fullWidth 
+                    placeholder="Тип" 
+                    formControlName="cartoonType"
+                    #appFormField
+                    #appColorize
+                >
+                    <nb-option [value]="null">&nbsp;</nb-option>
+                    <nb-option *ngFor="let option of cartoonTypes" [value]="option.id">{{ option.label }}</nb-option>
+                </nb-select>
+            </app-trixx-form-field>
         </form>
     </nb-card-body>
     <nb-card-footer>

@@ -8,6 +8,7 @@ export type { AuthResultModel } from './models/auth-result-model';
 export type { CartoonFormDefaults } from './models/cartoon-form-defaults';
 export type { CartoonsFilterModel } from './models/cartoons-filter-model';
 export type { CartoonsListSelectItem } from './models/cartoons-list-select-item';
+export { CartoonType } from './models/cartoon-type';
 export type { CartoonUpdateModel } from './models/cartoon-update-model';
 export { Permission } from './models/permission';
 export type { RefItem } from './models/ref-item';

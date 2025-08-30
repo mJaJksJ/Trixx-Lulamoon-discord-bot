@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trixx.Cartoons.Database;
+using Trixx.Cartoons.Database.Enums;
 using Trixx.Cartoons.Database.Models.Dictionary;
 using Trixx.Common.Models;
 using Trixx.Common.Utils;
@@ -36,6 +37,7 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
                     Studios = dc.Studios.Select(x => new SelectItem { Id = x.Id, Label = x.DictionaryStudio.Name }).ToList(),
                     Year = dc.Year,
                     NormalizedAllNames = dc.NormalizedAllNames,
+                    Type = dc.Type,
                 })
                 .ToListAsync()); // TODO: разобраться почему падает у Sources если сразу выгружать из базы
 
@@ -50,6 +52,7 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
                     Sources = dc.Sources.Select(x => new RefItem { Ref = x, Label = x }).ToList(),
                     Studios = dc.Studios,
                     Year = dc.Year,
+                    Type = dc.Type.CartoonTypesShortLabels(),
                 })
                 .ToList();
         }
@@ -66,6 +69,7 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
                     Sources = dc.Sources,
                     Studios = dc.Studios.Select(x => new SelectItem { Id = x.Id, Label = x.DictionaryStudio.Name }).ToList(),
                     Year = dc.Year,
+                    Type = dc.Type,
                 })
                 .FirstOrDefaultAsync(x => x.Id == id);
             // TODO: разобраться почему падает у Sources если сразу выгружать из базы
@@ -77,6 +81,7 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
                 Sources = item.Sources.Select(x => new RefItem { Ref = x, Label = x }).ToList(),
                 Studios = item.Studios,
                 Year = item.Year,
+                Type = item.Type.CartoonTypesShortLabels(),
             } : null;
         }
 
@@ -125,6 +130,8 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
             cartoon.Year = model.Year;
             cartoon.AlternativeNames = model.AlternativeNames;
             cartoon.Sources = model.Sources;
+            cartoon.Type = model.Type;
+
             cartoon.NormalizedAllNames = [];
             cartoon.NormalizedAllNames.Add(model.Name.ToNormalized());
             cartoon.NormalizedAllNames.AddRange(model.AlternativeNames.Select(x => x.ToNormalized()));
@@ -170,6 +177,7 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
                 .Select(df => new CartoonFormDefaults
                 {
                     DictionaryStudioId = df.Cartoon.DictionaryStudioId,
+                    CartoonType = (CartoonType?)df.Cartoon.CartoonType,
                 })
                 .FirstOrDefaultAsync();
 
@@ -196,6 +204,7 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
             formDeafault.Cartoon = new Trixx.Database.Models.FormDefaults.Types.FormDeafaultCartoon
             {
                 DictionaryStudioId = model.DictionaryStudioId,
+                CartoonType = (int?)model.CartoonType,
             };
 
             await _databaseContext.SaveChangesAsync();
