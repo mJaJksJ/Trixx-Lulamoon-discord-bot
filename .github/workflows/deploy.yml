@@ -23,17 +23,17 @@ jobs:
 
     - name: Install Angular dependencies
       run: |
-        cd trixxdiscordbot.client
+        cd TrixxDiscordBot/trixxdiscordbot.client
         npm install
 
     - name: Build Angular
       run: |
-        cd trixxdiscordbot.client
+        cd TrixxDiscordBot/trixxdiscordbot.client
         npm run build
 
     - name: Build .NET backend
       run: |
-        cd TrixxDiscordBot.Server
+        cd TrixxDiscordBot/TrixxDiscordBot.Server
         dotnet restore
         dotnet build --configuration Release
         dotnet publish -c Release -o publish
