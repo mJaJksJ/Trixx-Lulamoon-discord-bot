@@ -38,16 +38,29 @@ jobs:
         dotnet build --configuration Release
         dotnet publish -c Release -o publish
 
-    - name: Deploy to server
+    - name: Copy frontend
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.TRIXX_SERVER_HOST }}
+        username: ${{ secrets.TRIXX_SERVER_USER }}
+        key: ${{ secrets.TRIXX_SERVER_SSH_KEY }}
+        source: "trixxdiscordbot.client/dist/*"
+        target: "/var/www/v2trixx/client/"
+
+    - name: Copy backend
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.TRIXX_SERVER_HOST }}
+        username: ${{ secrets.TRIXX_SERVER_USER }}
+        key: ${{ secrets.TRIXX_SERVER_SSH_KEY }}
+        source: "TrixxDiscordBot.Server/publish/*"
+        target: "/var/www/v2trixx/server/"
+        
+    - name: Restart service
       uses: appleboy/ssh-action@v0.1.6
       with:
         host: ${{ secrets.TRIXX_SERVER_HOST }}
         username: ${{ secrets.TRIXX_SERVER_USER }}
         key: ${{ secrets.TRIXX_SERVER_SSH_KEY }}
-        port: 22
         script: |
-          mkdir -p /var/www/v2trixx
-          rsync -avz --delete ./trixxdiscordbot.client/dist/ /var/www/v2trixx/client/
-          rsync -avz --delete ./TrixxDiscordBot.Server/publish/ /var/www/v2trixx/server/
-          # Перезапуск сервиса systemd
-          sudo systemctl restart v2trixx
+          sudo systemctl restart trixxdiscordbot
