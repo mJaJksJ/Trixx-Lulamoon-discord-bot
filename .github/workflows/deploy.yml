@@ -50,4 +50,4 @@ jobs:
           rsync -avz --delete ./trixxdiscordbot.client/dist/ /var/www/v2trixx/client/
           rsync -avz --delete ./TrixxDiscordBot.Server/publish/ /var/www/v2trixx/server/
           # Перезапуск сервиса systemd
-          sudo systemctl restart trixxdiscordbot
+          sudo systemctl restart v2trixx
