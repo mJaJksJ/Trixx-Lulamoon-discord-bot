@@ -44,7 +44,7 @@ jobs:
         host: ${{ secrets.TRIXX_SERVER_HOST }}
         username: ${{ secrets.TRIXX_SERVER_USER }}
         key: ${{ secrets.TRIXX_SERVER_SSH_KEY }}
-        source: "trixxdiscordbot.client/dist/**"
+        source: "TrixxDiscordBot/trixxdiscordbot.client/dist/**"
         target: "/var/www/v2trixx/client/"
 
     - name: Copy backend
@@ -53,7 +53,7 @@ jobs:
         host: ${{ secrets.TRIXX_SERVER_HOST }}
         username: ${{ secrets.TRIXX_SERVER_USER }}
         key: ${{ secrets.TRIXX_SERVER_SSH_KEY }}
-        source: "TrixxDiscordBot.Server/publish/**"
+        source: "TrixxDiscordBot/TrixxDiscordBot.Server/publish/**"
         target: "/var/www/v2trixx/server/"
         
     - name: Restart service
