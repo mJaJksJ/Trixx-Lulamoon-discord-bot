@@ -63,4 +63,4 @@ jobs:
         username: ${{ secrets.TRIXX_SERVER_USER }}
         key: ${{ secrets.TRIXX_SERVER_SSH_KEY }}
         script: |
-          sudo systemctl restart trixxdiscordbot
+          sudo systemctl restart v2trixx
