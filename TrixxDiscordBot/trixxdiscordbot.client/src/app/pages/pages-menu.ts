@@ -36,4 +36,11 @@ export const MENU_ITEMS: () => TrixxMenuItem[] = () => [
     home: true,
     permission: Permission.TrixxUsersRead,
   },
+  {
+    title: 'Роли',
+    icon: 'color-palette-outline',
+    link: 'roles',
+    home: true,
+    permission: Permission.TrixxUsersRead,
+  },
 ];

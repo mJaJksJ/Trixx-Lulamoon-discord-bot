@@ -5,6 +5,7 @@
 export { AuthService } from './services/auth.service';
 export { CartoonsService } from './services/cartoons.service';
 export { MainPageService } from './services/main-page.service';
+export { RolesService } from './services/roles.service';
 export { StudiosService } from './services/studios.service';
 export { UserProfileService } from './services/user-profile.service';
 export { UsersService } from './services/users.service';

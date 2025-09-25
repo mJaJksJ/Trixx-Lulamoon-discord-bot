@@ -15,5 +15,8 @@ namespace Trixx.Database.Enums
 
         [EnumMember(Value = "Пользователи")]
         TrixxUsers = 4,
+
+        [EnumMember(Value = "Роли")]
+        TrixxRoles = 5,
     }   
 }

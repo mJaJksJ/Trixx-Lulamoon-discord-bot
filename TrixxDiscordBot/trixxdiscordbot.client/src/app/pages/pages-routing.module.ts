@@ -28,6 +28,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./admin/users/users.module').then((m) => m.UsersModule),
       },
+      {
+        path: 'roles',
+        loadChildren: () =>
+          import('./admin/roles/roles.module').then((m) => m.RolesModule),
+      },
     ],
   },
 ];

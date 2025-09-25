@@ -1,0 +1,17 @@
+<nb-card>
+    <nb-card-header>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h3>
+                    Пользователи
+                </h3>
+            </div>
+            <div>
+                <button nbButton (click)="addRole()">Добавить пользователя</button>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div #table></div>
+    </nb-card-body>
+</nb-card>

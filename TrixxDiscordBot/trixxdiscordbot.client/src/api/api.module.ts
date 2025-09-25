@@ -9,6 +9,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { AuthService } from './services/auth.service';
 import { CartoonsService } from './services/cartoons.service';
 import { MainPageService } from './services/main-page.service';
+import { RolesService } from './services/roles.service';
 import { StudiosService } from './services/studios.service';
 import { UserProfileService } from './services/user-profile.service';
 import { UsersService } from './services/users.service';
@@ -24,6 +25,7 @@ import { UsersService } from './services/users.service';
     AuthService,
     CartoonsService,
     MainPageService,
+    RolesService,
     StudiosService,
     UserProfileService,
     UsersService,

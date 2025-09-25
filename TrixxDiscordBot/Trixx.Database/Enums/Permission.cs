@@ -25,5 +25,10 @@ namespace Trixx.Database.Enums
         TrixxUsers_Read = 7,
         [PermissionMapping(Workscreen.TrixxUsers, CommonPermission.Edit)]
         TrixxUsers_Edit = 8,
+
+        [PermissionMapping(Workscreen.TrixxRoles, CommonPermission.Read)]
+        TrixxRoles_Read = 9,
+        [PermissionMapping(Workscreen.TrixxRoles, CommonPermission.Edit)]
+        TrixxRoles_Edit = 10,
     }
 }
