@@ -11,6 +11,7 @@ import { CartoonsService } from './services/cartoons.service';
 import { MainPageService } from './services/main-page.service';
 import { StudiosService } from './services/studios.service';
 import { UserProfileService } from './services/user-profile.service';
+import { UsersService } from './services/users.service';
 
 /**
  * Module that provides all services and configuration.
@@ -25,6 +26,7 @@ import { UserProfileService } from './services/user-profile.service';
     MainPageService,
     StudiosService,
     UserProfileService,
+    UsersService,
     ApiConfiguration
   ],
 })

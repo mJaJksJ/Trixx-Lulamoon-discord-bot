@@ -6,6 +6,7 @@ using Trixx.Cartoons.Database;
 using TrixxDiscordBot.Server.Startup.Auth;
 using TrixxDiscordBot.Server.Startup.Swagger;
 using System.Text.Json.Serialization;
+using Trixx.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -40,6 +41,9 @@ builder.Services
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+
+builder.Services
+    .AddTrixxCore();
 
 var app = builder.Build();
 var env = app.Environment;

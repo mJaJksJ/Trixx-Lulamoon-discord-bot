@@ -22,11 +22,18 @@ export const MENU_ITEMS: () => TrixxMenuItem[] = () => [
     home: true,
     permission: Permission.DictionaryCartoonsRead,
   },
-    {
+  {
     title: 'Студии',
     icon: 'cube-outline',
     link: 'dictionary-studios',
     home: true,
     permission: Permission.DictionaryStudiosRead,
+  },
+  {
+    title: 'Пользователи',
+    icon: 'people-outline',
+    link: 'users',
+    home: true,
+    permission: Permission.TrixxUsersRead,
   },
 ];

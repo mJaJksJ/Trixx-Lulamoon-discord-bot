@@ -9,13 +9,15 @@ export interface TrixxTableColumn<T> {
 }
 
 export interface IActionButton {
-  action: (id: number) => void;
+  action: (id: number, params?: any) => void;
   type: ActionButtonTypes;
 }
 
 export enum ActionButtonTypes {
     Edit = 'Редактировать',
     Delete = 'Удалить',
+    Lock = 'Заблокировать',
+    Unlock = 'Разблокировать',
 }
 
 @Component({
@@ -36,6 +38,8 @@ export class TrixxTableComponent<T, TF> {
   public readonly icons: Record<ActionButtonTypes, string> = {
     [ActionButtonTypes.Edit]: 'edit-outline',
     [ActionButtonTypes.Delete]: 'trash-2-outline',
+    [ActionButtonTypes.Lock]: 'lock-outline',
+    [ActionButtonTypes.Unlock]: 'unlock-outline',
   };
 
   init(): void {

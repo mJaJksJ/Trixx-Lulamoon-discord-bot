@@ -12,5 +12,8 @@ namespace Trixx.Database.Enums
 
         [EnumMember(Value = "Мульт. Студии")]
         DictionaryStudios = 3,
-    }
+
+        [EnumMember(Value = "Пользователи")]
+        TrixxUsers = 4,
+    }   
 }

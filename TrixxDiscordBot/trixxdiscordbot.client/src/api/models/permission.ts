@@ -9,5 +9,7 @@ export enum Permission {
   DictionaryCartoonsDelete = 'DictionaryCartoons_Delete',
   DictionaryStudiosRead = 'DictionaryStudios_Read',
   DictionaryStudiosEdit = 'DictionaryStudios_Edit',
-  DictionaryStudiosDelete = 'DictionaryStudios_Delete'
+  DictionaryStudiosDelete = 'DictionaryStudios_Delete',
+  TrixxUsersRead = 'TrixxUsers_Read',
+  TrixxUsersEdit = 'TrixxUsers_Edit'
 }

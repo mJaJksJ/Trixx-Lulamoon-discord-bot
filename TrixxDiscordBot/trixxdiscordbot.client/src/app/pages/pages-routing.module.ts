@@ -23,6 +23,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./dictionary-cartoons/dictionary-cartoons.module').then((m) => m.DictionaryCartoonsModule),
       },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('./admin/users/users.module').then((m) => m.UsersModule),
+      },
     ],
   },
 ];

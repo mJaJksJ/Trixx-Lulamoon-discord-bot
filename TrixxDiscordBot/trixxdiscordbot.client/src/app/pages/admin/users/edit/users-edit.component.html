@@ -1,0 +1,32 @@
+<nb-card [appSpinner]="loading$ | async">
+    <nb-card-header>
+        <div style="display: flex; justify-content: space-between;; align-items: center;">
+            <div>
+                <h3>
+                    {{ isEdit ? 'Редактирование' : 'Добавление' }} пользователя
+                </h3>
+            </div>
+            <div>
+                <button nbButton (click)="handleClose()" size="small"><nb-icon icon="close-outline"></nb-icon></button>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <app-trixx-form-field label="Системное имя пользователя">
+                <input 
+                    #appFormField
+                    #appColorize
+                    type="text" 
+                    formControlName="userName"
+                    placeholder="Системное имя пользователя"
+                    nbInput
+                    fullWidth
+                >
+            </app-trixx-form-field>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <button *ngIf="!isEdit" nbButton [disabled]="form.invalid" (click)="save()" status="success">Сохранить</button>
+    </nb-card-footer>
+</nb-card>

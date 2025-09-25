@@ -17,9 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trixx.Database.Common", "Tr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cartoons", "Cartoons", "{83BCF8CA-B422-4EF9-9DCB-3E38058CE919}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trixx.Cartoons.Migrations", "Trixx.Cartoons.Migrations\Trixx.Cartoons.Migrations.csproj", "{A06A1026-23C8-4D85-9718-23998A0564FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trixx.Cartoons.Migrations", "Trixx.Cartoons.Migrations\Trixx.Cartoons.Migrations.csproj", "{A06A1026-23C8-4D85-9718-23998A0564FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trixx.Cartoons.Database", "Trixx.Cartoons.Database\Trixx.Cartoons.Database.csproj", "{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trixx.Cartoons.Database", "Trixx.Cartoons.Database\Trixx.Cartoons.Database.csproj", "{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{52B79106-4CB5-41D8-A939-58FD849C3DFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trixx.Core", "Trixx.Core\Trixx.Core.csproj", "{CB100225-5011-4C05-9EC2-89F275D896DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,13 +65,20 @@ Global
 		{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB100225-5011-4C05-9EC2-89F275D896DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB100225-5011-4C05-9EC2-89F275D896DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB100225-5011-4C05-9EC2-89F275D896DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB100225-5011-4C05-9EC2-89F275D896DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{6ABB408F-6336-4FD2-B9FC-0124E90A0C8D} = {52B79106-4CB5-41D8-A939-58FD849C3DFD}
+		{69D86711-51BB-498E-B729-E9C482D65D99} = {52B79106-4CB5-41D8-A939-58FD849C3DFD}
 		{A06A1026-23C8-4D85-9718-23998A0564FB} = {83BCF8CA-B422-4EF9-9DCB-3E38058CE919}
 		{61D7B34D-5075-4E2F-B3D3-D27EC8578B6F} = {83BCF8CA-B422-4EF9-9DCB-3E38058CE919}
+		{CB100225-5011-4C05-9EC2-89F275D896DC} = {52B79106-4CB5-41D8-A939-58FD849C3DFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A047ED52-B0DB-4BAC-99DD-60B2E39BBAB8}

@@ -15,4 +15,7 @@ export type { RefItem } from './models/ref-item';
 export type { SelectItem } from './models/select-item';
 export type { StudiosListSelectItem } from './models/studios-list-select-item';
 export type { StudioUpdateModel } from './models/studio-update-model';
+export type { UserListItem } from './models/user-list-item';
+export type { UserManuallyCreateModel } from './models/user-manually-create-model';
+export type { UserModel } from './models/user-model';
 export type { UserProfileModel } from './models/user-profile-model';
