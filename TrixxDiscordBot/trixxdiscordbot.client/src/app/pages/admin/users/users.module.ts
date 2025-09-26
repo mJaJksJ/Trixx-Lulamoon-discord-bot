@@ -5,12 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UsersListComponent } from './list/users-list.component';
 import { SharedModule } from '../../../shared/modules/shared.module';
 import { UsersRoutingModule } from './users-routing.module';
-import { DictionaryUsersEditComponent } from './edit/users-edit.component';
+import { UsersEditComponent } from './edit/users-edit.component';
 
 @NgModule({
   declarations: [
     UsersListComponent,
-    DictionaryUsersEditComponent,
+    UsersEditComponent,
   ],
   imports: [
     CommonModule,

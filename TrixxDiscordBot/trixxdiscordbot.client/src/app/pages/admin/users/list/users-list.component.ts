@@ -4,7 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { UserListItem } from '../../../../../api/models';
 import { ActionButtonTypes, TrixxTableComponent } from '../../../../shared/modules/trixx-table/trixx-table.component';
 import { UsersService } from '../../../../../api/services';
-import { DictionaryUsersEditComponent } from '../edit/users-edit.component';
+import { UsersEditComponent } from '../edit/users-edit.component';
 
 @Component({
   selector: 'app-users-list',
@@ -44,7 +44,7 @@ export class UsersListComponent implements AfterViewInit, OnDestroy {
   
   addUser() {
     this.dialogService
-      .open(DictionaryUsersEditComponent, { closeOnBackdropClick: false })
+      .open(UsersEditComponent, { closeOnBackdropClick: false })
       .onClose
       .pipe(takeUntil(this.destroy$))
       .subscribe((reload) => {
@@ -56,7 +56,7 @@ export class UsersListComponent implements AfterViewInit, OnDestroy {
 
   editUser(id: number) {
     this.dialogService
-      .open(DictionaryUsersEditComponent, { 
+      .open(UsersEditComponent, { 
         closeOnBackdropClick: false,
         context: {
           id: id,

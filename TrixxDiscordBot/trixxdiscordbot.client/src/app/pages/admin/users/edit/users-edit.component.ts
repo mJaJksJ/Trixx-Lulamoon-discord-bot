@@ -12,7 +12,7 @@ import { UserManuallyCreateModel } from '../../../../../api/models';
   templateUrl: './users-edit.component.html',
   styleUrl: './users-edit.component.scss',
 })
-export class DictionaryUsersEditComponent implements OnDestroy, OnInit {
+export class UsersEditComponent implements OnDestroy, OnInit {
   @Input() public id?: number;
 
   private formConf: { [x in keyof UserManuallyCreateModel]-?: FormControl } = {
