@@ -24,6 +24,10 @@ namespace Trixx.Core.Services.Roles
 
             role.Name = model.Name;
 
+            if (model.Id == null)
+            {
+                _databaseContext.Roles.Add(role);
+            }
             await _databaseContext.SaveChangesAsync();
         }
 
