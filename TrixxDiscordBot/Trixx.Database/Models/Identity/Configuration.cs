@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Trixx.Database.Common.Utils;
+using Trixx.Database.Enums;
 using Trixx.Database.Utils;
+using static Trixx.Database.Utils.PermissionUtils;
 
 namespace Trixx.Database.Models.Identity
 {
@@ -40,7 +42,7 @@ namespace Trixx.Database.Models.Identity
                 Name = "Администратор",
                 NormalizedName = "АДМИНИСТРАТОР",
                 IsReadOnly = true,
-                Permissions = PermissionsMappings.Lines.Select(x => x.Permission).ToList(),
+                Permissions = Enum.GetValues(typeof(Permission)).Cast<Permission>().ToList(),
                 ConcurrencyStamp = "c5b18af4-d272-4ee8-ac25-0009b9097533",
             });
 

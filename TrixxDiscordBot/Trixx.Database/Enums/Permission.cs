@@ -18,7 +18,7 @@ namespace Trixx.Database.Enums
         DictionaryStudios_Read = 4,
         [PermissionMapping(Workscreen.DictionaryStudios, CommonPermission.Edit)]
         DictionaryStudios_Edit = 5,
-        [PermissionMapping(Workscreen.DictionaryCartoons, CommonPermission.Delete)]
+        [PermissionMapping(Workscreen.DictionaryStudios, CommonPermission.Delete)]
         DictionaryStudios_Delete = 6,
 
         [PermissionMapping(Workscreen.TrixxUsers, CommonPermission.Read)]

@@ -24,6 +24,31 @@
                     fullWidth
                 >
             </app-trixx-form-field>
+
+            <div>
+                <table class="permissions-table">
+                    <thead>
+                        <tr>
+                        <th>Экран</th>
+                        <th *ngFor="let perm of commonPermissionHeaders">
+                            {{ perm }}
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ws of workscreenHeaders; let rowIndex = index">
+                        <td>{{ ws.workscreen }}</td>
+                        <td *ngFor="let perm of ws.permissions; let colIndex = index">
+                            <input
+                                *ngIf="$any(permissionsArray.at(rowIndex * commonPermissionHeaders.length + colIndex)).value !== null"
+                                type="checkbox"
+                                [formControl]="$any(permissionsArray.at(rowIndex * commonPermissionHeaders.length + colIndex))"
+                            />
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </form>
     </nb-card-body>
     <nb-card-footer>

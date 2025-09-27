@@ -11,5 +11,7 @@ export enum Permission {
   DictionaryStudiosEdit = 'DictionaryStudios_Edit',
   DictionaryStudiosDelete = 'DictionaryStudios_Delete',
   TrixxUsersRead = 'TrixxUsers_Read',
-  TrixxUsersEdit = 'TrixxUsers_Edit'
+  TrixxUsersEdit = 'TrixxUsers_Edit',
+  TrixxRolesRead = 'TrixxRoles_Read',
+  TrixxRolesEdit = 'TrixxRoles_Edit'
 }
