@@ -5,6 +5,7 @@ import { UserListItem } from '../../../../../api/models';
 import { ActionButtonTypes, TrixxTableComponent } from '../../../../shared/modules/trixx-table/trixx-table.component';
 import { UsersService } from '../../../../../api/services';
 import { UsersEditComponent } from '../edit/users-edit.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-users-list',
@@ -20,7 +21,8 @@ export class UsersListComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private readonly apiService: UsersService,
-    private readonly dialogService: NbDialogService,
+    private readonly dialogService: NbDialogService,    
+    private readonly route: ActivatedRoute,
   ) {
   }
   ngOnDestroy(): void {
@@ -40,6 +42,11 @@ export class UsersListComponent implements AfterViewInit, OnDestroy {
       { action: (id: number, params: { toLock: boolean }) => this.changeLockStatus(id, params), type: ActionButtonTypes.Lock },
     ]
     this.table.init();
+
+    const userId = +this.route.snapshot.queryParams['id'];
+    if (userId) {
+      this.editUser(userId);
+    }
   }
   
   addUser() {

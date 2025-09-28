@@ -5,3 +5,12 @@ nb-card {
     width: 40vw;
     min-height: 40vh;
 }
+
+.users-usage {
+    max-height: 100px;
+    padding: 10px;
+}
+
+:host ::ng-deep nb-accordion-item-body .item-body {
+    padding: 0 !important;
+}

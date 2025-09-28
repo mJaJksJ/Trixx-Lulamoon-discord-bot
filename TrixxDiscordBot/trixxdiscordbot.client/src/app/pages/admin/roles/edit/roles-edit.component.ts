@@ -4,7 +4,7 @@ import { NbDialogRef } from '@nebular/theme';
 import { Subject, takeUntil } from 'rxjs';
 import { TrixxLoadingSubject } from '../../../../shared/utils/trixx-loading-subject';
 import { RolesService } from '../../../../../api/services';
-import { CommonPermission, RoleEditModel, WorkscreenPermissionsModel } from '../../../../../api/models';
+import { CommonPermission, RoleEditModel, SelectItem, WorkscreenPermissionsModel } from '../../../../../api/models';
 
 @Component({
   selector: 'app-roles-edit',
@@ -25,6 +25,7 @@ export class RolesEditComponent implements OnDestroy, OnInit {
   public readonly loading$ = new TrixxLoadingSubject();
   public workscreenHeaders: WorkscreenPermissionsModel[] = [];
   public commonPermissionHeaders = Object.values(CommonPermission);
+  public usersUsage: SelectItem[] = [];
 
   constructor(
     private readonly apiService: RolesService,
@@ -40,16 +41,18 @@ export class RolesEditComponent implements OnDestroy, OnInit {
             takeUntil(this.destroy$),
           )
           .subscribe(role => {
-          this.form.patchValue({ ...role });
+            this.form.patchValue({ ...role });
 
-          this.workscreenHeaders = role.permissions;
-          const controls = role.permissions.flatMap(w =>
-            w.permissions.map(p => new FormControl(p.isGranted))
-          );
-          this.form.setControl('permissions', new FormArray(controls));
+            this.workscreenHeaders = role.permissions;
+            const controls = role.permissions.flatMap(w =>
+              w.permissions.map(p => new FormControl(p.isGranted))
+            );
+            this.form.setControl('permissions', new FormArray(controls));
 
-          this.form.markAsPristine();
-      });
+            this.usersUsage = role.usersUsage;
+
+            this.form.markAsPristine();
+          });
     }
   }
 

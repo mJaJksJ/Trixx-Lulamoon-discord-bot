@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Trixx.Common.Models;
 using Trixx.Core.Services.Roles.Models;
 using Trixx.Database;
 using Trixx.Database.Enums;
@@ -86,10 +87,20 @@ namespace Trixx.Core.Services.Roles
                 permissions.Add(workscreenPermissions);
             }
 
+            var users = await _databaseContext.UserRoles
+                .Where(x => x.RoleId == id)
+                .Select(x => new SelectItem
+                {
+                    Id = x.UserId,
+                    Label = x.User.UserName!,
+                })
+                .ToListAsync();
+
             return new RoleModel
             {
                 Name = role.Name!,
-                Permissions = permissions
+                Permissions = permissions,
+                UsersUsage = users,
             };
         }
     }

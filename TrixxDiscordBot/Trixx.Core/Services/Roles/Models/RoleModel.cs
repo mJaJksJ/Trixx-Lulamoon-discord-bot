@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Trixx.Common.Models;
 using Trixx.Database.Enums;
 
 namespace Trixx.Core.Services.Roles.Models
@@ -9,6 +10,8 @@ namespace Trixx.Core.Services.Roles.Models
         public string Name { get; set; } = string.Empty;
         [Required]
         public List<WorkscreenPermissionsModel> Permissions { get; set; } = [];
+        [Required]
+        public List<SelectItem> UsersUsage { get; set; }
     }
 
     public class WorkscreenPermissionsModel

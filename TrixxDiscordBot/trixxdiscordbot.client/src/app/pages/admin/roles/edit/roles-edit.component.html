@@ -25,7 +25,7 @@
                 >
             </app-trixx-form-field>
 
-            <div>
+            <div style="margin-bottom: 10px;">
                 <table class="permissions-table" style="width: 100%;">
                     <thead>
                         <tr>
@@ -52,6 +52,27 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div>
+                <nb-accordion>
+                    <nb-accordion-item>
+                        <nb-accordion-item-header>
+                            Использование пользователями
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            <div class="users-usage">
+                                <a 
+                                    *ngFor="let user of usersUsage"
+                                    [routerLink]="['pages','users']"
+                                    [queryParams]="{ id: user.id }"
+                                    (click)="handleClose()">
+                                    {{ user.label }}
+                                </a>
+                            </div>
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
             </div>
         </form>
     </nb-card-body>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule } from '@nebular/theme';
+import { NbAccordionModule, NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RolesListComponent } from './list/roles-list.component';
 import { SharedModule } from '../../../shared/modules/shared.module';
@@ -22,6 +22,7 @@ import { RolesEditComponent } from './edit/roles-edit.component';
     NbInputModule,
     ReactiveFormsModule,
     NbIconModule,
+    NbAccordionModule,
   ],
 })
 export class RolesModule {}
