@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
-using Trixx.Common;
-using Trixx.Database;
+using System.Text.Json.Serialization;
 using Trixx.Cartoons.Database;
+using Trixx.Common;
+using Trixx.Core;
+using Trixx.Database;
 using TrixxDiscordBot.Server.Startup.Auth;
 using TrixxDiscordBot.Server.Startup.Swagger;
-using System.Text.Json.Serialization;
-using Trixx.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -39,7 +39,7 @@ builder.Services
     .AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumMemberConverter());
     });
 
 builder.Services

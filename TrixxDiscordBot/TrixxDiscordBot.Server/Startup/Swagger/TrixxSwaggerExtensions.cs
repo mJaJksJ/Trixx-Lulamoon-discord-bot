@@ -1,5 +1,8 @@
-﻿using Swashbuckle.AspNetCore.SwaggerGen;
+﻿using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using TrixxDiscordBot.Server.Startup.Swagger.Filters;
 
 namespace TrixxDiscordBot.Server.Startup.Swagger
 {
@@ -9,6 +12,7 @@ namespace TrixxDiscordBot.Server.Startup.Swagger
         internal static IServiceCollection AddTrixxSwaggerGen(this IServiceCollection services)
         {
             services.AddTransient<ISerializerDataContractResolver, TrixxJsonSerializerDataContractResolver>();
+            services.Configure<SwaggerGenOptions>(AddSwaggerOptions);
             services.AddSwaggerGen(c =>
             {
                 c.DocInclusionPredicate((docName, api) =>
@@ -38,6 +42,11 @@ namespace TrixxDiscordBot.Server.Startup.Swagger
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+        }
+        private static void AddSwaggerOptions(SwaggerGenOptions options)
+        {
+            var c = options;
+            c.SchemaFilter<TrixxEnumSchemaFilter>();
         }
     }
 }
