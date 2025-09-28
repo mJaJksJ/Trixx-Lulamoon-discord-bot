@@ -1,5 +1,5 @@
 import { NbMenuItem } from '@nebular/theme';
-import { Permission } from '../../api/models';
+import { Permission, Workscreen } from '../../api/models';
 
 export interface TrixxMenuItem extends NbMenuItem {
   permission?: Permission;
@@ -9,38 +9,38 @@ export interface TrixxMenuItem extends NbMenuItem {
 // Если меняешь текст, не забудь поменять на бэке.
 export const MENU_ITEMS: () => TrixxMenuItem[] = () => [
   {
-    title: 'Главная',
+    title: Workscreen.MainPage,
     icon: 'monitor-outline',
     link: 'main',
     home: true,
     permission: Permission.MainPage_Read,
   },
   {
-    title: 'Мультфильмы',
+    title: Workscreen.DictionaryCartoons,
     icon: 'film-outline',
     link: 'dictionary-cartoons',
     home: true,
     permission: Permission.DictionaryCartoons_Read,
   },
   {
-    title: 'Студии',
+    title: Workscreen.DictionaryStudios,
     icon: 'cube-outline',
     link: 'dictionary-studios',
     home: true,
     permission: Permission.DictionaryStudios_Read,
   },
   {
-    title: 'Пользователи',
+    title: Workscreen.TrixxUsers,
     icon: 'people-outline',
     link: 'users',
     home: true,
     permission: Permission.TrixxUsers_Read,
   },
   {
-    title: 'Роли',
+    title: Workscreen.TrixxRoles,
     icon: 'color-palette-outline',
     link: 'roles',
     home: true,
-    permission: Permission.TrixxUsers_Read,
+    permission: Permission.TrixxRoles_Read,
   },
 ];
