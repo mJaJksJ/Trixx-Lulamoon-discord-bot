@@ -4,6 +4,7 @@ import { NbButtonModule, NbIconModule, NbInputModule, NbSelectModule } from '@ne
 import { TrixxFormArrayHelperComponent } from './trixx-form-array-helper.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TrixxFormFieldModule } from '../trixx-form-field/trixx-form-field.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { TrixxFormFieldModule } from '../trixx-form-field/trixx-form-field.modul
     ReactiveFormsModule,
     TrixxFormFieldModule,
     NbSelectModule,
+    RouterModule,
   ],
   exports: [
     TrixxFormArrayHelperComponent,

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Trixx.Common.Models;
 using Trixx.Common.Utils;
+using Trixx.Core.Services.Roles.Models;
 using Trixx.Core.Services.Users.Models;
 using Trixx.Database;
 using Trixx.Database.Enums;
@@ -32,6 +34,19 @@ namespace Trixx.Core.Services.Users
 
             _databaseContext.Users.Add(user);
             await _databaseContext.SaveChangesAsync();
+
+            var rolesMerger = new ManyToManyDbMerger<TrixxUserRole>(_databaseContext);
+            await rolesMerger.MergeAsync(
+                model.Roles,
+                x => false,
+                (x, i) => x.UserId == i,
+                i => new TrixxUserRole
+                {
+                    UserId = user.Id,
+                    RoleId = i,
+                }
+            );
+            await _databaseContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<UserListItem>> GetUsersAsync()
@@ -55,7 +70,12 @@ namespace Trixx.Core.Services.Users
                 .Where(x => x.Id == id)
                 .Select(x => new UserModel
                 {
-                    UserName = x.UserName!
+                    UserName = x.UserName!,
+                    Roles = x.Roles.Select(r => new Common.Models.SelectItem
+                    {
+                        Id = r.RoleId,
+                        Label = r.Role.Name!
+                    }).ToList()
                 })
                 .FirstAsync();
 
@@ -68,6 +88,19 @@ namespace Trixx.Core.Services.Users
                 .FirstAsync(x => x.Id == userId);
             user.LockoutEnd = toLock ? DateTimeOffset.MaxValue : null;
             await _databaseContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<SelectItem>> GetRolesAsync()
+        {
+            var roles = await _databaseContext.Roles
+                .Select(x => new SelectItem
+                {
+                    Id = x.Id,
+                    Label = x.Name!,
+                })
+                .ToListAsync();
+
+            return roles;
         }
     }
 }

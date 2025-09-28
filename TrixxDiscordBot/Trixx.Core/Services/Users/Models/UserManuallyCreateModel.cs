@@ -3,5 +3,6 @@
     public class UserManuallyCreateModel
     {
         public string UserName { get; set; } = string.Empty;
+        public List<int> Roles { get; set; } = [];
     }
 }

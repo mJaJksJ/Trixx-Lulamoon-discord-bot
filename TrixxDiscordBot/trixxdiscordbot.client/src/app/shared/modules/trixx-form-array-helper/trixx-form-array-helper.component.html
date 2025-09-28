@@ -32,6 +32,13 @@
                     <nb-option [value]="null">&nbsp;</nb-option>
                     <nb-option *ngFor="let option of config.options$ | async" [value]="option.id">{{ option.label }}</nb-option>
                   </nb-select>
+                  <a 
+                    *ngIf="config.getLink"
+                    [routerLink]="config.getLink(item.controls['value'].value)"
+                    [queryParams]="config.getQueryParams ? config.getQueryParams(item.controls['value'].value) : { }"
+                  >
+                    Посмотреть {{ config.label || config.placeholder }}
+                  </a>
                 </app-trixx-form-field>
               </div>
             </div>

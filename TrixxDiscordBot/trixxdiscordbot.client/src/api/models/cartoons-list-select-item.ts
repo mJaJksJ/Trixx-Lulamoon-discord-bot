@@ -6,7 +6,7 @@ import { RefItem } from '../models/ref-item';
 import { SelectItem } from '../models/select-item';
 export interface CartoonsListSelectItem {
   alternativeNames?: Array<string> | null;
-  id?: number;
+  id: number;
   label?: string | null;
   sources?: Array<RefItem> | null;
   studios?: Array<SelectItem> | null;

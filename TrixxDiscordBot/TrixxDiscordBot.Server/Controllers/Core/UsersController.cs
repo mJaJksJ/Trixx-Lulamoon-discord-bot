@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Trixx.Common.Models;
 using Trixx.Core.Services.Users;
 using Trixx.Core.Services.Users.Models;
 using Trixx.Database;
@@ -38,6 +39,13 @@ namespace TrixxDiscordBot.Server.Controllers.Core
         public async Task ChangeUserLockStatusAsync(int userId, [FromQuery] bool toLock)
         {
             await _usersService.ChangeUserLockStatusAsync(userId, toLock);
+        }
+
+        [HttpPost("roles")]
+        [TrixxClaimsAuthorize(Permission.TrixxUsers_Read)]
+        public async Task<IEnumerable<SelectItem>> GetRolesAsync()
+        {
+            return await _usersService.GetRolesAsync();
         }
     }
 }

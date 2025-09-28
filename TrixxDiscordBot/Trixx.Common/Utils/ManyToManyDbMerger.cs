@@ -10,12 +10,12 @@ namespace Trixx.Common.Utils
 
         public async Task MergeAsync<T2>(
             List<T2> source,
-            Expression<Func<T12, bool>> filter1,
+            Expression<Func<T12, bool>> toRemoveFilter,
             Func<T12, T2, bool> selector2,
             Func<T2, T12> generator
             )
         {
-            var toRemove = await _query.Where(filter1).ToListAsync();
+            var toRemove = await _query.Where(toRemoveFilter).ToListAsync();
 
             foreach (var item in source)
             {

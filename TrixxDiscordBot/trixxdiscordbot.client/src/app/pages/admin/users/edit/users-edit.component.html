@@ -24,6 +24,15 @@
                     fullWidth
                 >
             </app-trixx-form-field>
+
+            <app-trixx-form-array-helper
+                #roles
+                [formArray]="$any(form.controls.roles)"
+                [fieldConfigs]="formArrayConfs.roles || []"
+                [minItems]="1"
+                label="Роли"
+            >
+            </app-trixx-form-array-helper>
         </form>
     </nb-card-body>
     <nb-card-footer>

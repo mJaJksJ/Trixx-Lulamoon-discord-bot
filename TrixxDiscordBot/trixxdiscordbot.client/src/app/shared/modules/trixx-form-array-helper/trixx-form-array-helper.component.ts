@@ -12,6 +12,8 @@ export interface ArrayFieldConfig {
   defaultValue?: any;
   pattern?: string;
   options$?: BehaviorSubject<SelectItem[]>;
+  getLink?: (x: any) => string[];
+  getQueryParams?: (x: any) => object;
 }
 
 @Component({
@@ -49,7 +51,7 @@ export class TrixxFormArrayHelperComponent implements AfterContentInit {
       }
 
       let controlValue = value && value[config.name];
-      if (typeof controlValue === 'object' && controlValue?.ref && controlValue.label) {
+      if (typeof controlValue === 'object' && controlValue?.ref && controlValue.label) { // TODO: проверить зачем вообще нужно было и совместитьс getLink
         controlValue = controlValue.label;
       }
 

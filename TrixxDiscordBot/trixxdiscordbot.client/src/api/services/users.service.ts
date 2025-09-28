@@ -19,10 +19,15 @@ import { apiUsersIdGet } from '../fn/users/api-users-id-get';
 import { ApiUsersIdGet$Params } from '../fn/users/api-users-id-get';
 import { apiUsersIdGet$Plain } from '../fn/users/api-users-id-get-plain';
 import { ApiUsersIdGet$Plain$Params } from '../fn/users/api-users-id-get-plain';
+import { apiUsersRolesPost } from '../fn/users/api-users-roles-post';
+import { ApiUsersRolesPost$Params } from '../fn/users/api-users-roles-post';
+import { apiUsersRolesPost$Plain } from '../fn/users/api-users-roles-post-plain';
+import { ApiUsersRolesPost$Plain$Params } from '../fn/users/api-users-roles-post-plain';
 import { apiUsersUsersGet } from '../fn/users/api-users-users-get';
 import { ApiUsersUsersGet$Params } from '../fn/users/api-users-users-get';
 import { apiUsersUsersGet$Plain } from '../fn/users/api-users-users-get-plain';
 import { ApiUsersUsersGet$Plain$Params } from '../fn/users/api-users-users-get-plain';
+import { SelectItem } from '../models/select-item';
 import { UserListItem } from '../models/user-list-item';
 import { UserModel } from '../models/user-model';
 
@@ -179,6 +184,55 @@ export class UsersService extends BaseService {
 
     return this.apiUsersChangeUserLockStatusUserIdPost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /** Path part for operation `apiUsersRolesPost()` */
+  static readonly ApiUsersRolesPostPath = '/api/Users/roles';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiUsersRolesPost$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiUsersRolesPost$Plain$Response(params?: ApiUsersRolesPost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SelectItem>>> {
+    return apiUsersRolesPost$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiUsersRolesPost$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiUsersRolesPost$Plain(params?: ApiUsersRolesPost$Plain$Params, context?: HttpContext): Observable<Array<SelectItem>> {
+
+    return this.apiUsersRolesPost$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<SelectItem>>) => r.body as Array<SelectItem>)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiUsersRolesPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiUsersRolesPost$Response(params?: ApiUsersRolesPost$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SelectItem>>> {
+    return apiUsersRolesPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiUsersRolesPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiUsersRolesPost(params?: ApiUsersRolesPost$Params, context?: HttpContext): Observable<Array<SelectItem>> {
+
+    return this.apiUsersRolesPost$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<SelectItem>>) => r.body as Array<SelectItem>)
     );
   }
 

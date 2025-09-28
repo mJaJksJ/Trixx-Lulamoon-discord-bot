@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { Subject, takeUntil } from 'rxjs';
 import { RoleListItem } from '../../../../../api/models';
 import { ActionButtonTypes, TrixxTableComponent } from '../../../../shared/modules/trixx-table/trixx-table.component';
 import { RolesService } from '../../../../../api/services';
 import { RolesEditComponent } from '../edit/roles-edit.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-roles-list',
@@ -12,7 +13,7 @@ import { RolesEditComponent } from '../edit/roles-edit.component';
   templateUrl: './roles-list.component.html',
   styleUrl: './roles-list.component.scss'
 })
-export class RolesListComponent implements AfterViewInit, OnDestroy {
+export class RolesListComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('table', { read: ViewContainerRef }) 
   public tableContainer!: ViewContainerRef;
   private table!: TrixxTableComponent<RoleListItem, object>;
@@ -21,8 +22,17 @@ export class RolesListComponent implements AfterViewInit, OnDestroy {
   constructor(
     private readonly apiService: RolesService,
     private readonly dialogService: NbDialogService,
+    private readonly route: ActivatedRoute,
   ) {
   }
+
+  ngOnInit(): void {    
+    const roleId = +this.route.snapshot.queryParams['id'];
+    if (roleId) {
+      this.editRole(roleId);
+    }
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
