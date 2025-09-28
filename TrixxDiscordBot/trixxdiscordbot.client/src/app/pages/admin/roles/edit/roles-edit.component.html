@@ -26,25 +26,29 @@
             </app-trixx-form-field>
 
             <div>
-                <table class="permissions-table">
+                <table class="permissions-table" style="width: 100%;">
                     <thead>
                         <tr>
                         <th>Экран</th>
-                        <th *ngFor="let perm of commonPermissionHeaders">
-                            {{ perm }}
+                        <th *ngFor="let permission of commonPermissionHeaders">
+                            <div style="display: flex; justify-content: center;">
+                                {{ permission }}
+                            </div>
                         </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let ws of workscreenHeaders; let rowIndex = index">
-                        <td>{{ ws.workscreen }}</td>
-                        <td *ngFor="let perm of ws.permissions; let colIndex = index">
-                            <input
-                                *ngIf="$any(permissionsArray.at(rowIndex * commonPermissionHeaders.length + colIndex)).value !== null"
-                                type="checkbox"
-                                [formControl]="$any(permissionsArray.at(rowIndex * commonPermissionHeaders.length + colIndex))"
-                            />
-                        </td>
+                            <td>{{ ws.workscreen }}</td>
+                            <td *ngFor="let perm of ws.permissions; let colIndex = index">
+                                <div style="display: flex; justify-content: center;">
+                                    <input
+                                        *ngIf="$any(permissionsArray.at(rowIndex * commonPermissionHeaders.length + colIndex)).value !== null"
+                                        type="checkbox"
+                                        [formControl]="$any(permissionsArray.at(rowIndex * commonPermissionHeaders.length + colIndex))"
+                                    />
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

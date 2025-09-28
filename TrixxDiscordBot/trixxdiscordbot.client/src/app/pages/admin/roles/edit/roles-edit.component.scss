@@ -1,3 +1,6 @@
+@use './../../../../themes/styles/mixins.scss' as *;
+@include table;
+
 nb-card {
     width: 40vw;
     min-height: 40vh;
