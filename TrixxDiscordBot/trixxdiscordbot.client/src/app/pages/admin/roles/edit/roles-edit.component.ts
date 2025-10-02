@@ -4,7 +4,7 @@ import { NbDialogRef } from '@nebular/theme';
 import { Subject, takeUntil } from 'rxjs';
 import { TrixxLoadingSubject } from '../../../../shared/utils/trixx-loading-subject';
 import { RolesService } from '../../../../../api/services';
-import { CommonPermission, RoleEditModel, SelectItem, WorkscreenPermissionsModel } from '../../../../../api/models';
+import { CommonPermission, Permission, RoleEditModel, SelectItem, WorkscreenPermissionsModel } from '../../../../../api/models';
 
 @Component({
   selector: 'app-roles-edit',
@@ -26,6 +26,7 @@ export class RolesEditComponent implements OnDestroy, OnInit {
   public workscreenHeaders: WorkscreenPermissionsModel[] = [];
   public commonPermissionHeaders = Object.values(CommonPermission);
   public usersUsage: SelectItem[] = [];
+  public permissionsByOrder: Record<number, Permission> = {};
 
   constructor(
     private readonly apiService: RolesService,
@@ -42,10 +43,18 @@ export class RolesEditComponent implements OnDestroy, OnInit {
           )
           .subscribe(role => {
             this.form.patchValue({ ...role });
+            this.form.controls['id'].setValue(this.id);
 
             this.workscreenHeaders = role.permissions;
+            let idx = 0;
             const controls = role.permissions.flatMap(w =>
-              w.permissions.map(p => new FormControl(p.isGranted))
+              w.permissions.map(p => {
+                if (p.id) {
+                  this.permissionsByOrder[idx] = p.id;
+                }
+                idx++;
+                return new FormControl(p.isGranted);
+              })
             );
             this.form.setControl('permissions', new FormArray(controls));
 
@@ -67,6 +76,14 @@ export class RolesEditComponent implements OnDestroy, OnInit {
 
   public save() {
     const data = this.form.getRawValue();
+    const permissions = [];
+    for (const [idx, p] of data.permissions.entries()) {
+      if (p === true) {
+        permissions.push(this.permissionsByOrder[idx]);
+      }
+    }
+    data.permissions = permissions;
+
     this.apiService
       .apiRolesEditRolePost({ body: data })
       .pipe(
