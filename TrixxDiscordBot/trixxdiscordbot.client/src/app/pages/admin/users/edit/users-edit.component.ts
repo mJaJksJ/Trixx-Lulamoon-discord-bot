@@ -91,10 +91,13 @@ export class UsersEditComponent implements OnDestroy, OnInit {
       data.id = this.id;
     }
 
-    this.apiService
-      .apiUsersCreateUserManuallyPost({ body: data })
-    this.apiService
-      .apiUsersUpdateUserPost({ body: data })
+    (
+      this.isEdit
+      ? this.apiService
+        .apiUsersUpdateUserPost({ body: data })
+      : this.apiService
+         .apiUsersCreateUserManuallyPost({ body: data })
+    )
       .pipe(
         takeUntil(this.destroy$),
         this.loading$.wrap(),

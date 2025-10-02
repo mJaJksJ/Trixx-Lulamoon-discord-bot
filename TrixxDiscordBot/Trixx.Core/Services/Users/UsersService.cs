@@ -27,7 +27,7 @@ namespace Trixx.Core.Services.Users
                 UserName = model.UserName,
                 FullName = model.UserName,
                 NormalizedUserName = normalizedUserName,
-                PasswordHash = new PasswordHasher<TrixxUser>().HashPassword(null!, "trixx"),
+                PasswordHash = new PasswordHasher<TrixxUser>().HashPassword(null!, model.Password),
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 EmailConfirmed = false,
                 LockoutEnabled = true,
@@ -39,8 +39,8 @@ namespace Trixx.Core.Services.Users
             var rolesMerger = new ManyToManyDbMerger<TrixxUserRole>(_databaseContext);
             await rolesMerger.MergeAsync(
                 model.Roles,
-                x => false,
-                (x, i) => x.UserId == i,
+                x => x.UserId == user.Id,
+                (x, i) => x.RoleId == i,
                 i => new TrixxUserRole
                 {
                     UserId = user.Id,
