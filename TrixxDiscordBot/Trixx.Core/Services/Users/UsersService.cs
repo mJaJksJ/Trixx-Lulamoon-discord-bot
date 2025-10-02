@@ -2,10 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Trixx.Common.Models;
 using Trixx.Common.Utils;
-using Trixx.Core.Services.Roles.Models;
 using Trixx.Core.Services.Users.Models;
 using Trixx.Database;
-using Trixx.Database.Enums;
 using Trixx.Database.Models.Identity;
 using TrixxCore.Services.Users.Models;
 
@@ -18,6 +16,9 @@ namespace Trixx.Core.Services.Users
         public async Task CreateUserManuallyAsync(UserManuallyCreateModel model)
         {
             var normalizedUserName = model.UserName.ToNormalized();
+            var email = $"{model.UserName}@trixx.trixx";
+            var normalizedEmail = email.ToNormalized();
+
             var user = new TrixxUser
             {
                 Email = model.UserName,
@@ -40,6 +41,31 @@ namespace Trixx.Core.Services.Users
                 model.Roles,
                 x => false,
                 (x, i) => x.UserId == i,
+                i => new TrixxUserRole
+                {
+                    UserId = user.Id,
+                    RoleId = i,
+                }
+            );
+            await _databaseContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateUserAsync(UpdateUserModel model)
+        {
+            var user = await _databaseContext.Users
+                .FirstAsync(x => x.Id == model.Id);
+
+            if (!string.IsNullOrEmpty(model.Password))
+            {
+                user.PasswordHash = new PasswordHasher<TrixxUser>().HashPassword(user, model.Password);
+            }
+            await _databaseContext.SaveChangesAsync();
+
+            var rolesMerger = new ManyToManyDbMerger<TrixxUserRole>(_databaseContext);
+            await rolesMerger.MergeAsync(
+                model.Roles,
+                x => x.UserId == model.Id,
+                (x, i) => x.RoleId == i,
                 i => new TrixxUserRole
                 {
                     UserId = user.Id,

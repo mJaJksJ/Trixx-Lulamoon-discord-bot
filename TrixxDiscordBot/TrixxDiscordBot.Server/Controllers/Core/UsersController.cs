@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Trixx.Common.Models;
+using Trixx.Common.Utils;
 using Trixx.Core.Services.Users;
 using Trixx.Core.Services.Users.Models;
 using Trixx.Database;
 using Trixx.Database.Enums;
+using Trixx.Database.Models.Identity;
 using TrixxCore.Services.Users.Models;
 
 namespace TrixxDiscordBot.Server.Controllers.Core
@@ -18,6 +22,13 @@ namespace TrixxDiscordBot.Server.Controllers.Core
         public async Task CreateUserManuallyAsync(UserManuallyCreateModel model)
         {
             await _usersService.CreateUserManuallyAsync(model);
+        }
+
+        [HttpPost("update-user")]
+        [TrixxClaimsAuthorize(Permission.TrixxUsers_Edit)]
+        public async Task UpdateUserAsync(UpdateUserModel model)
+        {
+            await _usersService.UpdateUserAsync(model);
         }
 
         [HttpGet("users")]

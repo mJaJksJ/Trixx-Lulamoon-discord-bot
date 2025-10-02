@@ -20,6 +20,7 @@ export type { RoleModel } from './models/role-model';
 export type { SelectItem } from './models/select-item';
 export type { StudiosListSelectItem } from './models/studios-list-select-item';
 export type { StudioUpdateModel } from './models/studio-update-model';
+export type { UpdateUserModel } from './models/update-user-model';
 export type { UserListItem } from './models/user-list-item';
 export type { UserManuallyCreateModel } from './models/user-manually-create-model';
 export type { UserModel } from './models/user-model';

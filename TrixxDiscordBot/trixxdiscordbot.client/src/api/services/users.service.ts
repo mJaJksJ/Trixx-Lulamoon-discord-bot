@@ -23,6 +23,8 @@ import { apiUsersRolesPost } from '../fn/users/api-users-roles-post';
 import { ApiUsersRolesPost$Params } from '../fn/users/api-users-roles-post';
 import { apiUsersRolesPost$Plain } from '../fn/users/api-users-roles-post-plain';
 import { ApiUsersRolesPost$Plain$Params } from '../fn/users/api-users-roles-post-plain';
+import { apiUsersUpdateUserPost } from '../fn/users/api-users-update-user-post';
+import { ApiUsersUpdateUserPost$Params } from '../fn/users/api-users-update-user-post';
 import { apiUsersUsersGet } from '../fn/users/api-users-users-get';
 import { ApiUsersUsersGet$Params } from '../fn/users/api-users-users-get';
 import { apiUsersUsersGet$Plain } from '../fn/users/api-users-users-get-plain';
@@ -59,6 +61,32 @@ export class UsersService extends BaseService {
   apiUsersCreateUserManuallyPost(params?: ApiUsersCreateUserManuallyPost$Params, context?: HttpContext): Observable<void> {
 
     return this.apiUsersCreateUserManuallyPost$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /** Path part for operation `apiUsersUpdateUserPost()` */
+  static readonly ApiUsersUpdateUserPostPath = '/api/Users/update-user';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiUsersUpdateUserPost()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiUsersUpdateUserPost$Response(params?: ApiUsersUpdateUserPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiUsersUpdateUserPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiUsersUpdateUserPost$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiUsersUpdateUserPost(params?: ApiUsersUpdateUserPost$Params, context?: HttpContext): Observable<void> {
+
+    return this.apiUsersUpdateUserPost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

@@ -33,9 +33,21 @@
                 label="Роли"
             >
             </app-trixx-form-array-helper>
+
+            <app-trixx-form-field label="Пароль">
+                <input 
+                    #appFormField
+                    #appColorize
+                    type="password" 
+                    formControlName="password"
+                    placeholder="Пароль"
+                    nbInput
+                    fullWidth
+                >
+            </app-trixx-form-field>
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <button *ngIf="!isEdit" nbButton [disabled]="form.invalid" (click)="save()" status="success">Сохранить</button>
+        <button nbButton [disabled]="form.invalid" (click)="save()" status="success">Сохранить</button>
     </nb-card-footer>
 </nb-card>

@@ -4,7 +4,7 @@ import { NbDialogRef } from '@nebular/theme';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { TrixxLoadingSubject } from '../../../../shared/utils/trixx-loading-subject';
 import { UsersService } from '../../../../../api/services';
-import { SelectItem, UserManuallyCreateModel, UserModel } from '../../../../../api/models';
+import { SelectItem, UpdateUserModel, UserManuallyCreateModel, UserModel } from '../../../../../api/models';
 import { ArrayFieldConfig, TrixxFormArrayHelperComponent } from '../../../../shared/modules/trixx-form-array-helper/trixx-form-array-helper.component';
 
 @Component({
@@ -16,9 +16,10 @@ import { ArrayFieldConfig, TrixxFormArrayHelperComponent } from '../../../../sha
 export class UsersEditComponent implements OnDestroy, OnInit {
   @Input() public id?: number;
 
-  private formConf: { [x in keyof UserManuallyCreateModel]-?: AbstractControl } = {
+  private formConf: { [x in keyof (UserManuallyCreateModel & UpdateUserModel)]: AbstractControl } = {
     userName: new FormControl('', [Validators.required]),
     roles: new FormArray([]),
+    password: new FormControl()
   };
   public form = new FormGroup(this.formConf);
   private destroy$ = new Subject<void>();
@@ -70,7 +71,7 @@ export class UsersEditComponent implements OnDestroy, OnInit {
           user.roles.forEach(x => this.rolesComponent.addItem({ value: x.id }));
           this.form.markAsPristine();
         });
-      this.form.controls.userName.disable();
+      this.form.controls.userName?.disable();
     }
   }
 
@@ -86,9 +87,14 @@ export class UsersEditComponent implements OnDestroy, OnInit {
   public save() {
     const data = this.form.getRawValue();
     data.roles = (data.roles as { value: string }[]).map(x => x.value);
+    if (this.id) {
+      data.id = this.id;
+    }
 
     this.apiService
       .apiUsersCreateUserManuallyPost({ body: data })
+    this.apiService
+      .apiUsersUpdateUserPost({ body: data })
       .pipe(
         takeUntil(this.destroy$),
         this.loading$.wrap(),

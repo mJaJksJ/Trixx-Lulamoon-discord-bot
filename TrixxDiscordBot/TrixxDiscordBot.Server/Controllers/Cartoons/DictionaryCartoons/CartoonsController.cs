@@ -146,13 +146,13 @@ namespace TrixxDiscordBot.Server.Controllers.Cartoons.Cartoons
             await studiosMerger.MergeAsync(
                 model.Studios,
                 x => x.CartoonId == model.Id,
-                (x, i) => x.CartoonId == i,
+                (x, i) => x.DictionaryStudioId == i,
                 i => new DictionaryCatroonStudio
                 {
                     CartoonId = cartoon.Id,
                     DictionaryStudioId = i,
                 }
-                );
+            );
             await _cartoonsDatabaseContext.SaveChangesAsync();
         }
 
