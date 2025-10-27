@@ -25,9 +25,11 @@ namespace Trixx.Cartoons.Services.Pack.Models
         {
             [Required]
             public int DictionaryCartoonId { get; set; }
+            [Required]
             public string Name { get; set; } = string.Empty;
             public CartoonType CartoonType { get; set; }
             public int? Year { get; set; }
+            [Required]
             public string AlternativeNames { get; set; } = string.Empty;
         }
     }

@@ -4,9 +4,9 @@
 
 import { CartoonType } from '../models/cartoon-type';
 export interface CartoonItem {
-  alternativeNames?: string | null;
+  alternativeNames: string;
   cartoonType?: CartoonType;
   dictionaryCartoonId: number;
-  name?: string | null;
+  name: string;
   year?: number | null;
 }

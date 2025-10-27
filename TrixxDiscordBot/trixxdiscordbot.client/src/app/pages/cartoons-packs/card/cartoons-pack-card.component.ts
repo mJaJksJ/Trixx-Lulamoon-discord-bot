@@ -3,10 +3,12 @@ import { CartoonPackService } from '../../../../api/services';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import { TrixxLoadingSubject } from '../../../shared/utils/trixx-loading-subject';
 import { ActivatedRoute } from '@angular/router';
-import { CartoonItem, CartoonsPackModel, LabelType } from '../../../../api/models';
+import { CartoonItem, CartoonsPackModel, CartoonType, LabelType } from '../../../../api/models';
 import { NbDialogService } from '@nebular/theme';
 import { LabelTypeEditComponent } from './edit-label-type/label-type-edit.component';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
+import { FormControl, FormGroup } from '@angular/forms';
+import { comareStrings } from '../../../shared/utils/string-utils';
 
 @Component({
   selector: 'app-cartoons-pack-card',
@@ -19,8 +21,14 @@ export class CartoonsPacksCardComponent implements OnDestroy, OnInit {
   private destroy$ = new Subject<void>();
   public readonly loading$ = new TrixxLoadingSubject();
   public name$ = new BehaviorSubject<string>('');
-  public labelTypes$ = new BehaviorSubject<LabelType[]>([]);
+  public labelTypes: LabelType[] = [];
+  public shownLabelTypes: LabelType[] = [];
   public reload$ = new Subject();
+  public form = new FormGroup({
+    search: new FormControl(''),
+    cartoonType: new FormControl(null),
+  });
+  public cartoonTypes = Object.values(CartoonType).map(x => ({ id: x, label: x }));
 
   constructor(
     private readonly apiService: CartoonPackService,
@@ -42,12 +50,29 @@ export class CartoonsPacksCardComponent implements OnDestroy, OnInit {
           )
           .subscribe((pack: CartoonsPackModel) => {
             this.name$.next(pack.name);
-            pack.labelTypes.forEach(lt => lt.cartoons = [...lt.cartoons, { dictionaryCartoonId: -1 }]);
-            this.labelTypes$.next(pack.labelTypes);
+            pack.labelTypes.forEach(lt => lt.cartoons = [...lt.cartoons, { dictionaryCartoonId: -1, alternativeNames: '', name: '' }]);
+            this.labelTypes = pack.labelTypes;
+            this.shownLabelTypes = pack.labelTypes.map(lt => ({...lt, cartoons: lt.cartoons.map(ltc => ({...ltc}))}));
           });
       })
     ).subscribe();
     this.reload$.next(null);
+    this.form.valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+      )
+      .subscribe((x) => {
+        const labelTypes = this.labelTypes.map(lt => ({...lt, cartoons: lt.cartoons.map(ltc => ({...ltc}))}));
+        labelTypes.forEach(labelType => {
+          if (x.search) {
+            labelType.cartoons = labelType.cartoons.filter(c => c.dictionaryCartoonId === -1 || comareStrings(x.search!, [c.name, c.alternativeNames]))
+          }
+          if (x.cartoonType) {
+            labelType.cartoons = labelType.cartoons.filter(c => c.dictionaryCartoonId === -1 || c.cartoonType === x.cartoonType)
+          }
+        });
+        this.shownLabelTypes = labelTypes;
+      });
   }
 
   ngOnDestroy(): void {
@@ -65,7 +90,7 @@ export class CartoonsPacksCardComponent implements OnDestroy, OnInit {
         closeOnBackdropClick: false,
         context: {
           cartoonPackId: this.id,
-          order: this.labelTypes$.value.length - 1,
+          order: this.labelTypes.length - 1,
         },
        })
       .onClose
@@ -78,7 +103,6 @@ export class CartoonsPacksCardComponent implements OnDestroy, OnInit {
   }
 
   replaceCartoon(event: CdkDragDrop<CartoonItem[], CartoonItem[], CartoonItem>): void {
-    console.log(event);
     if (!event.container.data || !event.previousContainer.data) {
       return;
     }
@@ -88,13 +112,22 @@ export class CartoonsPacksCardComponent implements OnDestroy, OnInit {
     }
 
     transferArrayItem(
-      event.previousContainer.data,
-      event.container.data,
+      this.shownLabelTypes[+event.previousContainer.id].cartoons,
+      this.shownLabelTypes[+event.container.id].cartoons,
       event.previousIndex,
       0,
     );
 
-    const labelType = this.labelTypes$.value[+event.container.id];
+    const previousIndex = this.labelTypes[+event.previousContainer.id].cartoons
+      .findIndex(x => x.dictionaryCartoonId === this.shownLabelTypes[+event.previousContainer.id].cartoons[event.previousIndex].dictionaryCartoonId);
+    transferArrayItem(
+      this.labelTypes[+event.previousContainer.id].cartoons,
+      this.labelTypes[+event.container.id].cartoons,
+      previousIndex,
+      0,
+    );
+
+    const labelType = this.labelTypes[+event.container.id];
     this.apiService
       .apiCartoonPackReplaceCartoonPackIdLabelTypeIdDictionaryCartoonIdPost({
         packId: this.id,

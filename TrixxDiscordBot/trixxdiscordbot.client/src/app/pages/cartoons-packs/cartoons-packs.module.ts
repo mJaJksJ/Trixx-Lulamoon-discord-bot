@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/modules/shared.module';
-import { NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule, NbSelectModule } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CartoonsPacksEditComponent } from './edit/cartoons-pack-edit.component';
 import { CartoonsPacksListComponent } from './list/cartoons-packs-list.component';
@@ -28,6 +28,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NbIconModule,
     CartoonsPacksRoutingModule,
     DragDropModule,
+    NbSelectModule,
   ],
 })
 export class CartoonsPacksModule {}
