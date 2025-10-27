@@ -1,7 +1,8 @@
 export const comareStrings = (str: string, compareStrs: string[]) => {
     const simplyStr = simplifyStr(str);
     for (const compareStr of compareStrs) {
-        if (simplyStr !== simplifyStr(compareStr)) {
+        const simplyCompareStr = simplifyStr(compareStr)
+        if (!simplyStr.includes(simplyCompareStr) && !simplyCompareStr.includes(simplyStr)) {
             return false;
         }
     }
