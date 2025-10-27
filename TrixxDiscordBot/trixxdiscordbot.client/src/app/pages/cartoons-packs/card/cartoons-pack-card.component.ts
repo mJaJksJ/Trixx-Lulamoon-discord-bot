@@ -112,6 +112,9 @@ export class CartoonsPacksCardComponent implements OnDestroy, OnInit {
       return;
     }
 
+    const previousIndex = this.labelTypes[+event.previousContainer.id].cartoons
+      .findIndex(x => x.dictionaryCartoonId === this.shownLabelTypes[+event.previousContainer.id].cartoons[event.previousIndex].dictionaryCartoonId);
+
     transferArrayItem(
       this.shownLabelTypes[+event.previousContainer.id].cartoons,
       this.shownLabelTypes[+event.container.id].cartoons,
@@ -119,8 +122,6 @@ export class CartoonsPacksCardComponent implements OnDestroy, OnInit {
       0,
     );
 
-    const previousIndex = this.labelTypes[+event.previousContainer.id].cartoons
-      .findIndex(x => x.dictionaryCartoonId === this.shownLabelTypes[+event.previousContainer.id].cartoons[event.previousIndex].dictionaryCartoonId);
     transferArrayItem(
       this.labelTypes[+event.previousContainer.id].cartoons,
       this.labelTypes[+event.container.id].cartoons,
