@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartoonPackService } from '../../../../api/services';
-import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, Subject, takeUntil, tap } from 'rxjs';
 import { TrixxLoadingSubject } from '../../../shared/utils/trixx-loading-subject';
 import { ActivatedRoute } from '@angular/router';
 import { CartoonItem, CartoonsPackModel, CartoonType, LabelType } from '../../../../api/models';
@@ -59,6 +59,7 @@ export class CartoonsPacksCardComponent implements OnDestroy, OnInit {
     this.reload$.next(null);
     this.form.valueChanges
       .pipe(
+        debounceTime(300),
         takeUntil(this.destroy$),
       )
       .subscribe((x) => {
