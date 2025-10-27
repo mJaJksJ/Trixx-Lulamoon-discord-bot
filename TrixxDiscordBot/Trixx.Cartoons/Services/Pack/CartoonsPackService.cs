@@ -171,31 +171,40 @@ namespace Trixx.Cartoons.Services.Pack
 
         public async Task ReplaceCartoon(int packId, int labelTypeId, int dictionaryCartoonId, int userId)
         {
-            var user = await _databaseContext.Users
-                .Where(x => x.Id == userId)
-                .Select(x => x.FullName)
-                .FirstAsync();
-
-            var cartoon = await _cartoonsDatabaseContext.PackCartoons
-                    .Include(x => x.SystemObject)
-                    .FirstOrDefaultAsync(x => x.DictionaryCartoonId == dictionaryCartoonId && x.CartoonsPackLabelType.CartoonsPackId == packId);
-
-            if (cartoon == null)
+            if (labelTypeId == -1)
             {
-                cartoon = new PackCartoon
-                {
-                    SystemObject = new Database.Models.CartoonSystemObject
-                    {
-                        CreateDateTime = DateTime.Now,
-                        Type = Database.Enums.SystemObjectType.CartoonPack,
-                        Creator = user
-                    },
-                    DictionaryCartoonId = dictionaryCartoonId,
-                };
-                _cartoonsDatabaseContext.PackCartoons.Add(cartoon);
+                var cartoon = await _cartoonsDatabaseContext.PackCartoons
+                    .FirstOrDefaultAsync(x => x.DictionaryCartoonId == dictionaryCartoonId && x.CartoonsPackLabelType.CartoonsPackId == packId);
+                _cartoonsDatabaseContext.PackCartoons.Remove(cartoon);
             }
+            else
+            {
+                var user = await _databaseContext.Users
+                    .Where(x => x.Id == userId)
+                    .Select(x => x.FullName)
+                    .FirstAsync();
 
-            cartoon.CartoonsPackLabelTypeId = labelTypeId;
+                var cartoon = await _cartoonsDatabaseContext.PackCartoons
+                        .Include(x => x.SystemObject)
+                        .FirstOrDefaultAsync(x => x.DictionaryCartoonId == dictionaryCartoonId && x.CartoonsPackLabelType.CartoonsPackId == packId);
+
+                if (cartoon == null)
+                {
+                    cartoon = new PackCartoon
+                    {
+                        SystemObject = new Database.Models.CartoonSystemObject
+                        {
+                            CreateDateTime = DateTime.Now,
+                            Type = Database.Enums.SystemObjectType.CartoonPack,
+                            Creator = user
+                        },
+                        DictionaryCartoonId = dictionaryCartoonId,
+                    };
+                    _cartoonsDatabaseContext.PackCartoons.Add(cartoon);
+                }
+
+                cartoon.CartoonsPackLabelTypeId = labelTypeId;
+            }
 
             await _cartoonsDatabaseContext.SaveChangesAsync();
         }
