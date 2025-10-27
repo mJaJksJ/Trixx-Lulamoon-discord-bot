@@ -72,14 +72,10 @@ namespace TrixxDiscordBot.Server.Startup.Auth
             .UseAuthentication()
             .UseAuthorization();
 
-        internal static int? GetId(this ClaimsPrincipal user)
+        internal static int GetId(this ClaimsPrincipal user)
         {
             var claim = user.Claims.SingleOrDefault(x => x.Type == TrixxClaimTypes.CLAIMTYPE_USER_ID);
-            if (claim == null)
-            {
-                return null;
-            }
-            return int.Parse(claim.Value);
+            return claim == null ? throw new InvalidOperationException() : int.Parse(claim.Value);
         }
 
         internal static bool HasPermission(this ClaimsPrincipal user, Permission permission) =>

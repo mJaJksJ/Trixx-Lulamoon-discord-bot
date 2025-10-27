@@ -18,6 +18,7 @@ export enum ActionButtonTypes {
     Delete = 'Удалить',
     Lock = 'Заблокировать',
     Unlock = 'Разблокировать',
+    OpenCard = 'Откыть карточку',
 }
 
 @Component({
@@ -32,7 +33,7 @@ export class TrixxTableComponent<T, TF> {
   @Input() public actions: IActionButton[] = [];
   @Input() public form: FormGroup | undefined = new FormGroup({});
 
-  public rows$!: Observable<T[]>;  
+  public rows$!: Observable<T[]>;
   private reloader$ = new Subject<void>();
   public readonly loading$ = new TrixxLoadingSubject();
   public readonly icons: Record<ActionButtonTypes, string> = {
@@ -40,6 +41,7 @@ export class TrixxTableComponent<T, TF> {
     [ActionButtonTypes.Delete]: 'trash-2-outline',
     [ActionButtonTypes.Lock]: 'lock-outline',
     [ActionButtonTypes.Unlock]: 'unlock-outline',
+    [ActionButtonTypes.OpenCard]: 'cast-outline',
   };
 
   init(): void {

@@ -6,7 +6,6 @@ import { NbDialogRef } from '@nebular/theme';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { TrixxLoadingSubject } from '../../../shared/utils/trixx-loading-subject';
 import { ArrayFieldConfig, TrixxFormArrayHelperComponent } from '../../../shared/modules/trixx-form-array-helper/trixx-form-array-helper.component';
-import { cartoonTypesLabels } from '../utils';
 
 @Component({
   selector: 'app-dictionary-cartoons-edit',
@@ -66,7 +65,7 @@ export class DictionaryCartoonsEditComponent implements OnInit, OnDestroy {
     ],
   }
 
-  public cartoonTypes = Object.values(CartoonType).map(x => ({ id: x, label: cartoonTypesLabels[x] }));
+  public cartoonTypes = Object.values(CartoonType).map(x => ({ id: x, label: x /*cartoonTypesLabels[x]*/ }));
   public form = new FormGroup(this.formConf);
   private destroy$ = new Subject<void>();
   public readonly loading$ = new TrixxLoadingSubject();

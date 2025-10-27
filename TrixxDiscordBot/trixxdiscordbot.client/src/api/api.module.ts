@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AuthService } from './services/auth.service';
+import { CartoonPackService } from './services/cartoon-pack.service';
 import { CartoonsService } from './services/cartoons.service';
 import { MainPageService } from './services/main-page.service';
 import { RolesService } from './services/roles.service';
@@ -23,6 +24,7 @@ import { UsersService } from './services/users.service';
   declarations: [],
   providers: [
     AuthService,
+    CartoonPackService,
     CartoonsService,
     MainPageService,
     RolesService,

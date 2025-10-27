@@ -43,4 +43,11 @@ export const MENU_ITEMS: () => TrixxMenuItem[] = () => [
     home: true,
     permission: Permission.TrixxRoles_Read,
   },
+  {
+    title: 'Паки',
+    icon: 'shopping-bag-outline',
+    link: 'cartoons-packs',
+    home: true,
+    permission: Permission.CartoonsPack_Read,
+  },
 ];

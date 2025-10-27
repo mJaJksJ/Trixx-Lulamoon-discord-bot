@@ -1,0 +1,39 @@
+<nb-card [appSpinner]="loading$ | async">
+    <nb-card-header>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h3>
+                    {{ name$ | async }}
+                </h3>
+            </div>
+            <div>
+                <button nbButton (click)="addLabelType()">Добавить категорию</button>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div style="display: flex; gap: 10px;" cdkDropListGroup>
+            <div *ngFor="let labelType of (labelTypes$ | async); trackBy: trackByOrder" class="labelType">
+                <div class="labelTypeName">{{ labelType.name }}</div>
+                <div 
+                    class="labelTypeCartoons"
+                    cdkDropList
+                    [cdkDropListData]="labelType.cartoons"
+                    (cdkDropListDropped)="replaceCartoon($event)"
+                    [id]="getCartoonListId(labelType.order)"
+                >
+                    <div 
+                        *ngFor="let cartoon of labelType.cartoons; trackBy: trackByCartoon" 
+                        class="labelTypeCartoon" 
+                        cdkDrag 
+                        [cdkDragDisabled]="!cartoon.name"
+                        [cdkDragData]="cartoon"
+                    >
+                        <div>{{ cartoon.name }} ({{ cartoon.year }}{{ cartoon.year ? ', ' : '' }}{{ cartoon.cartoonType }})</div>
+                        <div><i>{{ cartoon.alternativeNames }}</i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

@@ -14,8 +14,8 @@ namespace Trixx.Cartoons.Database.Models.Dictionary
 
 #pragma warning disable CS8618
         public CartoonSystemObject SystemObject { get; set; }
-#pragma warning restore CS8618
         public int SystemObjectId { get; set; }
+#pragma warning restore CS8618
         // TODO: add countries (find list of countries for dictionary)
 
         public List<string> NormalizedAllNames { get; set; } = [];

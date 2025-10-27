@@ -139,6 +139,86 @@ namespace Trixx.Cartoons.Migrations.Migrations
                     b.ToTable("DictionaryStudios");
                 });
 
+            modelBuilder.Entity("Trixx.Cartoons.Database.Models.Pack.CartoonsPack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("SystemObjectId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SystemObjectId");
+
+                    b.ToTable("CartoonsPacks");
+                });
+
+            modelBuilder.Entity("Trixx.Cartoons.Database.Models.Pack.CartoonsPackLabelType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartoonsPackId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SystemObjectId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartoonsPackId");
+
+                    b.HasIndex("SystemObjectId");
+
+                    b.ToTable("CartoonsPackLabelTypes");
+                });
+
+            modelBuilder.Entity("Trixx.Cartoons.Database.Models.Pack.PackCartoon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartoonsPackLabelTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DictionaryCartoonId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SystemObjectId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartoonsPackLabelTypeId");
+
+                    b.HasIndex("DictionaryCartoonId");
+
+                    b.HasIndex("SystemObjectId");
+
+                    b.ToTable("PackCartoons");
+                });
+
             modelBuilder.Entity("Trixx.Cartoons.Database.Models.CartoonSystemObject", b =>
                 {
                     b.HasOne("Trixx.Cartoons.Database.Models.Dictionary.DictionaryCartoon", "DictionaryCartoon")
@@ -173,6 +253,63 @@ namespace Trixx.Cartoons.Migrations.Migrations
                     b.Navigation("DictionaryStudio");
                 });
 
+            modelBuilder.Entity("Trixx.Cartoons.Database.Models.Pack.CartoonsPack", b =>
+                {
+                    b.HasOne("Trixx.Cartoons.Database.Models.CartoonSystemObject", "SystemObject")
+                        .WithMany()
+                        .HasForeignKey("SystemObjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SystemObject");
+                });
+
+            modelBuilder.Entity("Trixx.Cartoons.Database.Models.Pack.CartoonsPackLabelType", b =>
+                {
+                    b.HasOne("Trixx.Cartoons.Database.Models.Pack.CartoonsPack", "CartoonsPack")
+                        .WithMany("CartoonsPackLabelTypes")
+                        .HasForeignKey("CartoonsPackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Trixx.Cartoons.Database.Models.CartoonSystemObject", "SystemObject")
+                        .WithMany()
+                        .HasForeignKey("SystemObjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CartoonsPack");
+
+                    b.Navigation("SystemObject");
+                });
+
+            modelBuilder.Entity("Trixx.Cartoons.Database.Models.Pack.PackCartoon", b =>
+                {
+                    b.HasOne("Trixx.Cartoons.Database.Models.Pack.CartoonsPackLabelType", "CartoonsPackLabelType")
+                        .WithMany("PackCartoons")
+                        .HasForeignKey("CartoonsPackLabelTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Trixx.Cartoons.Database.Models.Dictionary.DictionaryCartoon", "DictionaryCartoon")
+                        .WithMany()
+                        .HasForeignKey("DictionaryCartoonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Trixx.Cartoons.Database.Models.CartoonSystemObject", "SystemObject")
+                        .WithMany()
+                        .HasForeignKey("SystemObjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CartoonsPackLabelType");
+
+                    b.Navigation("DictionaryCartoon");
+
+                    b.Navigation("SystemObject");
+                });
+
             modelBuilder.Entity("Trixx.Cartoons.Database.Models.Dictionary.DictionaryCartoon", b =>
                 {
                     b.Navigation("Studios");
@@ -185,6 +322,16 @@ namespace Trixx.Cartoons.Migrations.Migrations
                 {
                     b.Navigation("SystemObject")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Trixx.Cartoons.Database.Models.Pack.CartoonsPack", b =>
+                {
+                    b.Navigation("CartoonsPackLabelTypes");
+                });
+
+            modelBuilder.Entity("Trixx.Cartoons.Database.Models.Pack.CartoonsPackLabelType", b =>
+                {
+                    b.Navigation("PackCartoons");
                 });
 #pragma warning restore 612, 618
         }

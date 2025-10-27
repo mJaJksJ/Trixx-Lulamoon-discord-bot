@@ -33,6 +33,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./admin/roles/roles.module').then((m) => m.RolesModule),
       },
+      {
+        path: 'cartoons-packs',
+        loadChildren: () =>
+          import('./cartoons-packs/cartoons-packs.module').then((m) => m.CartoonsPacksModule),
+      },
     ],
   },
 ];

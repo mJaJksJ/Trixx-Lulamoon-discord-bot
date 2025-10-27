@@ -1,9 +1,14 @@
-﻿namespace Trixx.Cartoons.Database.Enums
+﻿using System.Runtime.Serialization;
+
+namespace Trixx.Cartoons.Database.Enums
 {
     public enum CartoonType
     {
+        [EnumMember(Value = "п/м")]
         FeatureLengthFilm = 0,
+        [EnumMember(Value = "к/м")]
         ShortFilm = 1,
+        [EnumMember(Value = "м/с")]
         SerialFilm = 2,
     }
 

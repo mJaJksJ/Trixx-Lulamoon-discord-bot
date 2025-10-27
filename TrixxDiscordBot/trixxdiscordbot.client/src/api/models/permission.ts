@@ -13,5 +13,7 @@ export enum Permission {
   TrixxUsers_Read = 'TrixxUsers_Read',
   TrixxUsers_Edit = 'TrixxUsers_Edit',
   TrixxRoles_Read = 'TrixxRoles_Read',
-  TrixxRoles_Edit = 'TrixxRoles_Edit'
+  TrixxRoles_Edit = 'TrixxRoles_Edit',
+  CartoonsPack_Read = 'CartoonsPack_Read',
+  CartoonsPack_Edit = 'CartoonsPack_Edit'
 }

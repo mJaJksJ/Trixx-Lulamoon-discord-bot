@@ -27,6 +27,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Trixx.Cartoons.Database\Trixx.Cartoons.Database.csproj" />
 		<ProjectReference Include="..\Trixx.Cartoons.Migrations\Trixx.Cartoons.Migrations.csproj" />
+		<ProjectReference Include="..\Trixx.Cartoons\Trixx.Cartoons.csproj" />
 		<ProjectReference Include="..\Trixx.Common\Trixx.Common.csproj" />
 		<ProjectReference Include="..\Trixx.Core\Trixx.Core.csproj" />
 		<ProjectReference Include="..\Trixx.Database.Common\Trixx.Database.Common.csproj" />

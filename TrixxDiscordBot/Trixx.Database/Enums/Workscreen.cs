@@ -18,5 +18,8 @@ namespace Trixx.Database.Enums
 
         [EnumMember(Value = "Роли")]
         TrixxRoles = 5,
+
+        [EnumMember(Value = "Паки")]
+        CartoonsPack = 6,
     }   
 }

@@ -1,0 +1,37 @@
+@import './../../../../../node_modules/@nebular/theme/styles/theming';
+@import './../../../../../node_modules/@nebular/theme/styles/themes/cosmic';
+
+nb-card {
+    height: 100%;
+}
+
+.labelType {
+    border: 2px solid nb-theme(border-basic-color-3);
+    width: 300px;
+    background-color: nb-theme(border-basic-color-2);    
+}
+
+.labelTypeName {
+    padding: 10px;
+    background-color: nb-theme(border-basic-color-3);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.labelTypeCartoons {
+    padding: 10px 10px 0 10px; 
+    max-height: 90vh;
+    overflow: auto;    
+}
+
+.labelTypeCartoon {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 2px solid nb-theme(border-basic-color-3);
+    background-color: nb-theme(border-basic-color-1);
+}
+
+.labelTypeCartoon.cdk-drag-preview {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}

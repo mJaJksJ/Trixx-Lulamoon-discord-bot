@@ -7,6 +7,8 @@ using Trixx.Core;
 using Trixx.Database;
 using TrixxDiscordBot.Server.Startup.Auth;
 using TrixxDiscordBot.Server.Startup.Swagger;
+using System.Text.Json.Serialization;
+using Trixx.Cartoons;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -36,6 +38,7 @@ builder.Services
     .AddTrixxCartoonsDatabases(configuration)
     .AddTrixxSwaggerGen()
     .AddTrixxIdentity(configuration)
+    .AddTrixxCartoons()
     .AddControllers()
     .AddJsonOptions(options =>
     {

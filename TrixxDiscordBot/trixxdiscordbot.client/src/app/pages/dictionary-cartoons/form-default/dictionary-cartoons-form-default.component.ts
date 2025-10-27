@@ -5,7 +5,7 @@ import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { TrixxLoadingSubject } from '../../../shared/utils/trixx-loading-subject';
-import { cartoonTypesLabels } from '../utils';
+//import { cartoonTypesLabels } from '../utils';
 
 @Component({
   selector: 'app-dictionary-cartoons-form-default',
@@ -20,7 +20,7 @@ export class DictionaryCartoonsFormDefaultComponent implements OnInit, OnDestroy
   };
   public form = new FormGroup(this.formConf);
   public studios$!: Observable<SelectItem[]>;
-  public cartoonTypes = Object.values(CartoonType).map(x => ({ id: x, label: cartoonTypesLabels[x] }));
+  public cartoonTypes = Object.values(CartoonType).map(x => ({ id: x, label: x /* cartoonTypesLabels[x]*/ }));
 
   private destroy$ = new Subject<void>();
   public readonly loading$ = new TrixxLoadingSubject();
