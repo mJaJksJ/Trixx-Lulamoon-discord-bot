@@ -48,7 +48,7 @@
     <nb-card-body>
         <div style="display: flex; gap: 10px;" cdkDropListGroup>
             <div *ngFor="let labelType of shownLabelTypes; trackBy: trackByOrder" class="labelType">
-                <div class="labelTypeName">{{ labelType.name }} ({{ labelType.cartoons.length }})</div>
+                <div class="labelTypeName">{{ labelType.name }} ({{ labelType.cartoons.length - 1 }})</div>
                 <div 
                     class="labelTypeCartoons"
                     cdkDropList
