@@ -6,6 +6,7 @@ using DiscordBot.Middlewares;
 using DiscordBot.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
+IConfiguration configuration = builder.Configuration;
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -48,6 +49,6 @@ if (app.Environment.IsDevelopment())
 
 await app.Services.GetRequiredService<CommandHandler>().InstallCommandsAsync();
 var socketClient = app.Services.GetRequiredService<DiscordSocketClient>();
-await DiscordClientUtils.StartSocketAsync(socketClient);
+await DiscordClientUtils.StartSocketAsync(configuration, socketClient);
 
 app.Run();

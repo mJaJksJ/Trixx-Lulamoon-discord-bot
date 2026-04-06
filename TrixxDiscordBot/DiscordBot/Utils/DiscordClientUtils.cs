@@ -5,13 +5,11 @@ namespace DiscordBot.Utils
 {
     public class DiscordClientUtils
     {
-        public async static Task StartSocketAsync(params BaseSocketClient[] clients)
+        public async static Task StartSocketAsync(IConfiguration configuration, BaseSocketClient client)
         {
-            foreach (var client in clients)
-            {
-                await client.LoginAsync(TokenType.Bot, "TODO: token");
-                await client.StartAsync();
-            }
+            var token = configuration.GetValue<string>("DicordBotToken_InitValue");
+            await client.LoginAsync(TokenType.Bot, token);
+            await client.StartAsync();
         }
     }
 }
