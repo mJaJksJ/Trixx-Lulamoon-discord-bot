@@ -9,14 +9,9 @@ using DiscordBot.Api.Controllers.Channels.Models;
 
 namespace DiscordBot.Api.Controllers.Channels
 {
-    public class ChannelsController : BaseController
+    public class ChannelsController(DiscordSocketClient client) : BaseController
     {
-        private readonly DiscordSocketClient _client;
-
-        public ChannelsController(DiscordSocketClient client)
-        {
-            _client = client;
-        }
+        private readonly DiscordSocketClient _client = client;
 
         [HttpGet("channels")]
         public List<ChannelItemModel> GetChannels()

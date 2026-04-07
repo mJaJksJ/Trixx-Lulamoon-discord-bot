@@ -3,10 +3,17 @@ using Discord.Interactions;
 using Discord.WebSocket;
 using DiscordBot;
 using DiscordBot.Middlewares;
+using DiscordBot.MongoDb;
+using DiscordBot.MongoDb.Models.ChannelsCache;
 using DiscordBot.Utils;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
+
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings"));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -15,6 +22,14 @@ var discordConfig = new DiscordSocketConfig()
 {
     ResponseInternalTimeCheck = !builder.Environment.IsDevelopment(),
 };
+
+builder.Services
+    .AddSingleton<IMongoClient>(sp =>
+    {
+        var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+        return new MongoClient(settings.ConnectionString);
+    })
+    .AddSingleton<MongoDbContext>();
 
 builder.Services
     .AddSingleton(discordConfig)
