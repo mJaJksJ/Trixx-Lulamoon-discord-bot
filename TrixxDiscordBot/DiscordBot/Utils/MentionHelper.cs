@@ -2,7 +2,7 @@
 {
     public static class MentionHelper
     {
-        public static string MentionUser(string userId)
+        public static string MentionUser(ulong userId)
         {
             return $"<@{userId}>";
         }

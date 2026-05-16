@@ -1,11 +1,7 @@
-﻿using Discord.WebSocket;
-using Discord;
-using DiscordBot.Exceptions;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Channels;
-using System;
-using System.Collections.Generic;
+﻿using Discord;
+using Discord.WebSocket;
 using DiscordBot.Api.Controllers.Channels.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DiscordBot.Api.Controllers.Channels
 {

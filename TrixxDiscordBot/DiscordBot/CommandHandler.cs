@@ -57,7 +57,7 @@ namespace DiscordBot
 
         private async Task AnswerIfEmptyTag(SocketUserMessage message)
         {
-            var mention = MentionHelper.MentionUser(_client.CurrentUser.Id.ToString());
+            var mention = MentionHelper.MentionUser(_client.CurrentUser.Id);
             if (!message.Content.Contains(mention))
             {
                 return;

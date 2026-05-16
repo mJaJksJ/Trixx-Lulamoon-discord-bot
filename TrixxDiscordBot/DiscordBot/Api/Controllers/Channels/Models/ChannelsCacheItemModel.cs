@@ -1,4 +1,4 @@
-﻿namespace DiscordBot.Api.Controllers.ChannelsCache.Models
+﻿namespace DiscordBot.Api.Controllers.Channels.Models
 {
     public class ChannelsCacheItemModel
     {

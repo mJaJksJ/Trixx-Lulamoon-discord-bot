@@ -1,10 +1,10 @@
+using Discord;
 using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
 using DiscordBot;
 using DiscordBot.Middlewares;
 using DiscordBot.MongoDb;
-using DiscordBot.MongoDb.Models.ChannelsCache;
 using DiscordBot.Utils;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -21,6 +21,12 @@ builder.Services.AddSwaggerGen();
 var discordConfig = new DiscordSocketConfig()
 {
     ResponseInternalTimeCheck = !builder.Environment.IsDevelopment(),
+    GatewayIntents =
+        GatewayIntents.Guilds |
+        GatewayIntents.GuildMessages |
+        GatewayIntents.GuildMembers |
+        GatewayIntents.MessageContent |
+        GatewayIntents.GuildScheduledEvents,
 };
 
 builder.Services
@@ -46,7 +52,8 @@ builder.Services
 
 builder.Services
     .AddSingleton<CommandService>()
-    .AddSingleton<CommandHandler>();
+    .AddSingleton<CommandHandler>()
+    .AddSingleton<InteractionHandler>();
 
 builder.Services.AddControllers();
 
@@ -63,6 +70,7 @@ if (app.Environment.IsDevelopment())
 }
 
 await app.Services.GetRequiredService<CommandHandler>().InstallCommandsAsync();
+await app.Services.GetRequiredService<InteractionHandler>().InstallInteractionsAsync();
 var socketClient = app.Services.GetRequiredService<DiscordSocketClient>();
 await DiscordClientUtils.StartSocketAsync(configuration, socketClient);
 

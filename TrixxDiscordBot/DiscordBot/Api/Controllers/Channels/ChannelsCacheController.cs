@@ -1,10 +1,10 @@
 ﻿using Discord.WebSocket;
-using DiscordBot.Api.Controllers.ChannelsCache.Models;
+using DiscordBot.Api.Controllers.Channels.Models;
 using DiscordBot.MongoDb;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
-namespace DiscordBot.Api.Controllers.ChannelsCache
+namespace DiscordBot.Api.Controllers.Channels
 {
     public class ChannelsCacheController(
         MongoDbContext mongoDbContext,
@@ -29,7 +29,7 @@ namespace DiscordBot.Api.Controllers.ChannelsCache
         [HttpGet]
         public async Task<IReadOnlyList<ChannelsCacheItemModel>> GetChannels()
         {
-            return await _mongoDbContext.ChannelsCaches
+            var result = await _mongoDbContext.ChannelsCaches
                 .Find(_ => true)
                 .Project(c => new ChannelsCacheItemModel
                 {
@@ -37,6 +37,8 @@ namespace DiscordBot.Api.Controllers.ChannelsCache
                     Name = c.Name
                 })
                 .ToListAsync();
+
+            return result;
         }
     }
 }
