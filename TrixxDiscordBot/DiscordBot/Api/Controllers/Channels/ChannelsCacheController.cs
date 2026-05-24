@@ -18,12 +18,30 @@ namespace DiscordBot.Api.Controllers.Channels
         {
             await _mongoDbContext.ChannelsCaches.DeleteManyAsync(_ => true);
 
-            var channels = _client.Guilds.SelectMany(g => g.Channels, (g, c) => new MongoDb.Models.ChannelsCache.ChannelsCache
+            var chanelsController = new ChannelsController(_client);
+            var channels = chanelsController.GetChannels();
+            var channelsCacheItems = new List<MongoDb.Models.ChannelsCache.ChannelsCache>();
+
+            void AddParentAndCheckChilds(ChannelItemModel channelItem)
             {
-                ChannelId = c.Id,
-                Name = c.Name,
-            }).ToList();
-            await _mongoDbContext.ChannelsCaches.InsertManyAsync(channels);
+                channelsCacheItems.Add(new MongoDb.Models.ChannelsCache.ChannelsCache
+                {
+                    ChannelId = channelItem.Id,
+                    Name = channelItem.Name,
+                });
+
+                foreach (var child in channelItem.Channels)
+                {
+                    AddParentAndCheckChilds(child);
+                }
+            }
+
+            foreach (var channel in channels) 
+            {
+                AddParentAndCheckChilds(channel);
+            }
+
+            await _mongoDbContext.ChannelsCaches.InsertManyAsync(channelsCacheItems);
         }
 
         [HttpGet]
