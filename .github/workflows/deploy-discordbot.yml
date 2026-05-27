@@ -1,0 +1,42 @@
+name: DiscordBot Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-discordbot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Build DiscordBot
+      run: |
+        cd TrixxDiscordBot/DiscordBot
+        dotnet restore
+        dotnet build --configuration Release
+        dotnet publish -c Release -o publish
+
+    - name: Copy DiscordBot
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.TRIXX_SERVER_HOST }}
+        username: ${{ secrets.TRIXX_SERVER_USER }}
+        key: ${{ secrets.TRIXX_SERVER_SSH_KEY }}
+        source: "TrixxDiscordBot/DiscordBot/publish/**"
+        target: "/var/www/v2trixx/discordbot/"
+
+    - name: Restart DiscordBot service
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.TRIXX_SERVER_HOST }}
+        username: ${{ secrets.TRIXX_SERVER_USER }}
+        key: ${{ secrets.TRIXX_SERVER_SSH_KEY }}
+        script: |
+          sudo systemctl restart discordbot
