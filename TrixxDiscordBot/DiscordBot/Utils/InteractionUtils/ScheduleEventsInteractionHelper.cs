@@ -24,7 +24,7 @@ namespace DiscordBot.Utils.InteractionUtils
             var textChannelId = await mongoDbContext.VoiceToTextChannels
                 .Find(x => x.VoiceChannelId == voiceChannel.Id)
                 .Project(x => x.TextChannelId)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
 
             var messageChannel = client.GetChannel(textChannelId);
 
