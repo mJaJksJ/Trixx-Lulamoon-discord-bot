@@ -63,11 +63,9 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 await app.Services.GetRequiredService<CommandHandler>().InstallCommandsAsync();
 await app.Services.GetRequiredService<InteractionHandler>().InstallInteractionsAsync();
