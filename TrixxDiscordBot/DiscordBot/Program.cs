@@ -63,10 +63,13 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 
-app.UseSwagger();
+app.UseSwagger(c =>
+{
+    c.RouteTemplate = "swagger-discordbot/v1/swagger.json";
+});
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+    c.SwaggerEndpoint("/swagger-discordbot/v1/swagger.json", "API V1");
     c.RoutePrefix = "swagger-discordbot";
 });
 
