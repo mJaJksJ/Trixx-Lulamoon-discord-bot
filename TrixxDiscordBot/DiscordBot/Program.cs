@@ -65,7 +65,7 @@ app.MapControllers();
 
 app.UseSwagger(c =>
 {
-    c.RouteTemplate = "swagger-discordbot/v1/swagger.json";
+    c.RouteTemplate = "swagger-discordbot/{documentName}/swagger.json";
 });
 app.UseSwaggerUI(c =>
 {
